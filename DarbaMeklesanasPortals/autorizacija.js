@@ -1,20 +1,22 @@
 document.addEventListener("DOMContentLoaded", function () {
     const loginModal = document.getElementById("loginModal");
     const openLogin = document.getElementById("openLogin");
+    const openLogin2 = document.getElementById("openLogin2");
     const closeBtn = document.querySelector(".close");
     const loginForm = document.getElementById("loginForm");
 
-    // Open Modal
     openLogin.addEventListener("click", function () {
         loginModal.classList.add("show");
     });
 
-    // Close Modal (Only When Clicking 'X', Not Background)
+    openLogin2.addEventListener("click", function () {
+        loginModal.classList.add("show");
+    });
+
     closeBtn.addEventListener("click", function () {
         loginModal.classList.remove("show");
     });
 
-    // Prevent Closing When Clicking Inside Modal
     loginModal.querySelector(".modal-content").addEventListener("click", function (event) {
         event.stopPropagation();
     });

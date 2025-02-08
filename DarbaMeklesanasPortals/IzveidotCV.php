@@ -7,7 +7,6 @@
 <!DOCTYPE html>
 <html lang="lv">
 
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,10 +22,8 @@
 
 </head>
 
-
 <body>
-
-
+    
     <header>
 
         <div class="konteiners">
@@ -86,64 +83,6 @@
 
     </header>
 
-    <section id="sakums">
-
-        <div class="konteiners">
-            <h2>Atrodi savu ideālo darbu jau šodien!</h2>
-            <p>Ērta un efektīva vide darba meklētājiem un darba devējiem.</p>
-
-            <?php if (!isset($_SESSION["username"])): ?>
-                <p id="openLogin2" class="btn">Izveidot CV</p>
-            <?php else: ?>
-                <a href="IzveidotCV.php" class="btn">Izveidot CV</a>
-            <?php endif; ?>
-
-        </div>
-        
-    </section>
-
-
-    <div class="burbulu-background"></div>
-    
-
-    <section id="features">
-
-        <div class="konteiners">
-
-            <h2>Galvenās funkcionalitātes</h2>
-            <ul>
-                <li>Vakances pievienošana un pārvaldība</li>
-                <li>Pieteikšanās uz darba piedāvājumiem</li>
-                <li>Automātiski ieteikumi atbilstoši CV</li>
-                <li>CV veidošana tiešsaistē</li>
-            </ul>
-
-        </div>
-
-    </section>
-    
-
-    <section id="Darbi">
-
-        <div class="konteiners">
-            <h2>Aktuālie darba piedāvājumi</h2>
-            <p>Atrodi sev piemērotu vakanci no mūsu plašā darba devēju tīkla.</p>
-        </div>
-
-    </section>
-    
-
-    <section id="Pieteikties">
-
-        <div class="konteiners">
-            <h2>Pieteikties darbam</h2>
-            <p>Aizpildi savu CV un sūti pieteikumus ar pāris klikšķiem!</p>
-            <a href="#" class="btn">Sākt tagad</a>
-        </div>
-
-    </section>
-    
-
     <footer>
 
         <div class="konteiners">
@@ -153,5 +92,4 @@
     </footer>
 
 </body>
-
 </html>

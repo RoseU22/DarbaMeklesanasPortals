@@ -157,6 +157,7 @@ header h1 {
     text-align: center;
     position: relative;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--gray);
 }
 
 .modal-content h2 {
@@ -322,10 +323,11 @@ nav ul li a:hover {
     border-radius: 30px;
     margin-top: 20px;
     transition: background 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
 }
 
 .btn:hover {
-    background: var(--gray);
+    background: var(--primary-color);
     transform: scale(1.05);
 }
 
