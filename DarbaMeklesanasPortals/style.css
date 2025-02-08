@@ -90,6 +90,12 @@ header h1 {
     color: var(--white);
 }
 
+/*_______________Login poga_______________________________*/
+
+.login-btn a{
+    text-decoration: none;
+    color: var(--white);
+}
 
 .login-btn {
     display: flex;
@@ -106,7 +112,7 @@ header h1 {
 }
 
 .login-btn i {
-    margin-right: 10px; /* Space between icon and text */
+    margin-right: 10px;
     font-size: 20px;
 }
 

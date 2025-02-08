@@ -1,3 +1,9 @@
+<?php
+
+    session_start(); 
+
+?>
+
 <!DOCTYPE html>
 <html lang="lv">
 
@@ -26,11 +32,14 @@
         <div class="konteiners">
 
             <div class="header-left">
+
                 <img src="Bildes/Favicon.png" alt="Logo" class="header-logo">
                 <h1>Darba Meklēšanas Portāls</h1>
             </div>
 
+
             <nav>
+
                 <ul>
                     <li><a href="#Par">Par portālu</a></li>
                     <li><a href="#features">Funkcionalitātes</a></li>
@@ -38,28 +47,41 @@
                     <li><a href="#Pieteikties">Pieteikties</a></li>
                     <li><a href="#Kontakti">Kontakti</a></li>
                 </ul>
+
             </nav>
 
             <div>
-                <button id="openLogin" class="login-btn">
-                    <i class="fa-solid fa-right-to-bracket"></i> Ienākt
-                </button>
+
+                <?php if (isset($_SESSION["username"])): ?>
+                    <p class="login-btn">
+                        <a href="PHPFiles/logout.php"><i class="fa-solid fa-person"></i><?php echo htmlspecialchars($_SESSION["username"]); ?></a>
+                    </p>
+                <?php else: ?>
+                    <p class="login-btn" id="openLogin"><i class="fa-solid fa-right-to-bracket"></i> Ienākt</p>
+                <?php endif; ?>
+
             </div>
-            
 
         </div>
 
         <!--Modālais logs (Autorizācija)-->
         <div id="loginModal" class="modal">
+
             <div class="modal-content">
+
                 <span class="close">&times;</span>
                 <h2>Pieslēgties</h2>
-                <input type="text" placeholder="Lietotājvārds" required>
-                <input type="password" placeholder="Parole" required>
-                <button class="btn">Ienākt</button>
-                <p><a href="#">Aizmirsi paroli?</a></p>
-                <p>Nav konta? <a href="#">Reģistrēties</a></p>
+
+                <form id="loginForm">
+                    <input type="text" name="username" placeholder="Lietotājvārds" required>
+                    <input type="password" name="password" placeholder="Parole" required>
+                    <button type="submit" class="btn">Ienākt</button>
+                    <p><a href="#">Aizmirsi paroli?</a></p>
+                    <p>Nav konta? <a href="#">Reģistrēties</a></p>
+                </form>
+
             </div>
+
         </div>
 
     </header>
