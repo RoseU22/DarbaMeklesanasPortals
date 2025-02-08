@@ -13,6 +13,7 @@
     --text-color: #333;
     --background-color: #f4f4f4;
     --white: #ffffff;
+    --gray: #c0c0c0;
     --shadow-color: rgba(0, 0, 0, 0.2);
 }
 
@@ -23,6 +24,31 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
 }
+
+/*________________________________________________________________RITJOSLA___________________________________________________________________________*/
+
+::-webkit-scrollbar {
+    width: 15px; 
+}
+
+
+::-webkit-scrollbar-track {
+    background: var(--primary-color); 
+    border-radius: 10px; 
+}
+
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-color); 
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color); 
+}
+
 
 /*________________________________________________________________HEADERIS___________________________________________________________________________*/
 
@@ -72,11 +98,15 @@ h2 {
     margin-bottom: 15px;
 }
 
-nav ul {
+.konteiners ul{
     list-style: none;
+}
+
+nav ul {
     padding: 0;
     text-align: center;
     margin-top: 10px;
+    list-style: none;
 }
 
 nav ul li {
@@ -126,7 +156,7 @@ nav ul li a:hover {
 }
 
 .btn:hover {
-    background: var(--secondary-color);
+    background: var(--gray);
     transform: scale(1.05);
 }
 
