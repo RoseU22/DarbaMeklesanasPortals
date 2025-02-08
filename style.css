@@ -27,6 +27,10 @@ body {
 
 /*________________________________________________________________RITJOSLA___________________________________________________________________________*/
 
+html {
+    scroll-behavior: smooth;
+}
+
 ::-webkit-scrollbar {
     width: 15px; 
 }
@@ -52,21 +56,34 @@ body {
 
 /*________________________________________________________________HEADERIS___________________________________________________________________________*/
 
-.konteiners {
-    width: 80%;
+header .konteiners {
+    width: 95%;
     margin: 0 auto;
+    display: flex;
+    justify-content: space-between;  
+    align-items: center;  
 }
 
 header {
     background: var(--primary-color);
     color: var(--white);
     padding: 20px 0;
-    text-align: center;
     box-shadow: 0 4px 8px var(--shadow-color);
 }
 
+.header-left {
+    display: flex;
+    align-items: center;  
+}
+
+.header-logo {
+    width: 120px; 
+    height: auto;
+    margin-right: 15px;  
+}
+
 header h1 {
-    font-size: 32px;
+    font-size: 24px;
     letter-spacing: 1px;
     font-weight: bold;
     text-transform: uppercase;
@@ -103,14 +120,15 @@ h2 {
 }
 
 nav ul {
+    display: flex;
     padding: 0;
-    text-align: center;
-    margin-top: 10px;
+    margin-top: 15px;
     list-style: none;
+    justify-content: space-evenly;  /* Center the navigation */
+    width: 100%;
 }
 
 nav ul li {
-    display: inline;
     margin: 0 15px;
 }
 
