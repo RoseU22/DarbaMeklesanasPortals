@@ -155,10 +155,45 @@ document.addEventListener("DOMContentLoaded", function() {
     languagesInput.addEventListener("input", checkCVFormCompletion);
     additionalInfoInput.addEventListener("input", checkCVFormCompletion);
 
+    const username = document.getElementById("username").value;
+
     saveCVButton.addEventListener("click", function() {
         if (nameInput.value && emailInput.value && phoneInput.value && addressInput.value && dobInput.value && educationInput.value && workExperienceInput.value && skillsInput.value && languagesInput.value && additionalInfoInput.value) {
-            alert("CV saved successfully!");
-            cvModal.classList.remove("show");
+            const cvData = {
+                name: nameInput.value,
+                email: emailInput.value,
+                phone: phoneInput.value,
+                address: addressInput.value,
+                dob: dobInput.value,
+                education: educationInput.value,
+                workExperience: workExperienceInput.value,
+                skills: skillsInput.value,
+                languages: languagesInput.value,
+                additionalInfo: additionalInfoInput.value,
+                username: username // Get the logged-in username
+            };
+    
+            // Send CV data to the server to save in the database
+            fetch('PHPFiles/saglabat_cv.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(cvData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("CV saved successfully!");
+                    cvModal.classList.remove("show");
+                } else {
+                    alert("Error saving CV");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Error saving CV");
+            });
         }
-    });
+    });    
 });

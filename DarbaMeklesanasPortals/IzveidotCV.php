@@ -1,5 +1,37 @@
 <?php
-    session_start(); 
+session_start();
+
+if (!isset($_SESSION['username'])) {
+    header('Location: index.php');
+    exit;
+}
+
+require 'PHPFiles/con_db.php';
+
+// Get the logged-in username
+$username = $_SESSION['username'];
+
+// Query to fetch CVs for the logged-in user
+$query = "SELECT * FROM DMPortals_CV WHERE lietotajvards = ?";
+$stmt = $savienojums->prepare($query);
+$stmt->bind_param("s", $username);
+
+// Check if query executes successfully
+if ($stmt->execute()) {
+    $result = $stmt->get_result();
+
+    // Store the result in an array
+    $cvs = [];
+    while ($row = $result->fetch_assoc()) {
+        $cvs[] = $row;
+    }
+
+    $stmt->close();
+} else {
+    echo "Error executing query: " . $stmt->error;
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -50,6 +82,28 @@
             <button id="cvButton" class="btn">Izveidot CV</button>
         </div>
     </main>
+
+    <!-- Display CVs in the main body within the cv-container div -->
+    <div class="cv-container" id="cvGrid">
+        <?php if (count($cvs) > 0): ?>
+            <?php foreach ($cvs as $cv): ?>
+                <div class="cv-box">
+                    <h3><?php echo htmlspecialchars($cv['vards']); ?></h3>
+                    <p>Email: <?php echo htmlspecialchars($cv['epasts']); ?></p>
+                    <p>Phone: <?php echo htmlspecialchars($cv['talrunis']); ?></p>
+                    <p>Address: <?php echo htmlspecialchars($cv['adresse']); ?></p>
+                    <p>Date of Birth: <?php echo htmlspecialchars($cv['gads']); ?></p>
+                    <p>Education: <?php echo nl2br(htmlspecialchars($cv['izglitiba'])); ?></p>
+                    <p>Work Experience: <?php echo nl2br(htmlspecialchars($cv['darba_pieredze'])); ?></p>
+                    <p>Skills: <?php echo nl2br(htmlspecialchars($cv['prasmes'])); ?></p>
+                    <p>Languages: <?php echo nl2br(htmlspecialchars($cv['valodas'])); ?></p>
+                    <p>Additional Info: <?php echo nl2br(htmlspecialchars($cv['papildus_info'])); ?></p>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No CVs found for this user.</p>
+        <?php endif; ?>
+    </div>
 
     <!-- Modālais logs priekš valodas izvēles -->
     <div id="languageModal" class="modal">
@@ -106,10 +160,13 @@
                 <label id="additionalInfoLabel" for="additionalInfo">Additional Information:</label>
                 <textarea id="additionalInfo" placeholder="Enter any other information"></textarea>
 
-                <!-- Save Button -->
+                <input type="hidden" id="username" value="<?php echo $_SESSION['username']; ?>">
+
                 <button id="saveCV" class="btn" disabled>Save CV</button>
             </div>
+
             <span id="closeCVModal" class="close">×</span>
+            
         </div>
     </div>
 

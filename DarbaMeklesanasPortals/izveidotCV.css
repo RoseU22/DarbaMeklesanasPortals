@@ -1,3 +1,15 @@
+
+:root {
+    --primary-color: #002244;
+    --secondary-color: #00509E;
+    --accent-color: #007acc;
+    --text-color: #333;
+    --background-color: #f4f4f4;
+    --white: #ffffff;
+    --gray: #c0c0c0;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
 /*______________________________________________________________MODĀLAISLOGS - VALODAS IZVĒLE_____________________________________________________________________________*/
 
 
@@ -155,7 +167,7 @@
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--gray);
     border-radius: 5px;
     font-size: 16px;
     color: #333;
@@ -170,8 +182,8 @@
 #cvModal input[type="tel"]:focus,
 #cvModal input[type="date"]:focus,
 #cvModal textarea:focus {
-    border-color: #007acc; 
-    background-color: #fff;
+    border-color: var(--accent-color); 
+    background-color: var(--white);
     outline: none;
 }
 
@@ -180,7 +192,7 @@
 }
 
 #cvModal #saveCV {
-    background-color: #007acc; 
+    background-color: var(--accent-color); 
     color: #fff;
     font-size: 18px;
     padding: 12px 25px;
@@ -193,12 +205,12 @@
 }
 
 #cvModal #saveCV:disabled {
-    background-color: #ccc;
+    background-color: var(--gray);
     cursor: not-allowed;
 }
 
 #cvModal #saveCV:hover {
-    background-color: #00509e;
+    background-color: var(--accent-color);
 }
 
 #cvModal #cvFields {
@@ -233,4 +245,37 @@
         font-size: 16px;
         padding: 10px 20px;
     }
+}
+
+/*______________________________________________________________CV PARĀDĪŠANA_____________________________________________________________________________*/
+
+.cv-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px; 
+    padding: 20px;
+    height: 60vh;
+}
+
+.cv-box {
+    border: 2px solid var(--gray); 
+    padding: 20px;
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    background-color: var(--white); 
+    transition: transform 0.3s ease; 
+}
+
+.cv-box:hover {
+    transform: scale(1.05); /* Scale up the box when hovered */
+}
+
+.cv-box h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.cv-box p {
+    margin: 5px 0;
+    font-size: 1em;
 }
