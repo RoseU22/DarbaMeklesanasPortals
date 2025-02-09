@@ -51,7 +51,7 @@
         </div>
     </main>
 
-    <!-- Modal Window for Language Selection -->
+    <!-- Modālais logs priekš valodas izvēles -->
     <div id="languageModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeModal">&times;</span>
@@ -62,6 +62,54 @@
                 <option value="ru">Русский</option>
             </select>
             <button id="confirmLanguage" class="btn">Apstiprināt</button>
+        </div>
+    </div>
+
+        <!-- CV izveideidošana -->
+    <div id="cvModal" class="modal">
+        <div class="modal-content">
+            <h2>Create Your CV</h2>
+            <div id="cvFields">
+                <!-- Personal Information -->
+                <label id="nameLabel" for="name">Name:</label>
+                <input type="text" id="name" placeholder="Enter your name">
+
+                <label id="emailLabel" for="email">Email:</label>
+                <input type="email" id="email" placeholder="Enter your email">
+
+                <label id="phoneLabel" for="phone">Phone:</label>
+                <input type="tel" id="phone" placeholder="Enter your phone number">
+
+                <label id="addressLabel" for="address">Address:</label>
+                <input type="text" id="address" placeholder="Enter your address">
+
+                <label id="dobLabel" for="dob">Date of Birth:</label>
+                <input type="date" id="dob">
+
+                <!-- Education -->
+                <label id="educationLabel" for="education">Education:</label>
+                <textarea id="education" placeholder="Enter your educational background"></textarea>
+
+                <!-- Work Experience -->
+                <label id="workExperienceLabel" for="workExperience">Work Experience:</label>
+                <textarea id="workExperience" placeholder="Enter your work experience"></textarea>
+
+                <!-- Skills -->
+                <label id="skillsLabel" for="skills">Skills:</label>
+                <textarea id="skills" placeholder="Enter your skills"></textarea>
+
+                <!-- Languages -->
+                <label id="languagesLabel" for="languages">Languages Spoken:</label>
+                <textarea id="languages" placeholder="Enter the languages you speak"></textarea>
+
+                <!-- Other Information -->
+                <label id="additionalInfoLabel" for="additionalInfo">Additional Information:</label>
+                <textarea id="additionalInfo" placeholder="Enter any other information"></textarea>
+
+                <!-- Save Button -->
+                <button id="saveCV" class="btn" disabled>Save CV</button>
+            </div>
+            <span id="closeCVModal" class="close">×</span>
         </div>
     </div>
 
