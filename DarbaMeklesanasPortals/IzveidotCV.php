@@ -79,94 +79,89 @@ if ($stmt->execute()) {
 
     <main>
         <div class="container">
-            <button id="cvButton" class="btn">Izveidot CV</button>
+            <button id="cvButton" class="btn"><i class="fa-solid fa-plus"></i> Izveidot CV</button>
         </div>
     </main>
 
-    <!-- Display CVs in the main body within the cv-container div -->
-    <div class="cv-container" id="cvGrid">
-        <?php if (count($cvs) > 0): ?>
-            <?php foreach ($cvs as $cv): ?>
-                <div class="cv-box">
-                    <h3><?php echo htmlspecialchars($cv['vards']); ?></h3>
-                    <p>Email: <?php echo htmlspecialchars($cv['epasts']); ?></p>
-                    <p>Phone: <?php echo htmlspecialchars($cv['talrunis']); ?></p>
-                    <p>Address: <?php echo htmlspecialchars($cv['adresse']); ?></p>
-                    <p>Date of Birth: <?php echo htmlspecialchars($cv['gads']); ?></p>
-                    <p>Education: <?php echo nl2br(htmlspecialchars($cv['izglitiba'])); ?></p>
-                    <p>Work Experience: <?php echo nl2br(htmlspecialchars($cv['darba_pieredze'])); ?></p>
-                    <p>Skills: <?php echo nl2br(htmlspecialchars($cv['prasmes'])); ?></p>
-                    <p>Languages: <?php echo nl2br(htmlspecialchars($cv['valodas'])); ?></p>
-                    <p>Additional Info: <?php echo nl2br(htmlspecialchars($cv['papildus_info'])); ?></p>
-                </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>No CVs found for this user.</p>
-        <?php endif; ?>
-    </div>
-
-    <!-- Modālais logs priekš valodas izvēles -->
-    <div id="languageModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeModal">&times;</span>
-            <h2>Izvēlieties valodu</h2>
-            <select id="languageSelect">
-                <option value="lv">Latviešu</option>
-                <option value="en">English</option>
-                <option value="ru">Русский</option>
-            </select>
-            <button id="confirmLanguage" class="btn">Apstiprināt</button>
+    <div class="augstums">
+        <!-- Parāda izveidotos CV -->
+        <div class="cv-container" id="cvGrid">
+            <?php if (count($cvs) > 0): ?>
+                <?php foreach ($cvs as $cv): ?>
+                    <div class="cv-box">
+                        <img src="Bildes/CV.png" alt="CV Image" class="cv-image">
+                        <p class="cv-language"><?php echo strtoupper(htmlspecialchars($cv['valoda'])); ?></p>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p class="Pazinojums">Nav izveidots neviens CV!</p>
+            <?php endif; ?>
         </div>
-    </div>
 
-        <!-- CV izveideidošana -->
-    <div id="cvModal" class="modal">
-        <div class="modal-content">
-            <h2>Create Your CV</h2>
-            <div id="cvFields">
-                <!-- Personal Information -->
-                <label id="nameLabel" for="name">Name:</label>
-                <input type="text" id="name" placeholder="Enter your name">
-
-                <label id="emailLabel" for="email">Email:</label>
-                <input type="email" id="email" placeholder="Enter your email">
-
-                <label id="phoneLabel" for="phone">Phone:</label>
-                <input type="tel" id="phone" placeholder="Enter your phone number">
-
-                <label id="addressLabel" for="address">Address:</label>
-                <input type="text" id="address" placeholder="Enter your address">
-
-                <label id="dobLabel" for="dob">Date of Birth:</label>
-                <input type="date" id="dob">
-
-                <!-- Education -->
-                <label id="educationLabel" for="education">Education:</label>
-                <textarea id="education" placeholder="Enter your educational background"></textarea>
-
-                <!-- Work Experience -->
-                <label id="workExperienceLabel" for="workExperience">Work Experience:</label>
-                <textarea id="workExperience" placeholder="Enter your work experience"></textarea>
-
-                <!-- Skills -->
-                <label id="skillsLabel" for="skills">Skills:</label>
-                <textarea id="skills" placeholder="Enter your skills"></textarea>
-
-                <!-- Languages -->
-                <label id="languagesLabel" for="languages">Languages Spoken:</label>
-                <textarea id="languages" placeholder="Enter the languages you speak"></textarea>
-
-                <!-- Other Information -->
-                <label id="additionalInfoLabel" for="additionalInfo">Additional Information:</label>
-                <textarea id="additionalInfo" placeholder="Enter any other information"></textarea>
-
-                <input type="hidden" id="username" value="<?php echo $_SESSION['username']; ?>">
-
-                <button id="saveCV" class="btn" disabled>Save CV</button>
+        <!-- Modālais logs priekš valodas izvēles -->
+        <div id="languageModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <h2>Izvēlieties valodu</h2>
+                <select id="languageSelect">
+                    <option value="lv">Latviešu</option>
+                    <option value="en">English</option>
+                    <option value="ru">Русский</option>
+                </select>
+                <button id="confirmLanguage" class="btn">Apstiprināt</button>
             </div>
+        </div>
 
-            <span id="closeCVModal" class="close">×</span>
-            
+            <!-- CV izveideidošana -->
+        <div id="cvModal" class="modal">
+            <div class="modal-content">
+                <h2>Create Your CV</h2>
+                <div id="cvFields">
+                    <!-- Personal Information -->
+                    <label id="nameLabel" for="name">Name:</label>
+                    <input type="text" id="name" placeholder="Enter your name">
+
+                    <label id="emailLabel" for="email">Email:</label>
+                    <input type="email" id="email" placeholder="Enter your email">
+
+                    <label id="phoneLabel" for="phone">Phone:</label>
+                    <input type="tel" id="phone" placeholder="Enter your phone number">
+
+                    <label id="addressLabel" for="address">Address:</label>
+                    <input type="text" id="address" placeholder="Enter your address">
+
+                    <label id="dobLabel" for="dob">Date of Birth:</label>
+                    <input type="date" id="dob">
+
+                    <!-- Education -->
+                    <label id="educationLabel" for="education">Education:</label>
+                    <textarea id="education" placeholder="Enter your educational background"></textarea>
+
+                    <!-- Work Experience -->
+                    <label id="workExperienceLabel" for="workExperience">Work Experience:</label>
+                    <textarea id="workExperience" placeholder="Enter your work experience"></textarea>
+
+                    <!-- Skills -->
+                    <label id="skillsLabel" for="skills">Skills:</label>
+                    <textarea id="skills" placeholder="Enter your skills"></textarea>
+
+                    <!-- Languages -->
+                    <label id="languagesLabel" for="languages">Languages Spoken:</label>
+                    <textarea id="languages" placeholder="Enter the languages you speak"></textarea>
+
+                    <label id="additionalInfoLabel" for="additionalInfo">Additional Information:</label>
+                    <textarea id="additionalInfo" placeholder="Enter any other information"></textarea>
+
+                    <input type="hidden" id="username" value="<?php echo $_SESSION['username']; ?>">
+
+                    <input type="hidden" id="selectedLanguage" name="language">
+
+                    <button id="saveCV" class="btn" disabled>Save CV</button>
+                </div>
+
+                <span id="closeCVModal" class="close">×</span>
+                
+            </div>
         </div>
     </div>
 

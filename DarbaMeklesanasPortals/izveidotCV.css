@@ -10,6 +10,10 @@
     --shadow-color: rgba(0, 0, 0, 0.2);
 }
 
+html, body{
+    height: 100vh;
+}
+
 /*______________________________________________________________MODĀLAISLOGS - VALODAS IZVĒLE_____________________________________________________________________________*/
 
 
@@ -103,11 +107,55 @@
 }
 
 .modal-content .btn:hover {
-    background: var(--primary-color);
+    background: var(--secondary-color);
     transform: scale(1.05);
 }
 
 /*______________________________________________________________MODĀLAISLOGS - CV IZVEIDOŠANA_____________________________________________________________________________*/
+
+
+main .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    width: 95%; /* Width is 95% of the container */
+    padding: 15px 20px; /* Adjust padding for a balanced look */
+    font-size: 1.2rem; /* Larger font size for visibility */
+    font-weight: 600; /* Make text bold */
+    color: #fff; /* White text color */
+    background-color: #333; /* Dark background */
+    border: none; /* No border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    text-align: center; /* Center text */
+    cursor: pointer; /* Pointer cursor on hover */
+    display: flex; /* Flexbox for centering icon and text */
+    justify-content: center; /* Horizontally center the text and icon */
+    align-items: center; /* Vertically center the text and icon */
+    gap: 10px; /* Space between the icon and text */
+}
+
+/* Add Font Awesome icon */
+.btn i {
+    font-size: 1.3rem; /* Slightly larger icon size */
+}
+
+/* Hover effect */
+.btn:hover {
+    background-color: #555; /* Slightly lighter shade of dark for hover */
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+/* Ensure responsiveness */
+@media (max-width: 768px) {
+    .btn {
+        font-size: 1rem; /* Adjust font size for smaller screens */
+        padding: 12px 15px; /* Adjust padding for mobile devices */
+    }
+}
 
 
 #cvModal .modal {
@@ -249,33 +297,60 @@
 
 /*______________________________________________________________CV PARĀDĪŠANA_____________________________________________________________________________*/
 
+
+.Pazinojums {
+    font-size: 1.2rem; 
+    height: 60px;
+    color: #fff; 
+    background-color: #f44336; 
+    padding: 15px; 
+    border-radius: 10px; 
+    text-align: center; 
+    width: 100%; 
+    box-sizing: border-box; 
+    margin-top: 20px;
+    font-weight: 600;
+    position: relative;
+    left: 105%;
+}
+
 .cv-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 20px; 
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
     padding: 20px;
-    height: 60vh;
+    height: auto;
+    min-height: 34rem;
 }
 
 .cv-box {
-    border: 2px solid var(--gray); 
-    padding: 20px;
-    border-radius: 8px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    background-color: var(--white); 
-    transition: transform 0.3s ease; 
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 15px;
+    width: 250px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 18rem;
 }
 
 .cv-box:hover {
-    transform: scale(1.05); /* Scale up the box when hovered */
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-.cv-box h3 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
+.cv-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
 }
 
-.cv-box p {
-    margin: 5px 0;
-    font-size: 1em;
+.cv-language {
+    font-size: 28px;
+    font-weight: bold;
+    color: #00509E;
+    margin-top: 2px;
+    text-transform: uppercase;
 }
+

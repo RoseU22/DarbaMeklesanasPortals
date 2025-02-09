@@ -12,17 +12,17 @@ if (!isset($_SESSION['username'])) {
 $data = json_decode(file_get_contents('php://input'), true);
 
 
-if (isset($data['name'], $data['email'], $data['phone'], $data['address'], $data['dob'], $data['education'], $data['workExperience'], $data['skills'], $data['languages'], $data['additionalInfo'], $data['username'])) {
+if (isset($data['name'], $data['email'], $data['phone'], $data['address'], $data['dob'], $data['education'], $data['workExperience'], $data['skills'], $data['languages'], $data['additionalInfo'], $data['username'], $data['language'])) {
     
 
     require 'con_db.php';
 
 
-    $query = "INSERT INTO DMPortals_CV (lietotajvards, vards, epasts, talrunis, adresse, gads, izglitiba, darba_pieredze, prasmes, valodas, papildus_info) 
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO DMPortals_CV (lietotajvards, vards, epasts, talrunis, adresse, gads, izglitiba, darba_pieredze, prasmes, valodas, papildus_info, valoda) 
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
     if ($stmt = $savienojums->prepare($query)) {
-        $stmt->bind_param("sssssssssss", 
+        $stmt->bind_param("ssssssssssss", 
             $data['username'], 
             $data['name'], 
             $data['email'], 
@@ -33,7 +33,8 @@ if (isset($data['name'], $data['email'], $data['phone'], $data['address'], $data
             $data['workExperience'], 
             $data['skills'], 
             $data['languages'], 
-            $data['additionalInfo']
+            $data['additionalInfo'],
+            $data['language']
         );
 
 

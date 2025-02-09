@@ -108,6 +108,7 @@ document.addEventListener("DOMContentLoaded", function() {
     confirmLanguage.addEventListener("click", function() {
         const selectedLanguage = languageSelect.value;
         languageModal.classList.remove("show");
+        console.log('Selected language: ', selectedLanguage); 
 
         cvModal.classList.add("show");
 
@@ -156,9 +157,13 @@ document.addEventListener("DOMContentLoaded", function() {
     additionalInfoInput.addEventListener("input", checkCVFormCompletion);
 
     const username = document.getElementById("username").value;
+    console.log('Selected language: ', selectedLanguage); 
 
     saveCVButton.addEventListener("click", function() {
         if (nameInput.value && emailInput.value && phoneInput.value && addressInput.value && dobInput.value && educationInput.value && workExperienceInput.value && skillsInput.value && languagesInput.value && additionalInfoInput.value) {
+            
+            const selectedLanguage = languageSelect.value;
+            
             const cvData = {
                 name: nameInput.value,
                 email: emailInput.value,
@@ -170,10 +175,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 skills: skillsInput.value,
                 languages: languagesInput.value,
                 additionalInfo: additionalInfoInput.value,
-                username: username // Get the logged-in username
+                username: username,
+                language: selectedLanguage
             };
     
-            // Send CV data to the server to save in the database
+            console.log("Saving CV with language:", cvData.language);
+
             fetch('PHPFiles/saglabat_cv.php', {
                 method: 'POST',
                 headers: {
