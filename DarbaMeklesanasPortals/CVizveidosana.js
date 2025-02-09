@@ -18,8 +18,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const languagesInput = document.getElementById("languages");
     const additionalInfoInput = document.getElementById("additionalInfo");
 
+    let selectedCVId = null;    
+
     const translations = {
         lv: {
+            cvEditTitle: "Rediģēt CV",
             cvTitle: "Izveidot savu CV",
             nameLabel: "Vārds:",
             emailLabel: "E-pasts:",
@@ -44,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
             additionalInfoPlaceholder: "Papildus informācija"
         },
         en: {
+            cvEditTitle: "Edit CV",
             cvTitle: "Create Your CV",
             nameLabel: "Name:",
             emailLabel: "Email:",
@@ -68,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
             additionalInfoPlaceholder: "Additional information"
         },
         ru: {
+            cvEditTitle: "Редактировать CV",
             cvTitle: "Создайте свое резюме",
             nameLabel: "Имя:",
             emailLabel: "Электронная почта:",
@@ -94,6 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     cvButton.addEventListener("click", function() {
+        resetCVForm();
         languageModal.classList.add("show");
     });
 
@@ -104,6 +110,96 @@ document.addEventListener("DOMContentLoaded", function() {
     closeCVModal.addEventListener("click", function() {
         cvModal.classList.remove("show");
     });
+
+
+    const cvGrid = document.getElementById("cvGrid");
+
+    cvGrid.addEventListener("click", function(event) {
+    if (event.target.closest('.cv-box')) {
+        selectedCVId = event.target.closest('.cv-box').dataset.cvId;
+        fetchCVData(selectedCVId);
+        document.getElementById("cvModal").querySelector("h2").textContent = "Rediģēt CV";
+    }
+    });
+
+    function fetchCVData(cvId) {
+        fetch(`PHPFiles/dabut_cv.php?id=${cvId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const cv = data.cv;
+    
+                    // Get the language from the database response (from 'valoda')
+                    const cvLanguage = data.language && translations[data.language] ? data.language : 'lv';
+                    updateLanguage(cvLanguage);
+    
+                    // Fill the form with CV data
+                    nameInput.value = cv.vards;
+                    emailInput.value = cv.epasts;
+                    phoneInput.value = cv.talrunis;
+                    addressInput.value = cv.adresse;
+                    dobInput.value = cv.gads;
+                    educationInput.value = cv.izglitiba;
+                    workExperienceInput.value = cv.darba_pieredze;
+                    skillsInput.value = cv.prasmes;
+                    languagesInput.value = cv.valodas;
+                    additionalInfoInput.value = cv.papildus_info;
+    
+                    cvModal.classList.add("show");
+                } else {
+                    alert("Error fetching CV data.");
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching CV data:', error);
+                alert("Error fetching CV data.");
+            });
+    }
+    
+    function updateLanguage(language) {
+        console.log('Updating language to:', language);  // Debugging line to see which language is being used
+    
+        // Proceed with updating the modal labels and placeholders...
+        document.getElementById("cvModal").querySelector("h2").textContent = translations[language].cvEditTitle;
+        document.getElementById("nameLabel").textContent = translations[language].nameLabel;
+        document.getElementById("emailLabel").textContent = translations[language].emailLabel;
+        document.getElementById("phoneLabel").textContent = translations[language].phoneLabel;
+        document.getElementById("addressLabel").textContent = translations[language].addressLabel;
+        document.getElementById("dobLabel").textContent = translations[language].dobLabel;
+        document.getElementById("educationLabel").textContent = translations[language].educationLabel;
+        document.getElementById("workExperienceLabel").textContent = translations[language].workExperienceLabel;
+        document.getElementById("skillsLabel").textContent = translations[language].skillsLabel;
+        document.getElementById("languagesLabel").textContent = translations[language].languagesLabel;
+        document.getElementById("additionalInfoLabel").textContent = translations[language].additionalInfoLabel;
+        saveCVButton.textContent = translations[language].saveButton;
+    
+        nameInput.setAttribute("placeholder", translations[language].namePlaceholder);
+        emailInput.setAttribute("placeholder", translations[language].emailPlaceholder);
+        phoneInput.setAttribute("placeholder", translations[language].phonePlaceholder);
+        addressInput.setAttribute("placeholder", translations[language].addressPlaceholder);
+        dobInput.setAttribute("placeholder", translations[language].dobPlaceholder);
+        educationInput.setAttribute("placeholder", translations[language].educationPlaceholder);
+        workExperienceInput.setAttribute("placeholder", translations[language].workExperiencePlaceholder);
+        skillsInput.setAttribute("placeholder", translations[language].skillsPlaceholder);
+        languagesInput.setAttribute("placeholder", translations[language].languagesPlaceholder);
+        additionalInfoInput.setAttribute("placeholder", translations[language].additionalInfoPlaceholder);
+    }
+
+
+    //Iztīr CV formu
+    function resetCVForm() {
+        selectedCVId = null;
+        nameInput.value = "";
+        emailInput.value = "";
+        phoneInput.value = "";
+        addressInput.value = "";
+        dobInput.value = "";
+        educationInput.value = "";
+        workExperienceInput.value = "";
+        skillsInput.value = "";
+        languagesInput.value = "";
+        additionalInfoInput.value = "";
+    }
 
     confirmLanguage.addEventListener("click", function() {
         const selectedLanguage = languageSelect.value;
@@ -165,6 +261,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const selectedLanguage = languageSelect.value;
             
             const cvData = {
+                id: selectedCVId,
                 name: nameInput.value,
                 email: emailInput.value,
                 phone: phoneInput.value,

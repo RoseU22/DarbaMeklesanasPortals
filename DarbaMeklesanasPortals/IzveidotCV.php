@@ -88,7 +88,7 @@ if ($stmt->execute()) {
         <div class="cv-container" id="cvGrid">
             <?php if (count($cvs) > 0): ?>
                 <?php foreach ($cvs as $cv): ?>
-                    <div class="cv-box">
+                    <div class="cv-box" data-cv-id="<?php echo $cv['id']; ?>">
                         <img src="Bildes/CV.png" alt="CV Image" class="cv-image">
                         <p class="cv-language"><?php echo strtoupper(htmlspecialchars($cv['valoda'])); ?></p>
                     </div>
