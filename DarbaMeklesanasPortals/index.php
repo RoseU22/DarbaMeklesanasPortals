@@ -77,12 +77,34 @@
                     <input type="password" name="password" placeholder="Parole" required>
                     <button type="submit" class="btn">Ienākt</button>
                     <p><a href="#">Aizmirsi paroli?</a></p>
-                    <p>Nav konta? <a href="#">Reģistrēties</a></p>
+                    <p>Nav konta? <a href="#" class="register">Reģistrēties</a></p>
                 </form>
 
             </div>
 
         </div>
+
+        <!-- Modālais logs (Reģistrācija) -->
+        <div id="registerModal" class="modal">
+
+            <div class="modal-content">
+                
+                <span class="close">&times;</span>
+                <h2>Reģistrēties</h2>
+
+                <form id="registerForm">
+                    <input type="text" name="lietotajvards" placeholder="Lietotājvārds" required>
+                    <input type="text" name="vards" placeholder="Vārds" required>
+                    <input type="text" name="uzvards" placeholder="Uzvārds" required>
+                    <input type="password" name="parole" placeholder="Parole" required>
+                    <input type="email" name="epasts" placeholder="E-pasts" required>
+                    <button type="submit" class="btn">Reģistrēties</button>
+                </form>
+
+            </div>
+
+        </div>
+
 
     </header>
 
