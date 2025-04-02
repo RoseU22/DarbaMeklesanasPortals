@@ -1,54 +1,86 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Login Modal
     const loginModal = document.getElementById("loginModal");
-    const openLogin = document.getElementById("openLogin");
-    const openLogin2 = document.getElementById("openLogin2");
-    const closeBtn = document.querySelector(".close");
+    const openLoginDropdown = document.getElementById("openLoginDropdown");
+    
+    const clientFields = document.getElementById("clientFields");
+    const companyFields = document.getElementById("companyFields");
+
+    const loginDropdown = document.getElementById("loginDropdown");
+    const dropdownOptions = document.querySelectorAll(".dropdown-option");
+    const closeLoginBtn = loginModal.querySelector(".close");
     const loginForm = document.getElementById("loginForm");
 
-    // Registration Modal
+
     const registerModal = document.getElementById("registerModal");
-    const registerLink = loginModal.querySelector(".register"); // Register link inside login modal
-    const closeRegisterBtn = registerModal.querySelector(".close"); // Close button for the register modal
-    const registerForm = registerModal.querySelector("#registerForm"); // Register form
+    const registerLink = loginModal.querySelector(".register"); 
+    const closeRegisterBtn = registerModal.querySelector(".close"); 
+    const registerForm = registerModal.querySelector("#registerForm"); 
 
-    // Open login modal
-    openLogin.addEventListener("click", function () {
-        loginModal.classList.add("show");
-    });
-
-    openLogin2.addEventListener("click", function () {
-        loginModal.classList.add("show");
-    });
-
-    // Close login modal
-    closeBtn.addEventListener("click", function () {
-        loginModal.classList.remove("show");
-    });
-
-    // Stop click event from propagating when clicking inside modal content
-    loginModal.querySelector(".modal-content").addEventListener("click", function (event) {
-        event.stopPropagation();
-    });
-
-    // Open register modal from the login modal
+    
     registerLink.addEventListener("click", function () {
         loginModal.classList.remove("show");
         registerModal.classList.add("show");
     });
 
-    // Close register modal
+    closeLoginBtn.addEventListener("click", function () {
+        loginModal.classList.remove("show");
+        loginForm.reset();
+    });
+
     closeRegisterBtn.addEventListener("click", function () {
         registerModal.classList.remove("show");
         registerForm.reset();
+        loginForm.reset();
     });
 
-    // Stop click event from propagating when clicking inside the register modal content
     registerModal.querySelector(".modal-content").addEventListener("click", function (event) {
         event.stopPropagation();
     });
 
-    // Handle login form submission
+    dropdownOptions.forEach(option => {
+        option.addEventListener("click", function () {
+            const userType = this.getAttribute("data-user-type");
+            
+            if (userType === "uznemums") {
+                clientFields.style.display = "none";
+                companyFields.style.display = "block";
+            } else {
+                clientFields.style.display = "block";
+                companyFields.style.display = "none";
+            }
+        });
+    });
+
+    openLoginDropdown.addEventListener("click", function () {
+        if (loginDropdown.classList.contains("show")) {
+            loginDropdown.classList.remove("show");
+            setTimeout(() => loginDropdown.style.display = "none", 300); // Smooth hide
+        } else {
+            loginDropdown.style.display = "block";
+            setTimeout(() => loginDropdown.classList.add("show"), 10); // Smooth show
+        }
+    });
+
+    dropdownOptions.forEach(option => {
+        option.addEventListener("click", function () {
+            loginDropdown.classList.remove("show");
+            setTimeout(() => loginDropdown.style.display = "none", 300); // Hide dropdown after selection
+            
+            document.getElementById("loginModal").classList.add("show");
+        });
+    });
+
+    document.addEventListener("click", function (event) {
+        if (!openLoginDropdown.contains(event.target) && !loginDropdown.contains(event.target)) {
+            loginDropdown.classList.remove("show");
+            setTimeout(() => loginDropdown.style.display = "none", 300);
+        }
+    });
+
+    registerModal.querySelector(".modal-content").addEventListener("click", function (event) {
+        event.stopPropagation();
+    });
+
     loginForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
@@ -68,13 +100,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Handle register form submission
+    
     registerForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
         let formData = new FormData(registerForm);
 
-        fetch("PHPFiles/register.php", { // Assuming the register functionality is handled by register.php
+        fetch("PHPFiles/register.php", { 
             method: "POST",
             body: formData,
         })
@@ -82,8 +114,8 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(data => {
             if (data.success) {
                 alert("Konts izveidots!");
-                registerModal.classList.remove("show"); // Close the register modal after successful registration
-                loginModal.classList.add("show"); // Optionally, open the login modal
+                registerModal.classList.remove("show"); 
+                loginModal.classList.add("show"); 
                 registerForm.reset();
             } else {
                 alert("Kaut kas nogāja greizi!");

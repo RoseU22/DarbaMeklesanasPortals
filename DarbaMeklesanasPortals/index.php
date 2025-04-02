@@ -53,35 +53,53 @@
             <div>
 
                 <?php if (isset($_SESSION["username"])): ?>
+
                     <p class="login-btn">
                         <a href="PHPFiles/logout.php"><i class="fa-solid fa-person"></i><?php echo htmlspecialchars($_SESSION["username"]); ?></a>
                     </p>
+
                 <?php else: ?>
-                    <p class="login-btn" id="openLogin"><i class="fa-solid fa-right-to-bracket"></i> Ienākt</p>
+
+                    <div class="login-container">
+                        <p class="login-btn" id="openLoginDropdown"><i class="fa-solid fa-right-to-bracket"></i> Ienākt</p>
+                        <div class="login-dropdown" id="loginDropdown">
+                            <p class="dropdown-option" data-user-type="klients">Klients</p>
+                            <p class="dropdown-option" data-user-type="uznemums">Uzņēmums</p>
+                        </div>
+                    </div>
+
                 <?php endif; ?>
 
             </div>
+
 
         </div>
 
         <!--Modālais logs (Autorizācija)-->
         <div id="loginModal" class="modal">
-
             <div class="modal-content">
-
                 <span class="close">&times;</span>
                 <h2>Pieslēgties</h2>
 
                 <form id="loginForm">
-                    <input type="text" name="username" placeholder="Lietotājvārds" required>
-                    <input type="password" name="password" placeholder="Parole" required>
+                    <div id="clientFields">
+                        <input type="text" name="username" placeholder="Lietotājvārds" required>
+                        <input type="password" name="password" placeholder="Parole" required>
+                    </div>
+
+                    <div id="companyFields" style="display: none;">
+                        <input type="text" name="company_name" placeholder="Uzņēmuma nosaukums" required>
+                        <input type="text" name="registration_number" placeholder="Reģistrācijas numurs" required>
+                        <input type="email" name="company_email" placeholder="Uzņēmuma e-pasts" required>
+                        <input type="text" name="phone_number" placeholder="Tālrunis" required>
+                        <input type="text" name="vat_number" placeholder="PVN numurs" required>
+                    </div>
+                    
                     <button type="submit" class="btn">Ienākt</button>
                     <p><a href="#">Aizmirsi paroli?</a></p>
                     <p>Nav konta? <a href="#" class="register">Reģistrēties</a></p>
                 </form>
-
             </div>
-
         </div>
 
         <!-- Modālais logs (Reģistrācija) -->
