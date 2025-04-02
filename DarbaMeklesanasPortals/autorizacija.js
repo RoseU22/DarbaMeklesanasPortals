@@ -2,8 +2,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const loginModal = document.getElementById("loginModal");
     const openLoginDropdown = document.getElementById("openLoginDropdown");
     
+    const LoginClientFields = document.getElementById("LoginClientFields");
+    const LoginCompanyFields = document.getElementById("LoginCompanyFields");
+    
     const clientFields = document.getElementById("clientFields");
     const companyFields = document.getElementById("companyFields");
+
+    let selectedUserType = "klients"; 
 
     const loginDropdown = document.getElementById("loginDropdown");
     const dropdownOptions = document.querySelectorAll(".dropdown-option");
@@ -42,29 +47,48 @@ document.addEventListener("DOMContentLoaded", function () {
             const userType = this.getAttribute("data-user-type");
             
             if (userType === "uznemums") {
+                LoginClientFields.style.display = "none";
+                LoginCompanyFields.style.display = "block";
+            } else {
+                LoginClientFields.style.display = "block";
+                LoginCompanyFields.style.display = "none";
+            }
+        });
+    });
+
+    document.querySelectorAll(".dropdown-option").forEach(option => {
+        option.addEventListener("click", function () {
+            selectedUserType = this.getAttribute("data-user-type");
+        });
+    });
+
+    document.querySelectorAll(".register").forEach(registerButton => {
+        registerButton.addEventListener("click", function () {
+            if (selectedUserType === "uznemums") {
                 clientFields.style.display = "none";
                 companyFields.style.display = "block";
             } else {
                 clientFields.style.display = "block";
                 companyFields.style.display = "none";
             }
+            registerModal.classList.add("show");
         });
     });
 
     openLoginDropdown.addEventListener("click", function () {
         if (loginDropdown.classList.contains("show")) {
             loginDropdown.classList.remove("show");
-            setTimeout(() => loginDropdown.style.display = "none", 300); // Smooth hide
+            setTimeout(() => loginDropdown.style.display = "none", 300); 
         } else {
             loginDropdown.style.display = "block";
-            setTimeout(() => loginDropdown.classList.add("show"), 10); // Smooth show
+            setTimeout(() => loginDropdown.classList.add("show"), 10); 
         }
     });
 
     dropdownOptions.forEach(option => {
         option.addEventListener("click", function () {
             loginDropdown.classList.remove("show");
-            setTimeout(() => loginDropdown.style.display = "none", 300); // Hide dropdown after selection
+            setTimeout(() => loginDropdown.style.display = "none", 300); 
             
             document.getElementById("loginModal").classList.add("show");
         });

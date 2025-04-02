@@ -82,12 +82,12 @@
                 <h2>Pieslēgties</h2>
 
                 <form id="loginForm">
-                    <div id="clientFields">
+                    <div id="LoginClientFields">
                         <input type="text" name="username" placeholder="Lietotājvārds" required>
                         <input type="password" name="password" placeholder="Parole" required>
                     </div>
 
-                    <div id="companyFields" style="display: none;">
+                    <div id="LoginCompanyFields" style="display: none;">
                         <input type="text" name="company_name" placeholder="Uzņēmuma nosaukums" required>
                         <input type="text" name="registration_number" placeholder="Reģistrācijas numurs" required>
                         <input type="email" name="company_email" placeholder="Uzņēmuma e-pasts" required>
@@ -111,18 +111,29 @@
                 <h2>Reģistrēties</h2>
 
                 <form id="registerForm">
-                    <input type="text" name="lietotajvards" placeholder="Lietotājvārds" required>
-                    <input type="text" name="vards" placeholder="Vārds" required>
-                    <input type="text" name="uzvards" placeholder="Uzvārds" required>
-                    <input type="password" name="parole" placeholder="Parole" required>
-                    <input type="email" name="epasts" placeholder="E-pasts" required>
+                    <div id="clientFields">
+                        <input type="text" name="lietotajvards" placeholder="Lietotājvārds" required>
+                        <input type="text" name="vards" placeholder="Vārds" required>
+                        <input type="text" name="uzvards" placeholder="Uzvārds" required>
+                        <input type="password" name="parole" placeholder="Parole" required>
+                        <input type="email" name="epasts" placeholder="E-pasts" required>
+                    </div>
+                    
+                    <div id="companyFields" style="display: none;">
+                        <input type="text" name="companyName" placeholder="Uzņēmuma nosaukums" required>
+                        <input type="text" name="regNumber" placeholder="Reģistrācijas numurs" required>
+                        <input type="email" name="companyEmail" placeholder="Uzņēmuma e-pasts" required>
+                        <input type="text" name="phone" placeholder="Telefona numurs" required>
+                        <input type="text" name="vatNumber" placeholder="PVN numurs" required>
+                        <input type="password" name="companyPassword" placeholder="Parole" required>
+                    </div>
+                    
                     <button type="submit" class="btn">Reģistrēties</button>
                 </form>
 
             </div>
 
         </div>
-
 
     </header>
 
