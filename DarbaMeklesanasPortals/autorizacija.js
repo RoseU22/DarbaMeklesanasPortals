@@ -9,19 +9,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const companyFields = document.getElementById("companyFields");
 
     let selectedUserType = "klients"; 
-
+    
     const loginDropdown = document.getElementById("loginDropdown");
     const dropdownOptions = document.querySelectorAll(".dropdown-option");
     const closeLoginBtn = loginModal.querySelector(".close");
     const loginForm = document.getElementById("loginForm");
-
+    const userTypeInput = document.createElement("input"); 
+    userTypeInput.type = "hidden";
+    userTypeInput.name = "userType";
+    userTypeInput.value = selectedUserType;
+    loginForm.appendChild(userTypeInput);
 
     const registerModal = document.getElementById("registerModal");
     const registerLink = loginModal.querySelector(".register"); 
     const closeRegisterBtn = registerModal.querySelector(".close"); 
     const registerForm = registerModal.querySelector("#registerForm"); 
 
-    
     registerLink.addEventListener("click", function () {
         loginModal.classList.remove("show");
         registerModal.classList.add("show");
@@ -44,36 +47,67 @@ document.addEventListener("DOMContentLoaded", function () {
 
     dropdownOptions.forEach(option => {
         option.addEventListener("click", function () {
-            const userType = this.getAttribute("data-user-type");
-            
-            if (userType === "uznemums") {
-                LoginClientFields.style.display = "none";
-                LoginCompanyFields.style.display = "block";
-            } else {
-                LoginClientFields.style.display = "block";
-                LoginCompanyFields.style.display = "none";
-            }
+            let selectedUserType = this.getAttribute("data-user-type");
+
+            // Update session on the backend (via a GET/POST request)
+            fetch("index.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: "userType=" + selectedUserType
+            }).then(() => {
+                // Hide all fields initially
+                document.getElementById("LoginClientFields").style.display = "none";
+                document.getElementById("LoginCompanyFields").style.display = "none";
+                document.getElementById("clientFields").style.display = "none";
+                document.getElementById("companyFields").style.display = "none";
+
+                // Remove 'required' attribute from all fields initially
+                removeRequiredAttributes();
+
+                // Show the correct fields based on user selection and add 'required' where needed
+                if (selectedUserType === "klients") {
+                    document.getElementById("LoginClientFields").style.display = "block";
+                    document.getElementById("clientFields").style.display = "block";
+                    console.log(selectedUserType);
+                    addRequiredAttributesToClientFields();
+                } else {
+                    document.getElementById("LoginCompanyFields").style.display = "block";
+                    document.getElementById("companyFields").style.display = "block";
+                    console.log(selectedUserType);
+                    addRequiredAttributesToCompanyFields();
+                }
+
+                // Update hidden input values for form submission
+                document.getElementById("loginUserType").value = selectedUserType;
+                document.getElementById("registerUserType").value = selectedUserType;
+            });
+
+            // Open login modal
+            document.getElementById("loginModal").classList.add("show");
         });
     });
 
-    document.querySelectorAll(".dropdown-option").forEach(option => {
-        option.addEventListener("click", function () {
-            selectedUserType = this.getAttribute("data-user-type");
+    // Function to remove 'required' from all fields
+    function removeRequiredAttributes() {
+        let requiredFields = document.querySelectorAll('[required]');
+        requiredFields.forEach(field => {
+            field.removeAttribute('required');
         });
-    });
+    }
 
-    document.querySelectorAll(".register").forEach(registerButton => {
-        registerButton.addEventListener("click", function () {
-            if (selectedUserType === "uznemums") {
-                clientFields.style.display = "none";
-                companyFields.style.display = "block";
-            } else {
-                clientFields.style.display = "block";
-                companyFields.style.display = "none";
-            }
-            registerModal.classList.add("show");
+    // Function to add 'required' to client fields
+    function addRequiredAttributesToClientFields() {
+        document.querySelectorAll('#clientFields input').forEach(field => {
+            field.setAttribute('required', true);
         });
-    });
+    }
+
+    // Function to add 'required' to company fields
+    function addRequiredAttributesToCompanyFields() {
+        document.querySelectorAll('#companyFields input').forEach(field => {
+            field.setAttribute('required', true);
+        });
+    }
 
     openLoginDropdown.addEventListener("click", function () {
         if (loginDropdown.classList.contains("show")) {
@@ -109,6 +143,8 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();
 
         let formData = new FormData(loginForm);
+        formData.append("userType", selectedUserType);
+        console.log(selectedUserType)
 
         fetch("PHPFiles/login.php", {
             method: "POST",
@@ -124,11 +160,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    
     registerForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
         let formData = new FormData(registerForm);
+        formData.append("userType", selectedUserType);
 
         fetch("PHPFiles/register.php", { 
             method: "POST",
