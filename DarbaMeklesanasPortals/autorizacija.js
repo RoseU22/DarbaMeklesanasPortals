@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const clientFields = document.getElementById("clientFields");
     const companyFields = document.getElementById("companyFields");
 
-    let selectedUserType = "klients"; 
+    let selectedUserType = "klients";
     
     const loginDropdown = document.getElementById("loginDropdown");
     const dropdownOptions = document.querySelectorAll(".dropdown-option");
@@ -47,7 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     dropdownOptions.forEach(option => {
         option.addEventListener("click", function () {
-            let selectedUserType = this.getAttribute("data-user-type");
+            
+            selectedUserType = this.getAttribute("data-user-type");
 
             // Update session on the backend (via a GET/POST request)
             fetch("index.php", {
@@ -144,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let formData = new FormData(loginForm);
         formData.append("userType", selectedUserType);
-        console.log(selectedUserType)
+        console.log(selectedUserType);
 
         fetch("PHPFiles/login.php", {
             method: "POST",

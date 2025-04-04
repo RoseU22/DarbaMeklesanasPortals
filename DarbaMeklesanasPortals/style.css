@@ -143,8 +143,12 @@ nav ul li a:hover {
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     box-shadow: 0 2px 4px var(--shadow-color); 
-    width: 140px;
+    min-width: 140px; 
+    width: fit-content; 
+    max-width: 100%; 
+    white-space: nowrap; 
 }
+
 
 .login-btn i{
     padding-right: 5px;
