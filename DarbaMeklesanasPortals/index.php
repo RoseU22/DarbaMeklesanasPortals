@@ -70,7 +70,7 @@
                             <?php if ($_SESSION["userType"] === "klients"): ?>
                                 <p class="dropdown-option"><a href="IzveidotCV.php">Uztaisīt CV</a></p>
                             <?php elseif ($_SESSION["userType"] === "uznemums"): ?>
-                                <p class="dropdown-option"><a href="createJob.php">Uztaisīt vakanci</a></p>
+                                <p class="dropdown-option"><a href="IzveidotVakanci.php">Uztaisīt vakanci</a></p>
                             <?php endif; ?>
                         </div>
                     </div>
