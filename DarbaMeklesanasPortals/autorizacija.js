@@ -8,6 +8,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const clientFields = document.getElementById("clientFields");
     const companyFields = document.getElementById("companyFields");
 
+    const profileBtn = document.getElementById("profileDropdownBtn");
+    const profileDropdown = document.getElementById("profileDropdown");
+    
+    const isLoggedIn = document.getElementById("loginState").value;
+
+    console.log(isLoggedIn);
+
     let selectedUserType = "klients";
     
     const loginDropdown = document.getElementById("loginDropdown");
@@ -50,22 +57,21 @@ document.addEventListener("DOMContentLoaded", function () {
             
             selectedUserType = this.getAttribute("data-user-type");
 
-            // Update session on the backend (via a GET/POST request)
             fetch("index.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: "userType=" + selectedUserType
             }).then(() => {
-                // Hide all fields initially
+                // Paslēpj visus laukus
                 document.getElementById("LoginClientFields").style.display = "none";
                 document.getElementById("LoginCompanyFields").style.display = "none";
                 document.getElementById("clientFields").style.display = "none";
                 document.getElementById("companyFields").style.display = "none";
 
-                // Remove 'required' attribute from all fields initially
+                // Noņem visus 'required'
                 removeRequiredAttributes();
 
-                // Show the correct fields based on user selection and add 'required' where needed
+                // Parāda pareizos laukus, pamatojoties uz lietotāja konta izvēles un pievieno “required”, kur nepieciešams
                 if (selectedUserType === "klients") {
                     document.getElementById("LoginClientFields").style.display = "block";
                     document.getElementById("clientFields").style.display = "block";
@@ -78,17 +84,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     addRequiredAttributesToCompanyFields();
                 }
 
-                // Update hidden input values for form submission
+ 
                 document.getElementById("loginUserType").value = selectedUserType;
                 document.getElementById("registerUserType").value = selectedUserType;
             });
 
-            // Open login modal
+
             document.getElementById("loginModal").classList.add("show");
         });
     });
 
-    // Function to remove 'required' from all fields
+    // Noņem visus 'required' no input laukiem
     function removeRequiredAttributes() {
         let requiredFields = document.querySelectorAll('[required]');
         requiredFields.forEach(field => {
@@ -96,35 +102,46 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Function to add 'required' to client fields
+    // Pevieno 'required' klienta input laukos
     function addRequiredAttributesToClientFields() {
         document.querySelectorAll('#clientFields input').forEach(field => {
             field.setAttribute('required', true);
         });
     }
 
-    // Function to add 'required' to company fields
+    // Pievieno 'required' uzņēmuma input laukos
     function addRequiredAttributesToCompanyFields() {
         document.querySelectorAll('#companyFields input').forEach(field => {
             field.setAttribute('required', true);
         });
     }
 
-    openLoginDropdown.addEventListener("click", function () {
-        if (loginDropdown.classList.contains("show")) {
-            loginDropdown.classList.remove("show");
-            setTimeout(() => loginDropdown.style.display = "none", 300); 
-        } else {
-            loginDropdown.style.display = "block";
-            setTimeout(() => loginDropdown.classList.add("show"), 10); 
-        }
-    });
+    if (isLoggedIn === "false") {
 
+        openLoginDropdown.addEventListener("click", function () {
+            if (loginDropdown.classList.contains("show")) {
+                loginDropdown.classList.remove("show");
+                setTimeout(() => loginDropdown.style.display = "none", 300); 
+            } else {
+                loginDropdown.style.display = "block";
+                setTimeout(() => loginDropdown.classList.add("show"), 10); 
+            }
+        });
+
+    } else {
+        
+        profileBtn.addEventListener("click", function (e) {
+            e.stopPropagation(); 
+            profileDropdown.classList.toggle("show"); 
+        });
+
+    }
+        
     dropdownOptions.forEach(option => {
         option.addEventListener("click", function () {
             loginDropdown.classList.remove("show");
             setTimeout(() => loginDropdown.style.display = "none", 300); 
-            
+                
             document.getElementById("loginModal").classList.add("show");
         });
     });
@@ -134,6 +151,22 @@ document.addEventListener("DOMContentLoaded", function () {
             loginDropdown.classList.remove("show");
             setTimeout(() => loginDropdown.style.display = "none", 300);
         }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const profileBtn = document.getElementById("profileDropdownBtn");
+        const profileDropdown = document.getElementById("profileDropdown");
+
+        profileBtn.addEventListener("click", function (e) {
+            e.stopPropagation(); 
+            profileDropdown.classList.toggle("show-profile-dropdown");
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!profileDropdown.contains(e.target) && !profileBtn.contains(e.target)) {
+                profileDropdown.classList.remove("show-profile-dropdown");
+            }
+        });
     });
 
     registerModal.querySelector(".modal-content").addEventListener("click", function (event) {
