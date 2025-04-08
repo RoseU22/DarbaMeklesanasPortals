@@ -10,15 +10,39 @@ require 'PHPFiles/con_db.php';
 
 $username = $_SESSION['username'];
 
-
-$query = "SELECT * FROM DMPortals_Uznemums WHERE uznemuma_nosaukums = ?";
+// Fetch user_id of the logged-in user
+$query = "SELECT uznemumsID FROM DMPortals_Uznemums WHERE uznemuma_nosaukums = ?";
 $stmt = $savienojums->prepare($query);
-$stmt->bind_param("s", $username);
 
+if (!$stmt) {
+    die("Error preparing query: " . $savienojums->error);
+}
+
+$stmt->bind_param("s", $username);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $user = $result->fetch_assoc();
+    $user_id = $user['uznemumsID']; // Get the user_id of the logged-in user
+} else {
+    die("User not found.");
+}
+
+$stmt->close();
+
+// Fetch vacancies for the logged-in user
+$query = "SELECT * FROM DMPortals_Vakances WHERE vakancesID = ?";
+$stmt = $savienojums->prepare($query);
+
+if (!$stmt) {
+    die("Error preparing query: " . $savienojums->error);
+}
+
+$stmt->bind_param("i", $user_id);
 
 if ($stmt->execute()) {
     $result = $stmt->get_result();
-
 
     $vacancies = [];
     while ($row = $result->fetch_assoc()) {
@@ -41,7 +65,7 @@ if ($stmt->execute()) {
     <title>Darba Meklēšanas Portāls</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="Bildes/Favicon.png" type="image/x-icon">
-    <!-- <link rel="stylesheet" href="izveidotVakanci.css"> -->
+    <link rel="stylesheet" href="izveidotVakanci.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <script src="autorizacija.js"></script>
     <script src="VakancesIzveidosana.js"></script>
@@ -87,9 +111,10 @@ if ($stmt->execute()) {
         <div class="vacancy-container" id="vacancyGrid">
             <?php if (count($vacancies) > 0): ?>
                 <?php foreach ($vacancies as $vacancy): ?>
-                    <div class="vacancy-box" data-vacancy-id="<?php echo $vacancy['id']; ?>">
-                        <p class="vacancy-title"><?php echo htmlspecialchars($vacancy['title']); ?></p>
-                        <p class="vacancy-location"><?php echo htmlspecialchars($vacancy['location']); ?></p>
+                    <div class="vacancy-box" data-vacancy-id="<?php echo $vacancy['vakancesID']; ?>">
+                        <p class="vacancy-title"><?php echo htmlspecialchars($vacancy['vakances_nosaukums']); ?></p>
+                        <img src="Bildes/Vakance.png" alt="Vakance Image" class="vakance-image">
+                        <p class="vacancy-location"><?php echo htmlspecialchars($vacancy['atrasanas_vieta']); ?></p>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -100,7 +125,8 @@ if ($stmt->execute()) {
         <!-- Vakances modāls -->
         <div id="vacancyModal" class="modal">
             <div class="modal-content">
-                <h2>Create Vacancy</h2>
+                <span id="closeVacancyModal" class="close">&times;</span>
+                <h2>Izveidot vakanci</h2>
                 <label for="vacancyName">Vacancy Title:</label>
                 <input type="text" id="vacancyName" placeholder="Enter vacancy title">
 
@@ -117,7 +143,6 @@ if ($stmt->execute()) {
                 <input type="number" id="vacancySalary" step="0.01" placeholder="Enter salary">
 
                 <button id="saveVacancy">Save Vacancy</button>
-                <button id="closeVacancyModal">Close</button>
             </div>
         </div>
     </div>

@@ -1,0 +1,259 @@
+
+/*______________________________________________________________Vakances loga priekšstats_____________________________________________________________________________*/
+
+.vacancy-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+    min-height: 20rem;
+    box-sizing: border-box;
+}
+
+
+.vacancy-box {
+    background: var(--white); 
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    text-align: center;
+    padding: 15px;
+    width: 250px; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    height: auto;
+    border: 1px solid var(--gray); 
+}
+
+
+.vacancy-box:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+.vacancy-title {
+    font-size: 1.2rem; 
+    color: var(--primary-color); 
+    margin-bottom: 10px;
+    font-weight: 600; 
+}
+
+
+.vakance-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px; 
+    margin-bottom: 10px;
+}
+
+
+.vacancy-location {
+    font-size: 1rem;
+    color: var(--secondary-color); 
+    margin-top: 10px;
+}
+
+
+.Pazinojums {
+    font-size: 1.2rem;
+    height: 60px;
+    color: #fff;
+    background-color: #f44336;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    width: 35%;
+    box-sizing: border-box;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+
+.vacancy-box .btn {
+    background: var(--accent-color);
+    color: var(--white);
+    border: none;
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    margin-top: 15px;
+}
+
+
+.vacancy-box .btn:hover {
+    background: var(--secondary-color);
+    transform: scale(1.05); 
+}
+
+
+@media (max-width: 768px) {
+    .vacancy-box {
+        width: 90%; 
+        margin-bottom: 20px;
+    }
+
+    .vacancy-title {
+        font-size: 1.1rem; 
+    }
+
+    .vacancy-location {
+        font-size: 0.9rem; 
+    }
+
+    .vacancy-box .btn {
+        font-size: 16px;
+        padding: 10px 15px; 
+    }
+}
+
+/*______________________________________________________________Vakances modālais logs_____________________________________________________________________________*/
+
+
+#vacancyModal .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(2, 12, 27, 0.7); 
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+#vacancyModal .modal-content {
+    background-color: var(--primary-color); 
+    border-radius: 8px;
+    width: 80%;
+    max-width: 800px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;  
+    max-height: 90vh;
+    scale: 1;
+}
+
+#vacancyModal h2 {
+    color: var(--accent-color); 
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+#vacancyModal .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 30px;
+    color: var(--text-color); 
+    cursor: pointer;
+}
+
+#vacancyModal .close:hover {
+    color: var(--accent-color); 
+}
+
+
+#vacancyModal label {
+    display: block;
+    font-size: 16px;
+    color: var(--text-color); 
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+
+#vacancyModal input[type="text"],
+#vacancyModal input[type="number"],
+#vacancyModal textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid var(--gray); 
+    border-radius: 5px;
+    font-size: 16px;
+    color: var(--text-color); 
+    background-color: var(--secondary-color); 
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    resize: none;
+}
+
+#vacancyModal input[type="text"]:focus,
+#vacancyModal input[type="number"]:focus,
+#vacancyModal textarea:focus {
+    border-color: var(--accent-color); 
+    background-color: var(--white); 
+    color: var(--background-color);
+    outline: none;
+}
+
+
+#vacancyModal textarea {
+    min-height: 120px;
+}
+
+
+#vacancyModal button {
+    padding: 12px 25px;
+    font-size: 18px;
+    background-color: var(--accent-color); 
+    color: var(--background-color); 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+#vacancyModal #saveVacancy:disabled {
+    background-color: transparent; 
+    color: var(--gray); 
+    cursor: not-allowed; 
+    border: 1px solid var(--gray); 
+}
+
+#vacancyModal button:hover {
+    background-color: #4dffd4; 
+}
+
+
+#vacancyModal .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+@media (max-width: 768px) {
+    #vacancyModal .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    #vacancyModal h2 {
+        font-size: 20px;
+    }
+
+    #vacancyModal label,
+    #vacancyModal input[type="text"],
+    #vacancyModal input[type="number"],
+    #vacancyModal textarea {
+        font-size: 14px;
+    }
+
+    #vacancyModal button {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+}

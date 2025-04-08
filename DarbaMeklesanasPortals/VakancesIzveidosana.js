@@ -9,6 +9,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const vacancySkillsInput = document.getElementById("vacancySkills");
     const vacancySalaryInput = document.getElementById("vacancySalary");
 
+    const vacancyName = document.getElementById("vacancyName");
+    const vacancyDescription = document.getElementById("vacancyDescription");
+    const vacancyLocation = document.getElementById("vacancyLocation");
+    const vacancySkills = document.getElementById("vacancySkills");
+    const vacancySalary = document.getElementById("vacancySalary");
+
     let selectedVacancyId = null;
 
     // Atver vakances modālu
@@ -56,8 +62,54 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
+    document.querySelector('.vacancy-box').addEventListener('click', function(event) {
+        const vacancyId = event.currentTarget.getAttribute('data-vacancy-id');
+        console.log(vacancyId); // Check if it outputs the correct ID
+    });
+
+    const vacancyGrid = document.getElementById("vacancyGrid");
+
+    vacancyGrid.addEventListener("click", function(event) {
+        const box = event.target.closest(".vacancy-box");
+        if (box) {
+            selectedVacancyId = event.target.closest(".vacancy-box").dataset.vacancyId;
+            fetchVacancyData(selectedVacancyId);
+            document.querySelector("#vacancyModal h2").textContent = "Rediģēt Vakanci";
+        }
+    });
+    
+    function fetchVacancyData(selectedVacancyId) {
+        fetch(`PHPFiles/dabut_vakanci.php?id=${selectedVacancyId}`)
+            .then(response => response.json())
+            .then(data => {
+
+                console.log(data);
+
+                if (data.success) {
+                    const vakance = data.vakance;
+    
+                    // Fill in modal fields
+                    vacancyName.value = vakance.vakances_nosaukums;
+                    vacancyDescription.value = vakance.vakances_apraksts;
+                    vacancyLocation.value = vakance.atrasanas_vieta;
+                    vacancySkills.value = vakance.nepieciesamas_prasmes;
+                    vacancySalary.value = vakance.maksa;
+    
+                    vacancyModal.classList.add("show");
+                } else {
+                    alert("Vakance nav atrasta.");
+                }
+            })
+            .catch(error => {
+                console.error('Kļūda ielādējot vakances datus:', error);
+                alert("Neizdevās iegūt vakances datus.");
+            });
+    }
+
+
     // Restartē vakances formu
     function resetVacancyForm() {
+        document.querySelector("#vacancyModal h2").textContent = "Izveidot vakanci";
         selectedVacancyId = null;
         vacancyNameInput.value = "";
         vacancyDescriptionInput.value = "";
