@@ -220,6 +220,7 @@ nav ul li a:hover {
     position: absolute;
     transform: translateX(-50%);
     background: var(--accent-color);
+    min-width: 140px;
     border-radius: 20px;
     box-shadow: 0 4px 8px var(--shadow-color);
     text-align: center;
@@ -239,16 +240,28 @@ nav ul li a:hover {
 }
 
 .profile-btn {
-    display: inline-block;
-    cursor: pointer;
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: var(--accent-color);
     color: var(--primary-color);
+    font-size: 14px;
+    padding: 8px 16px;
+    border: none;
     border-radius: 20px;
-    font-size: 16px;
-    width: auto;
-    min-width: 120px;
-    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    min-width: 140px;
+    width: fit-content;
+    max-width: 100%;
+    white-space: nowrap;
+}
+
+.profile-btn:hover {
+    background: var(--white);
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(100, 255, 218, 0.4); 
 }
 
 .profile-btn i {
@@ -377,6 +390,10 @@ nav ul li a:hover {
     background: var(--white);
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(100, 255, 218, 0.4); 
+}
+
+#confirmLanguage:hover{
+    background: var(--white);
 }
 
 /*_______________Aizmirsi paroli / reģistrēties_______________________________*/

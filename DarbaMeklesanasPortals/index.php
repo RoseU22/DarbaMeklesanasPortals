@@ -5,6 +5,7 @@
     if (!isset($_SESSION["userType"])) {
         $_SESSION["userType"] = "klients";
     }
+    
     $userType = $_SESSION["userType"];
 
     require 'PHPFiles/con_db.php';

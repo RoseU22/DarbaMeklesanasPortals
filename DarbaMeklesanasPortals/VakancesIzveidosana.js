@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
             salary: parseFloat(vacancySalaryInput.value)
         };
 
-        // IAzsūta datus uz php failu lai tos saglabātu datubāzē
+        // Aizsūta datus uz php failu lai tos saglabātu datubāzē
         fetch('PHPFiles/saglabat_vakanci.php', {
             method: 'POST',
             headers: {
@@ -51,15 +51,15 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert("Vacancy saved successfully!");
+                alert("Vakance veiksmīgi saglabāta!");
                 vacancyModal.classList.remove("show");
             } else {
-                alert("Error saving vacancy");
+                alert("Saglabājot vakanci, radās kļūda");
             }
         })
         .catch(error => {
-            console.error('Error:', error);
-            alert("Error saving vacancy");
+            console.error('Kļūda:', error);
+            alert("Saglabājot vakanci, radās kļūda");
         });
     });
 
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelector('.vacancy-box').addEventListener('click', function(event) {
         const vacancyId = event.currentTarget.getAttribute('data-vacancy-id');
-        console.log(vacancyId); // Check if it outputs the correct ID
+        console.log(vacancyId); // Pārbaudiet, vai izvada pareizo ID
     });
 
     const vacancyGrid = document.getElementById("vacancyGrid");
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (data.success) {
                     const vakance = data.vakance;
     
-                    // Fill in modal fields
+                    // Aizpildiet modālos laukus
                     vacancyName.value = vakance.vakances_nosaukums;
                     vacancyDescription.value = vakance.vakances_apraksts;
                     vacancyLocation.value = vakance.atrasanas_vieta;

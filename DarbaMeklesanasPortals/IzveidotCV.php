@@ -6,21 +6,26 @@ if (!isset($_SESSION['username'])) {
     exit;
 }
 
+if ($_SESSION['userType'] !== 'klients') {
+    header('Location: index.php'); 
+    exit;
+}
+
 require 'PHPFiles/con_db.php';
 
-// Get the logged-in username
+// Iegūstiet lietotāja lietotājvārdu
 $username = $_SESSION['username'];
 
-// Query to fetch CVs for the logged-in user
+// Vaicājums, lai iegūtu lietotāja CV 
 $query = "SELECT * FROM DMPortals_CV WHERE lietotajvards = ?";
 $stmt = $savienojums->prepare($query);
 $stmt->bind_param("s", $username);
 
-// Check if query executes successfully
+// Pārbaudiet, vai vaicājums tiek izpildīts veiksmīgi
 if ($stmt->execute()) {
     $result = $stmt->get_result();
 
-    // Store the result in an array
+    // Saglabā rezultātu masīvā
     $cvs = [];
     while ($row = $result->fetch_assoc()) {
         $cvs[] = $row;
@@ -28,7 +33,7 @@ if ($stmt->execute()) {
 
     $stmt->close();
 } else {
-    echo "Error executing query: " . $stmt->error;
+    echo "Kļūda, izpildot vaicājumu: " . $stmt->error;
     exit();
 }
 
@@ -138,7 +143,7 @@ if ($stmt->execute()) {
             <div class="modal-content">
                 <h2>Create Your CV</h2>
                 <div id="cvFields">
-                    <!-- Personal Information -->
+                    <!-- Personiskā informācija -->
                     <label id="nameLabel" for="name">Name:</label>
                     <input type="text" id="name" placeholder="Enter your name">
 
@@ -154,19 +159,19 @@ if ($stmt->execute()) {
                     <label id="dobLabel" for="dob">Date of Birth:</label>
                     <input type="date" id="dob">
 
-                    <!-- Education -->
+                    <!-- Izglītība -->
                     <label id="educationLabel" for="education">Education:</label>
                     <textarea id="education" placeholder="Enter your educational background"></textarea>
 
-                    <!-- Work Experience -->
+                    <!-- Darba pieredze -->
                     <label id="workExperienceLabel" for="workExperience">Work Experience:</label>
                     <textarea id="workExperience" placeholder="Enter your work experience"></textarea>
 
-                    <!-- Skills -->
+                    <!-- Prasmes -->
                     <label id="skillsLabel" for="skills">Skills:</label>
                     <textarea id="skills" placeholder="Enter your skills"></textarea>
 
-                    <!-- Languages -->
+                    <!-- Valodas -->
                     <label id="languagesLabel" for="languages">Languages Spoken:</label>
                     <textarea id="languages" placeholder="Enter the languages you speak"></textarea>
 

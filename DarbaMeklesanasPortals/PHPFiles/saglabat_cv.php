@@ -4,7 +4,7 @@ session_start();
 
 
 if (!isset($_SESSION['username'])) {
-    echo json_encode(['success' => false, 'message' => 'User not logged in']);
+    echo json_encode(['success' => false, 'message' => 'Lietotājs nav ielogojies']);
     exit;
 }
 
@@ -24,11 +24,11 @@ if (isset($data['name'], $data['email'], $data['phone'], $data['address'], $data
             if ($stmt->execute()) {
                 echo json_encode(['success' => true]);
             } else {
-                echo json_encode(['success' => false, 'message' => 'Error executing the update query: ' . $stmt->error]);
+                echo json_encode(['success' => false, 'message' => 'Kļūda, izpildot atjaunināšanas vaicājumu: ' . $stmt->error]);
             }
             $stmt->close();
         } else {
-            echo json_encode(['success' => false, 'message' => 'Error preparing the update query: ' . $savienojums->error]);
+            echo json_encode(['success' => false, 'message' => 'Sagatavojot atjaunināšanas vaicājumu, radās kļūda: ' . $savienojums->error]);
         }
     } else {
         // Uztaisīt CV
@@ -39,15 +39,15 @@ if (isset($data['name'], $data['email'], $data['phone'], $data['address'], $data
             if ($stmt->execute()) {
                 echo json_encode(['success' => true]);
             } else {
-                echo json_encode(['success' => false, 'message' => 'Error executing the insert query: ' . $stmt->error]);
+                echo json_encode(['success' => false, 'message' => 'Kļūda, izpildot ievietošanas vaicājumu: ' . $stmt->error]);
             }
             $stmt->close();
         } else {
-            echo json_encode(['success' => false, 'message' => 'Error preparing the insert query: ' . $savienojums->error]);
+            echo json_encode(['success' => false, 'message' => 'Kļūda, sagatavojot ievietošanas vaicājumu: ' . $savienojums->error]);
         }
     }
 } else {
-    echo json_encode(['success' => false, 'message' => 'Missing required fields']);
+    echo json_encode(['success' => false, 'message' => 'Trūkst obligāto lauku']);
 }
 
 ?>

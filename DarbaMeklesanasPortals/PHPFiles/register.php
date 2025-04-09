@@ -6,7 +6,7 @@ header("Content-Type: application/json");
 require 'con_db.php';
 
 if (!$savienojums) {
-    echo json_encode(["success" => false, "error" => "Database connection failed"]);
+    echo json_encode(["success" => false, "error" => "Neizdevās izveidot savienojumu ar datu bāzi"]);
     exit;
 }
 

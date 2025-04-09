@@ -6,10 +6,14 @@ if (!isset($_SESSION['username'])) {
     exit;
 }
 
+if ($_SESSION['userType'] !== 'uznemums') {
+    header('Location: index.php'); 
+    exit;
+}
+
 require 'PHPFiles/con_db.php';
 
 $username = $_SESSION['username'];
-
 
 echo "<script>console.log('Session username: " . $username . "');</script>";
 
@@ -18,7 +22,7 @@ $query = "SELECT * FROM DMPortals_Vakances WHERE uznemuma_nosaukums = ?";
 $stmt = $savienojums->prepare($query);
 
 if (!$stmt) {
-    die("Error preparing query: " . $savienojums->error);
+    die("Kļūda, sagatavojot vaicājumu: " . $savienojums->error);
 }
 
 $stmt->bind_param("s", $username);
@@ -38,7 +42,7 @@ if ($stmt->execute()) {
 
     $stmt->close();
 } else {
-    echo "Error executing query: " . $stmt->error;
+    echo "Kļūda, izpildot vaicājumu: " . $stmt->error;
     exit();
 }
 
@@ -140,22 +144,22 @@ if ($stmt->execute()) {
             <div class="modal-content">
                 <span id="closeVacancyModal" class="close">&times;</span>
                 <h2>Izveidot vakanci</h2>
-                <label for="vacancyName">Vacancy Title:</label>
-                <input type="text" id="vacancyName" placeholder="Enter vacancy title">
+                <label for="vacancyName">Vakances nosaukums:</label>
+                <input type="text" id="vacancyName" placeholder="Ievadiet vakances nosaukumu">
 
-                <label for="vacancyDescription">Description:</label>
-                <textarea id="vacancyDescription" placeholder="Enter vacancy description"></textarea>
+                <label for="vacancyDescription">Apraksts:</label>
+                <textarea id="vacancyDescription" placeholder="Ievadiet vakances aprakstu"></textarea>
 
-                <label for="vacancyLocation">Location:</label>
-                <input type="text" id="vacancyLocation" placeholder="Enter location">
+                <label for="vacancyLocation">Atrašanās vieta:</label>
+                <input type="text" id="vacancyLocation" placeholder="Ievadiet atrašanās vieta">
 
-                <label for="vacancySkills">Required Skills:</label>
-                <textarea id="vacancySkills" placeholder="Enter required skills"></textarea>
+                <label for="vacancySkills">Nepieciešamās prasmes:</label>
+                <textarea id="vacancySkills" placeholder="Ievadiet nepieciešamās prasmes"></textarea>
 
-                <label for="vacancySalary">Salary:</label>
-                <input type="number" id="vacancySalary" step="0.01" placeholder="Enter salary">
+                <label for="vacancySalary">Maksa:</label>
+                <input type="number" id="vacancySalary" step="0.01" placeholder="Ievadiet Maksu">
 
-                <button id="saveVacancy" disabled>Save Vacancy</button>
+                <button id="saveVacancy" disabled>Saglabāt vakanci</button>
             </div>
         </div>
     </div>

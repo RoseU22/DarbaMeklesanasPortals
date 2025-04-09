@@ -6,12 +6,12 @@ header("Content-Type: application/json");
 require 'con_db.php';
 
 if (!$savienojums) {
-    echo json_encode(["success" => false, "error" => "Database connection failed"]);
+    echo json_encode(["success" => false, "error" => "Neizdevās izveidot savienojumu ar datu bāzi"]);
     exit;
 }
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    echo json_encode(["success" => false, "error" => "Invalid request"]);
+    echo json_encode(["success" => false, "error" => "Nederīgs pieprasījums"]);
     exit;
 }
 
@@ -36,7 +36,7 @@ if ($userType === "klients"){
 if ($userType === "klients") {
     $stmt = $savienojums->prepare("SELECT parole FROM DMPortals WHERE lietotajvards = ?");
     if (!$stmt) {
-        echo json_encode(["success" => false, "error" => "Database query failed"]);
+        echo json_encode(["success" => false, "error" => "Datu bāzes vaicājums neizdevās"]);
         exit;
     }
 
@@ -78,7 +78,7 @@ if ($userType === "uznemums") {
 
     $stmt = $savienojums->prepare("SELECT uznemuma_parole FROM DMPortals_Uznemums WHERE uznemuma_nosaukums = ?");
     if (!$stmt) {
-        echo json_encode(["success" => false, "error" => "Database query failed"]);
+        echo json_encode(["success" => false, "error" => "Datu bāzes vaicājums neizdevās"]);
         exit;
     }
 

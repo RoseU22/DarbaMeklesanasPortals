@@ -3,7 +3,7 @@
 session_start();
 
 if (!isset($_SESSION['username'])) {
-    echo json_encode(['success' => false, 'message' => 'User not logged in']);
+    echo json_encode(['success' => false, 'message' => 'Lietotājs nav ielogojies']);
     exit;
 }
 
@@ -12,7 +12,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 if (isset($data['name'], $data['description'], $data['location'], $data['skills'], $data['salary'])) {
     require 'con_db.php';
 
-    $username = $_SESSION['username']; // Get the logged-in user's name
+    $username = $_SESSION['username']; // Iegūstiet reģistrētā lietotāja vārdu
 
     if (isset($data['id']) && $data['id'] !== null) {
         // Atjaunina eksistējošo vakanci
@@ -22,11 +22,11 @@ if (isset($data['name'], $data['description'], $data['location'], $data['skills'
             if ($stmt->execute()) {
                 echo json_encode(['success' => true]);
             } else {
-                echo json_encode(['success' => false, 'message' => 'Error executing the update query: ' . $stmt->error]);
+                echo json_encode(['success' => false, 'message' => 'Kļūda, izpildot atjaunināšanas vaicājumu: ' . $stmt->error]);
             }
             $stmt->close();
         } else {
-            echo json_encode(['success' => false, 'message' => 'Error preparing the update query: ' . $savienojums->error]);
+            echo json_encode(['success' => false, 'message' => 'Sagatavojot atjaunināšanas vaicājumu, radās kļūda: ' . $savienojums->error]);
         }
     } else {
         // Izveido jaunu vakanci
@@ -37,15 +37,15 @@ if (isset($data['name'], $data['description'], $data['location'], $data['skills'
             if ($stmt->execute()) {
                 echo json_encode(['success' => true]);
             } else {
-                echo json_encode(['success' => false, 'message' => 'Error executing the insert query: ' . $stmt->error]);
+                echo json_encode(['success' => false, 'message' => 'Kļūda, izpildot ievietošanas vaicājumu: ' . $stmt->error]);
             }
             $stmt->close();
         } else {
-            echo json_encode(['success' => false, 'message' => 'Error preparing the insert query: ' . $savienojums->error]);
+            echo json_encode(['success' => false, 'message' => 'Kļūda, sagatavojot ievietošanas vaicājumu: ' . $savienojums->error]);
         }
     }
 } else {
-    echo json_encode(['success' => false, 'message' => 'Missing required fields']);
+    echo json_encode(['success' => false, 'message' => 'Trūkst obligāto lauku']);
 }
 
 ?>

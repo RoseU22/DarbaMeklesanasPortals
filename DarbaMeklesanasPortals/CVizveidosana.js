@@ -129,11 +129,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (data.success) {
                     const cv = data.cv;
     
-                    // Get the language from the database response (from 'valoda')
+                    // Iegūt valodu no datu bāzes atbildes
                     const cvLanguage = data.language && translations[data.language] ? data.language : 'lv';
                     updateLanguage(cvLanguage);
     
-                    // Fill the form with CV data
+                    // Aizpilda veidlapu ar CV datiem
                     nameInput.value = cv.vards;
                     emailInput.value = cv.epasts;
                     phoneInput.value = cv.talrunis;
@@ -147,19 +147,19 @@ document.addEventListener("DOMContentLoaded", function() {
     
                     cvModal.classList.add("show");
                 } else {
-                    alert("Error fetching CV data.");
+                    alert("Ienesot CV datus, radās kļūda.");
                 }
             })
             .catch(error => {
-                console.error('Error fetching CV data:', error);
-                alert("Error fetching CV data.");
+                console.error('Ienesot CV datus, radās kļūda.', error);
+                alert("Ienesot CV datus, radās kļūda.");
             });
     }
     
     function updateLanguage(language) {
-        console.log('Updating language to:', language);  // Debugging line to see which language is being used
+        console.log('Updating language to:', language);  // redz kura valoda tiek izmantota
     
-        // Proceed with updating the modal labels and placeholders...
+        // Atjauno modālā loga vietturus
         document.getElementById("cvModal").querySelector("h2").textContent = translations[language].cvEditTitle;
         document.getElementById("nameLabel").textContent = translations[language].nameLabel;
         document.getElementById("emailLabel").textContent = translations[language].emailLabel;
@@ -276,7 +276,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 language: selectedLanguage
             };
     
-            console.log("Saving CV with language:", cvData.language);
+            console.log("Saglabā CV ar valodu:", cvData.language);
 
             fetch('PHPFiles/saglabat_cv.php', {
                 method: 'POST',
@@ -288,15 +288,15 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert("CV saved successfully!");
+                    alert("CV veiksmīgi saglabāts!");
                     cvModal.classList.remove("show");
                 } else {
-                    alert("Error saving CV");
+                    alert("Saglabājot CV, radās kļūda");
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert("Error saving CV");
+                alert("Saglabājot CV, radās kļūda");
             });
         }
     });    
