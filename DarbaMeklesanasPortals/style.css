@@ -699,6 +699,146 @@ nav ul li a:hover {
     }
 }
 
+
+/*__________________Pieteikšanās modālais logs______________________*/
+
+.openModalBtn {
+    margin-top: 10px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(100, 255, 218, 0.2);
+}
+
+.openModalBtn:hover {
+    background-color: #52e0c4;
+    transform: scale(1.03);
+    box-shadow: 0 6px 18px rgba(100, 255, 218, 0.3);
+}
+
+/* Modāls fons */
+.PieteiksanasModal {
+    position: fixed;
+    z-index: 1000;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(2, 12, 27, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+/* Kad aktīvs, iespējojiet redzamību un animāciju */
+.PieteiksanasModal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Modālā satura logs */
+.PieteiksanasModal .modal-content {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    width: 90%;
+    max-width: 900px;
+    position: relative;
+
+    transform: scale(0.95);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* Animēt saturu, kad modāls ir aktīvs */
+.PieteiksanasModal.active .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.PieteiksanasModal .modal-left{
+    display: flex;
+    align-items: center;
+}
+
+/* Kreisais attēla panelis */
+.PieteiksanasModal .modal-left img {
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba( 82, 224, 196, 0.3);
+}
+
+/* Labais teksta/informācijas panelis */
+.PieteiksanasModal .modal-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.PieteiksanasModal .modal-right h2 {
+    font-size: 28px;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.PieteiksanasModal .modal-right p {
+    margin: 8px 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.PieteiksanasModal .modal-right strong {
+    color: var(--white);
+}
+
+/* Modālās aizvēršanas poga */
+.PieteiksanasModal .closeModalBtn {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 32px;
+    color: var(--gray);
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+.PieteiksanasModal .closeModalBtn:hover {
+    color: var(--accent-color);
+    transform: rotate(90deg);
+}
+
+.PieteiksanasModal .modal-right button {
+    margin-top: 30px;
+    padding: 16px 32px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.PieteiksanasModal .modal-right button:hover {
+    background-color: #52e0c4;
+    transform: scale(1.02);
+}
+
+
 /*____________________________________________________________FOOTERIS_______________________________________________________________________________*/
 
 footer {

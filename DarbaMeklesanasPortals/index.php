@@ -38,6 +38,7 @@
 
     <script src="BurbuluAnimacija.js"></script>
     <script src="autorizacija.js"></script>
+    <script src="Pieteiksanas.js"></script>
 
 </head>
 
@@ -222,12 +223,39 @@
                         <p class="vacancy-title"><?php echo htmlspecialchars($vakance['vakances_nosaukums']); ?></p>
                         <img src="Bildes/Vakance.png" alt="Vakance Image" class="vakance-image">
                         <p class="vacancy-location"><?php echo htmlspecialchars($vakance['atrasanas_vieta']); ?></p>
+                        <button class="openModalBtn" 
+                                data-id="<?php echo $vakance['vakancesID']; ?>"
+                                data-title="<?php echo htmlspecialchars($vakance['vakances_nosaukums']); ?>"
+                                data-description="<?php echo htmlspecialchars($vakance['vakances_apraksts']); ?>"
+                                data-location="<?php echo htmlspecialchars($vakance['atrasanas_vieta']); ?>"
+                                data-skills="<?php echo htmlspecialchars($vakance['nepieciesamas_prasmes']); ?>"
+                                data-salary="<?php echo htmlspecialchars($vakance['maksa']); ?>">
+                            Pieteikties
+                        </button>
                     </div>
                 <?php endforeach; ?>
             </div>
         </div>
     </section>
-    
+
+    <!-- Pieteikšanās modālais logs -->
+    <div id="vacancyApplyModal" class="PieteiksanasModal">
+        <div class="modal-content">
+            <span class="closeModalBtn">&times;</span>
+            <div class="modal-left">
+                <img src="Bildes/Vakance.png" alt="Vakance">
+            </div>
+            <div class="modal-right">
+                <h2 id="modalVacancyTitle"></h2>
+                <p><strong>Apraksts:</strong> <span id="modalVacancyDescription"></span></p>
+                <p><strong>Atrašanās vieta:</strong> <span id="modalVacancyLocation"></span></p>
+                <p><strong>Nepieciešamās prasmes:</strong> <span id="modalVacancySkills"></span></p>
+                <p><strong>Alga:</strong> <span id="modalVacancySalary"></span></p>
+                <button>Pieteikties</button>
+            </div>
+        </div>
+    </div>
+
 
     <footer>
 
