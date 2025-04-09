@@ -230,7 +230,7 @@
                                 data-location="<?php echo htmlspecialchars($vakance['atrasanas_vieta']); ?>"
                                 data-skills="<?php echo htmlspecialchars($vakance['nepieciesamas_prasmes']); ?>"
                                 data-salary="<?php echo htmlspecialchars($vakance['maksa']); ?>">
-                            Pieteikties
+                            Apskatīt
                         </button>
                     </div>
                 <?php endforeach; ?>
