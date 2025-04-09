@@ -7,6 +7,18 @@
     }
     $userType = $_SESSION["userType"];
 
+    require 'PHPFiles/con_db.php';
+
+    $vakances = [];
+    $vakances_query = "SELECT * FROM DMPortals_Vakances ORDER BY vakancesID DESC";
+    $result = $savienojums->query($vakances_query);
+
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $vakances[] = $row;
+        }
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -199,13 +211,20 @@
     
 
     <section id="Pieteikties">
-
         <div class="konteiners">
             <h2>Pieteikties darbam</h2>
             <p>Aizpildi savu CV un sūti pieteikumus ar pāris klikšķiem!</p>
-            <a href="#" class="btn">Sākt tagad</a>
-        </div>
 
+            <div class="vakances-konteiners">
+                <?php foreach ($vakances as $vakance): ?>
+                    <div class="vacancy-box" data-vacancy-id="<?php echo $vakance['vakancesID']; ?>">
+                        <p class="vacancy-title"><?php echo htmlspecialchars($vakance['vakances_nosaukums']); ?></p>
+                        <img src="Bildes/Vakance.png" alt="Vakance Image" class="vakance-image">
+                        <p class="vacancy-location"><?php echo htmlspecialchars($vakance['atrasanas_vieta']); ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
     </section>
     
 

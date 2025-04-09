@@ -556,6 +556,132 @@ nav ul li a:hover {
     }
 }
 
+/*________________________________________________________________Pieteikšanās sekcija___________________________________________________________________________*/
+
+.vakances-konteiners {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 1024px) {
+    .vakances-konteiners {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .vakances-konteiners {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+.vacancy-box {
+    background: var(--white); 
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    text-align: center;
+    padding: 15px;
+    width: 250px; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    height: auto;
+    border: 1px solid var(--gray); 
+}
+
+
+.vacancy-box:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+.vacancy-title {
+    font-size: 1.2rem; 
+    color: var(--primary-color); 
+    margin-bottom: 10px;
+    font-weight: 600; 
+}
+
+
+.vakance-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px; 
+    margin-bottom: 10px;
+}
+
+
+.vacancy-location {
+    font-size: 1rem;
+    color: var(--secondary-color); 
+    margin-top: 10px;
+}
+
+
+.Pazinojums {
+    font-size: 1.2rem;
+    height: 60px;
+    color: #fff;
+    background-color: #f44336;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    width: 35%;
+    box-sizing: border-box;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+
+.vacancy-box .btn {
+    background: var(--accent-color);
+    color: var(--white);
+    border: none;
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    margin-top: 15px;
+}
+
+
+.vacancy-box .btn:hover {
+    background: var(--secondary-color);
+    transform: scale(1.05); 
+}
+
+#vacancyButton{
+    width: 90%;
+    margin-left: 80px;
+}
+
+@media (max-width: 768px) {
+    .vacancy-box {
+        width: 90%; 
+        margin-bottom: 20px;
+    }
+
+    .vacancy-title {
+        font-size: 1.1rem; 
+    }
+
+    .vacancy-location {
+        font-size: 0.9rem; 
+    }
+
+    .vacancy-box .btn {
+        font-size: 16px;
+        padding: 10px 15px; 
+    }
+}
+
 /*____________________________________________________________FOOTERIS_______________________________________________________________________________*/
 
 footer {

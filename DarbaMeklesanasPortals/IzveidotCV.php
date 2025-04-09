@@ -67,11 +67,32 @@ if ($stmt->execute()) {
             </nav>
             <div>
                 <?php if (isset($_SESSION["username"])): ?>
-                    <p class="login-btn">
-                        <a href="PHPFiles/logout.php"><i class="fa-solid fa-person"></i><?php echo htmlspecialchars($_SESSION["username"]); ?></a>
-                    </p>
+                    <!-- Ielogojies lietotājs -->
+                    <div class="profile-container">
+                        <p class="profile-btn" id="profileDropdownBtn">
+                            <i class="fa-solid fa-person"></i> <?php echo htmlspecialchars($_SESSION["username"]); ?>
+                        </p>
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <p class="dropdown-option"><a href="PHPFiles/logout.php">Izlogoties</a></p>
+                            <p class="dropdown-option"><a href="profile.php">Profils</a></p>
+                            
+                            <?php if ($_SESSION["userType"] === "klients"): ?>
+                                <p class="dropdown-option"><a href="IzveidotCV.php">Uztaisīt CV</a></p>
+                            <?php elseif ($_SESSION["userType"] === "uznemums"): ?>
+                                <p class="dropdown-option"><a href="IzveidotVakanci.php">Uztaisīt vakanci</a></p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
                 <?php else: ?>
-                    <p class="login-btn" id="openLogin"><i class="fa-solid fa-right-to-bracket"></i> Ienākt</p>
+                    <!-- Izrakstījies lietotājs -->
+                    <div class="login-container">
+                        <p class="login-btn" id="openLoginDropdown"><i class="fa-solid fa-right-to-bracket"></i> Ienākt</p>
+                        <div class="login-dropdown" id="loginDropdown">
+                            <p class="dropdown-option" data-user-type="klients">Klients</p>
+                            <p class="dropdown-option" data-user-type="uznemums">Uzņēmums</p>
+                        </div>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>

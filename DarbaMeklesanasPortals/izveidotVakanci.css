@@ -1,6 +1,10 @@
 
 /*______________________________________________________________Vakances loga priekšstats_____________________________________________________________________________*/
 
+.augstums{
+    min-height: 80vh;
+}
+
 .vacancy-container {
     display: flex;
     flex-wrap: wrap;

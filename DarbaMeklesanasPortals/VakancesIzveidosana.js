@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const vacancySkills = document.getElementById("vacancySkills");
     const vacancySalary = document.getElementById("vacancySalary");
 
+
     let selectedVacancyId = null;
 
     // Atver vakances modālu
@@ -60,6 +61,20 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error('Error:', error);
             alert("Error saving vacancy");
         });
+    });
+
+    function checkVacancyFormCompletion() {
+        if (
+            vacancyNameInput.value.trim() && vacancyDescriptionInput.value.trim() && vacancyLocationInput.value.trim() && vacancySkillsInput.value.trim() && vacancySalaryInput.value.trim()
+        ) {
+            saveVacancyButton.disabled = false;
+        } else {
+            saveVacancyButton.disabled = true;
+        }
+    }
+
+    [vacancyNameInput, vacancyDescriptionInput, vacancyLocationInput, vacancySkillsInput, vacancySalaryInput].forEach(input => {
+        input.addEventListener("input", checkVacancyFormCompletion);
     });
 
     document.querySelector('.vacancy-box').addEventListener('click', function(event) {
