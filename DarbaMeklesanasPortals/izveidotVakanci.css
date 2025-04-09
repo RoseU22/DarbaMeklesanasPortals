@@ -90,6 +90,10 @@
     transform: scale(1.05); 
 }
 
+#vacancyButton{
+    width: 90%;
+    margin-left: 80px;
+}
 
 @media (max-width: 768px) {
     .vacancy-box {

@@ -10,8 +10,11 @@ require 'PHPFiles/con_db.php';
 
 $username = $_SESSION['username'];
 
-// Fetch user_id of the logged-in user
-$query = "SELECT uznemumsID FROM DMPortals_Uznemums WHERE uznemuma_nosaukums = ?";
+
+echo "<script>console.log('Session username: " . $username . "');</script>";
+
+
+$query = "SELECT * FROM DMPortals_Vakances WHERE uznemuma_nosaukums = ?";
 $stmt = $savienojums->prepare($query);
 
 if (!$stmt) {
@@ -19,27 +22,6 @@ if (!$stmt) {
 }
 
 $stmt->bind_param("s", $username);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
-    $user = $result->fetch_assoc();
-    $user_id = $user['uznemumsID']; // Get the user_id of the logged-in user
-} else {
-    die("User not found.");
-}
-
-$stmt->close();
-
-// Fetch vacancies for the logged-in user
-$query = "SELECT * FROM DMPortals_Vakances WHERE vakancesID = ?";
-$stmt = $savienojums->prepare($query);
-
-if (!$stmt) {
-    die("Error preparing query: " . $savienojums->error);
-}
-
-$stmt->bind_param("i", $user_id);
 
 if ($stmt->execute()) {
     $result = $stmt->get_result();
@@ -49,11 +31,18 @@ if ($stmt->execute()) {
         $vacancies[] = $row;
     }
 
+    echo "<script>console.log('Found " . count($vacancies) . " vacancies');</script>";
+    foreach ($vacancies as $vakance) {
+        echo "<script>console.log(" . json_encode($vakance) . ");</script>";
+    }
+
     $stmt->close();
 } else {
     echo "Error executing query: " . $stmt->error;
     exit();
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -72,6 +61,9 @@ if ($stmt->execute()) {
 </head>
 
 <body>
+
+    <input type="hidden" id="loginState" value="<?php echo isset($_SESSION["username"]) ? 'true' : 'false'; ?>">
+
     <header>
         <div class="konteiners">
             <div class="header-left">
