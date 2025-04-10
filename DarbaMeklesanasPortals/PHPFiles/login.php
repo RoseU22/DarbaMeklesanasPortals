@@ -32,7 +32,7 @@ if ($userType === "klients"){
     }
 }
 
-// Login for clients
+// Login klientiem
 if ($userType === "klients") {
     $stmt = $savienojums->prepare("SELECT parole FROM DMPortals WHERE lietotajvards = ?");
     if (!$stmt) {
@@ -63,7 +63,7 @@ if ($userType === "klients") {
     exit;
 }
 
-// Login for companies
+// Login uzņēmumiem
 if ($userType === "uznemums") {
     $company_name = trim($_POST["company_name"] ?? "");
     $company_password = trim($_POST["company_password"] ?? "");
@@ -105,6 +105,6 @@ if ($userType === "uznemums") {
     exit;
 }
 
-// If no valid user type is found
+// Ja nav atrasts derīgs lietotāja tips
 echo json_encode(["success" => false, "error" => "Nederīgs lietotāja tips"]);
 exit;
