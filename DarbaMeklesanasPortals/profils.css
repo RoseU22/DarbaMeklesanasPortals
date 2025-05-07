@@ -1,0 +1,74 @@
+:root {
+    --primary-color: #0A192F;
+    --secondary-color: #112240;
+    --accent-color: #64FFDA;
+    --text-color: #CCD6F6;
+    --background-color: #020C1B;
+    --white: #FFFFFF;
+    --gray: #8892B0;
+    --shadow-color: rgba(2, 12, 27, 0.7);
+}
+
+.accountprofile-container {
+    max-width: 600px;
+    margin: 60px auto;
+    background-color: var(--secondary-color);
+    padding: 30px 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    scale: 1.1;
+}
+
+.accountprofile-container h2 {
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.accountprofile-container label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: var(--white);
+}
+
+.accountprofile-container input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.accountprofile-container button {
+    margin-top: 25px;
+    padding: 12px 24px;
+    width: 100%;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.accountprofile-container button:disabled {
+    background-color: var(--gray);
+    color: var(--primary-color);
+    cursor: not-allowed;
+    border: 1px solid #999;
+}
+
+.accountprofile-container button:disabled:hover {
+    background-color: var(--gray);
+}
+
+
+.accountprofile-container button:hover {
+    background-color: #52e0c4;
+    transform: scale(1.02);
+}

@@ -79,7 +79,7 @@ if ($stmt->execute()) {
                         </p>
                         <div class="profile-dropdown" id="profileDropdown">
                             <p class="dropdown-option"><a href="PHPFiles/logout.php">Izlogoties</a></p>
-                            <p class="dropdown-option"><a href="profile.php">Profils</a></p>
+                            <p class="dropdown-option"><a href="profils.php">Profils</a></p>
                             
                             <?php if ($_SESSION["userType"] === "klients"): ?>
                                 <p class="dropdown-option"><a href="IzveidotCV.php">Uztaisīt CV</a></p>
