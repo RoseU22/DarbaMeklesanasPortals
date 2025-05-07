@@ -151,49 +151,60 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </header>
 
     <div class="accountprofile-container">
-        <h2>Mans Profils</h2>
-        <form method="post" action="">
-            <?php if ($user_type === 'klients'): ?>
-                <label for="lietotajvards">Lietotājvārds:</label>
-                <input type="text" id="lietotajvards" name="lietotajvards" value="<?php echo htmlspecialchars($user['lietotajvards']); ?>" required>
+        <div class="profile-content">
+            <div class="profile-image-container">
+            <label for="profile-image" class="upload-image-label">
+                <img id="profile-image-preview" src="Bildes/DefaultIcon.png" alt="Profile Image">
+                <input type="file" id="profile-image" name="profile_image" accept="image/*" style="display: none;">
+            </label>
+            <p>Noklikšķiniet lai nomainītu bildi</p>
+        </div>
 
-                <label for="vards">Vārds:</label>
-                <input type="text" id="vards" name="vards" value="<?php echo htmlspecialchars($user['vards']); ?>" required>
+        <div class="profile-form">
+            <h2>Mans Profils</h2>
+            <form method="post" action="" enctype="multipart/form-data">
+                <?php if ($user_type === 'klients'): ?>
+                    <label for="lietotajvards">Lietotājvārds:</label>
+                    <input type="text" id="lietotajvards" name="lietotajvards" value="<?php echo htmlspecialchars($user['lietotajvards']); ?>" required>
 
-                <label for="uzvards">Uzvārds:</label>
-                <input type="text" id="uzvards" name="uzvards" value="<?php echo htmlspecialchars($user['uzvards']); ?>" required>
+                    <label for="vards">Vārds:</label>
+                    <input type="text" id="vards" name="vards" value="<?php echo htmlspecialchars($user['vards']); ?>" required>
 
-                <label for="epasts">E-pasts:</label>
-                <input type="email" id="epasts" name="epasts" value="<?php echo htmlspecialchars($user['epasts']); ?>" required>
+                    <label for="uzvards">Uzvārds:</label>
+                    <input type="text" id="uzvards" name="uzvards" value="<?php echo htmlspecialchars($user['uzvards']); ?>" required>
 
-                <label for="parole">Parole (atstāj tukšu, ja nemaini):</label>
-                <input type="password" id="parole" name="parole" value="">
+                    <label for="epasts">E-pasts:</label>
+                    <input type="email" id="epasts" name="epasts" value="<?php echo htmlspecialchars($user['epasts']); ?>" required>
 
+                    <label for="parole">Parole (atstāj tukšu, ja nemaini):</label>
+                    <input type="password" id="parole" name="parole" value="">
 
-            <?php elseif ($user_type === 'uznemums'): ?>
-                <label for="uznemuma_nosaukums">Uzņēmuma nosaukums:</label>
-                <input type="text" id="uznemuma_nosaukums" name="uznemuma_nosaukums" value="<?php echo htmlspecialchars($user['uznemuma_nosaukums']); ?>" required>
+                <?php elseif ($user_type === 'uznemums'): ?>
+                    <label for="uznemuma_nosaukums">Uzņēmuma nosaukums:</label>
+                    <input type="text" id="uznemuma_nosaukums" name="uznemuma_nosaukums" value="<?php echo htmlspecialchars($user['uznemuma_nosaukums']); ?>" required>
 
-                <label for="registracijas_numurs">Reģistrācijas numurs:</label>
-                <input type="text" id="registracijas_numurs" name="registracijas_numurs" value="<?php echo htmlspecialchars($user['registracijas_numurs']); ?>" required>
+                    <label for="registracijas_numurs">Reģistrācijas numurs:</label>
+                    <input type="text" id="registracijas_numurs" name="registracijas_numurs" value="<?php echo htmlspecialchars($user['registracijas_numurs']); ?>" required>
 
-                <label for="uznemuma_epasts">E-pasts:</label>
-                <input type="email" id="uznemuma_epasts" name="uznemuma_epasts" value="<?php echo htmlspecialchars($user['uznemuma_epasts']); ?>" required>
+                    <label for="uznemuma_epasts">E-pasts:</label>
+                    <input type="email" id="uznemuma_epasts" name="uznemuma_epasts" value="<?php echo htmlspecialchars($user['uznemuma_epasts']); ?>" required>
 
-                <label for="uznemuma_TelNr">Telefona numurs:</label>
-                <input type="text" id="uznemuma_TelNr" name="uznemuma_TelNr" value="<?php echo htmlspecialchars($user['uznemuma_TelNr']); ?>" required>
+                    <label for="uznemuma_TelNr">Telefona numurs:</label>
+                    <input type="text" id="uznemuma_TelNr" name="uznemuma_TelNr" value="<?php echo htmlspecialchars($user['uznemuma_TelNr']); ?>" required>
 
-                <label for="PVN_numurs">PVN numurs:</label>
-                <input type="text" id="PVN_numurs" name="PVN_numurs" value="<?php echo htmlspecialchars($user['PVN_numurs']); ?>" required>
+                    <label for="PVN_numurs">PVN numurs:</label>
+                    <input type="text" id="PVN_numurs" name="PVN_numurs" value="<?php echo htmlspecialchars($user['PVN_numurs']); ?>" required>
 
-                <label for="uznemuma_parole">Parole (atstāj tukšu, ja nemaini):</label>
-                <input type="password" id="uznemuma_parole" name="uznemuma_parole" value="">
+                    <label for="uznemuma_parole">Parole (atstāj tukšu, ja nemaini):</label>
+                    <input type="password" id="uznemuma_parole" name="uznemuma_parole" value="">
 
-            <?php endif; ?>
+                <?php endif; ?>
 
-            <button type="submit" disabled>Saglabāt izmaiņas</button>
-
-        </form>
+                <button type="submit" disabled>Saglabāt izmaiņas</button>
+            </form>
+        </div>
     </div>
+</div>
+
 </body>
 </html>
