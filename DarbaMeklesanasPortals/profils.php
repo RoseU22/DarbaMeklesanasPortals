@@ -32,6 +32,25 @@ if (!$user) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    
+    // Saglabā bildi uz datubāzi (LONGBLOB)
+    if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] == UPLOAD_ERR_OK) {
+        $image_data = file_get_contents($_FILES['profile_image']['tmp_name']);
+
+        // Saglabā bildi attiecīgā datubāzē balstoties uz konta tipu
+        if ($user_type === 'klients') {
+            $stmt = $savienojums->prepare("UPDATE DMPortals SET profila_bilde = ? WHERE lietotajvards = ?");
+            $stmt->bind_param("bs", $image_data, $lietotajvards);
+        } else {
+            $stmt = $savienojums->prepare("UPDATE DMPortals_Uznemums SET profila_bilde = ? WHERE uznemuma_nosaukums = ?");
+            $stmt->bind_param("bs", $image_data, $lietotajvards);
+        }
+
+        $stmt->send_long_data(0, $image_data);
+        $stmt->execute();
+    }
+
     if ($user_type === 'klients') {
         $new_username = $_POST["lietotajvards"];
         $vards = $_POST["vards"];
@@ -39,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $epasts = $_POST["epasts"];
         $parole = $_POST["parole"];
 
-        // Check if new username is taken (by another user)
+        // Pārbauda vai jau neeksistē lietotājs ar tādu vārdu ko grib rediģēt uz
         if ($new_username !== $lietotajvards) {
             $check_stmt = $savienojums->prepare("SELECT lietotajvards FROM DMPortals WHERE lietotajvards = ?");
             $check_stmt->bind_param("s", $new_username);
@@ -125,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <?php if (isset($_SESSION["username"])): ?>
                     <div class="profile-container">
                         <p class="profile-btn" id="profileDropdownBtn">
-                            <i class="fa-solid fa-person"></i> <?php echo htmlspecialchars($_SESSION["username"]); ?>
+                            <img src="bilde.php" alt=""> <?php echo htmlspecialchars($_SESSION["username"]); ?>
                         </p>
                         <div class="profile-dropdown" id="profileDropdown">
                             <p class="dropdown-option"><a href="PHPFiles/logout.php">Izlogoties</a></p>
@@ -150,19 +169,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </header>
 
-    <div class="accountprofile-container">
+<div class="accountprofile-container">
+    <form method="post" action="" enctype="multipart/form-data">
         <div class="profile-content">
             <div class="profile-image-container">
-            <label for="profile-image" class="upload-image-label">
-                <img id="profile-image-preview" src="Bildes/DefaultIcon.png" alt="Profile Image">
-                <input type="file" id="profile-image" name="profile_image" accept="image/*" style="display: none;">
-            </label>
-            <p>Noklikšķiniet lai nomainītu bildi</p>
-        </div>
+                <label for="profile-image" class="upload-image-label">
+                    <img id="profile-image-preview" src="bilde.php" alt="Profile Image">
+                    <input type="file" id="profile-image" name="profile_image" accept="image/*" style="display: none;">
+                </label>
+                <p>Noklikšķiniet lai nomainītu bildi</p>
+            </div>
 
-        <div class="profile-form">
-            <h2>Mans Profils</h2>
-            <form method="post" action="" enctype="multipart/form-data">
+            <div class="profile-form">
+                <h2>Mans Profils</h2>
+
                 <?php if ($user_type === 'klients'): ?>
                     <label for="lietotajvards">Lietotājvārds:</label>
                     <input type="text" id="lietotajvards" name="lietotajvards" value="<?php echo htmlspecialchars($user['lietotajvards']); ?>" required>
@@ -200,10 +220,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <?php endif; ?>
 
-                <button type="submit" disabled>Saglabāt izmaiņas</button>
-            </form>
+                <button type="submit">Saglabāt izmaiņas</button>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 
 </body>

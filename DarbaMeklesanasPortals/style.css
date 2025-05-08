@@ -242,7 +242,6 @@ nav ul li a:hover {
 .profile-btn {
     display: flex;
     align-items: center;
-    justify-content: center;
     background: var(--accent-color);
     color: var(--primary-color);
     font-size: 14px;
@@ -256,6 +255,13 @@ nav ul li a:hover {
     width: fit-content;
     max-width: 100%;
     white-space: nowrap;
+}
+
+.profile-btn img{
+    width: 25px;
+    height: 25px;
+    border-radius: 2rem;
+    margin-right: 15px;
 }
 
 .profile-btn:hover {

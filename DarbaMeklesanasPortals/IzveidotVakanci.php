@@ -88,7 +88,7 @@ if ($stmt->execute()) {
                     <!-- Ielogojies lietotājs -->
                     <div class="profile-container">
                         <p class="profile-btn" id="profileDropdownBtn">
-                            <i class="fa-solid fa-person"></i> <?php echo htmlspecialchars($_SESSION["username"]); ?>
+                            <img src="bilde.php" alt=""> <?php echo htmlspecialchars($_SESSION["username"]); ?>
                         </p>
                         <div class="profile-dropdown" id="profileDropdown">
                             <p class="dropdown-option"><a href="PHPFiles/logout.php">Izlogoties</a></p>

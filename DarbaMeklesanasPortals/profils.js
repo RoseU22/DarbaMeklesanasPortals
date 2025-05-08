@@ -3,13 +3,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const submitButton = form.querySelector("button[type='submit']");
     const inputs = form.querySelectorAll("input");
 
-    // Store the initial values of all inputs
     const initialValues = {};
     inputs.forEach(input => {
         initialValues[input.name] = input.value;
     });
 
-    // Disable the button at the start
     submitButton.disabled = true;
 
     form.addEventListener("input", function () {
@@ -22,4 +20,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
         submitButton.disabled = !changed;
     });
+
+    document.getElementById("profile-image").addEventListener("change", function () {
+        const form = this.closest("form");
+    
+        // Parāda priekšskatījumu
+        const preview = document.getElementById("profile-image-preview");
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                preview.src = reader.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+    
 });
