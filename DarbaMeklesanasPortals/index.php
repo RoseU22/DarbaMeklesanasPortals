@@ -224,7 +224,7 @@
                         <p class="vacancy-title"><?php echo htmlspecialchars($vakance['vakances_nosaukums']); ?></p>
                         <img src="Bildes/Vakance.png" alt="Vakance Image" class="vakance-image">
                         <p class="vacancy-location"><?php echo htmlspecialchars($vakance['atrasanas_vieta']); ?></p>
-                        <button class="openModalBtn" 
+                        <button class="openModalBtn"
                                 data-id="<?php echo $vakance['vakancesID']; ?>"
                                 data-title="<?php echo htmlspecialchars($vakance['vakances_nosaukums']); ?>"
                                 data-description="<?php echo htmlspecialchars($vakance['vakances_apraksts']); ?>"
@@ -234,6 +234,8 @@
                             Apskatīt
                         </button>
                     </div>
+
+                    
                 <?php endforeach; ?>
             </div>
         </div>
@@ -253,7 +255,7 @@
                 <p><strong>Nepieciešamās prasmes:</strong> <span id="modalVacancySkills"></span></p>
                 <p><strong>Alga:</strong> <span id="modalVacancySalary"></span></p>
                 <?php if ($_SESSION["userType"] === "klients"): ?>
-                    <button class="applyBtn" data-vacancy-id="<?php echo $vakance['vakancesID']; ?>">
+                    <button class="applyBtn" data-vacancy-id="">
                         Pieteikties
                     </button>
                 <?php endif; ?>

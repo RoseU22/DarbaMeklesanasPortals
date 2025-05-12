@@ -15,10 +15,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const cvDropBox = document.querySelector('.cv-drop-box');
     const availableCvs = document.getElementById('availableCvs');
     const submitBtn = document.getElementById("submitApplicationBtn");
+    const applyBtn = modal.querySelector(".applyBtn");
+
+    let selectedVacancyId = null;
+    let selectedCvElement = null;
+
 
     applyButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-            const vacancyId = btn.getAttribute('data-vacancy-id');
+            selectedVacancyId = btn.getAttribute('data-vacancy-id');
+            console.log("Saglabāts vakances ID:", selectedVacancyId);
             cvModal.style.display = 'block';
             availableCvs.innerHTML = "";
     
@@ -74,6 +80,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    document.querySelectorAll(".openModalBtn").forEach(button => {
+        button.addEventListener("click", function () {
+            const vacancyId = this.getAttribute("data-id");
+
+            // Set vacancy ID on apply button
+            applyBtn.setAttribute("data-vacancy-id", vacancyId);
+        });
+    });
+    
+
     function resetCvModal() {
         // Reset the drop box text
         cvDropBox.innerHTML = 'Ielikt CV';
@@ -108,6 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function drop(event) {
         event.preventDefault();
         const cvId = event.dataTransfer.getData("text"); // Dabūd CV ID
+        selectedCvElement = cvId; //
 
         // Dabūd CV data balstoties pēc tā ID
         fetch(`PHPFiles/dabut_cv.php?id=${cvId}`)
@@ -127,6 +144,48 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert("Kļūda sazinoties ar serveri.");
             });
     }
+
+    submitBtn.addEventListener("click", () => {
+        if (!selectedCvElement) {
+            alert("Lūdzu, ielieciet CV lodziņā.");
+            return;
+        }
+    
+        const cvId = selectedCvElement;
+        const vacancyId = selectedVacancyId;
+    
+        console.log("Izvēlētais CV ID:", cvId);
+        console.log("Vakances ID:", vacancyId);
+    
+        if (!cvId || !vacancyId) {
+            alert("Kļūda: nav iespējams nosūtīt pieteikumu. Trūkst CV vai vakances ID.");
+            return;
+        }
+    
+        fetch("PHPFiles/pieteikties_vakancei.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `vakance_id=${encodeURIComponent(vacancyId)}&cv_id=${encodeURIComponent(cvId)}`
+        })
+        .then(res => res.json())
+        .then(response => {
+            if (response.success) {
+                alert("Pieteikums veiksmīgi nosūtīts!");
+                cvModal.style.display = "none";
+                resetCvModal();
+            } else {
+                alert("Kļūda: " + response.message);
+            }
+        })
+        .catch(error => {
+            console.error("Kļūda pieprasījumā:", error);
+            alert("Kļūda nosūtot datus uz serveri.");
+        });
+    });
+    
+    
 
     openButtons.forEach(btn => {
         btn.addEventListener("click", () => {
