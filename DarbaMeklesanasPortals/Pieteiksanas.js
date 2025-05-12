@@ -9,6 +9,115 @@ document.addEventListener("DOMContentLoaded", () => {
     const skills = document.getElementById("modalVacancySkills");
     const salary = document.getElementById("modalVacancySalary");
 
+    const applyButtons = document.querySelectorAll('.applyBtn');
+    const cvModal = document.getElementById('cvSelectModal');
+    const closeCvModal = document.querySelector('.closeCvModalBtn');
+    const cvDropBox = document.querySelector('.cv-drop-box');
+    const availableCvs = document.getElementById('availableCvs');
+
+    applyButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const vacancyId = btn.getAttribute('data-vacancy-id');
+            cvModal.style.display = 'block';
+            availableCvs.innerHTML = "";
+    
+            fetch('PHPFiles/dabut_visus_cv.php')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.length === 0) {
+                        availableCvs.innerHTML = "<p>Nav pieejamu CV.</p>";
+                    } else {
+                        data.forEach(cv => {
+                            const div = document.createElement('div');
+                            div.textContent = `CV Nosaukums: ${cv.vards}`;
+                            div.classList.add('cv-item');
+                            div.style.padding = '10px';
+                            div.style.borderBottom = '1px solid #ccc';
+                            div.setAttribute('draggable', 'true');
+                            div.setAttribute('data-id', cv.id);
+    
+                            // Iesāk vilkšanu
+                            div.addEventListener('dragstart', (e) => {
+                                
+                                e.dataTransfer.setData("text", cv.id);
+    
+                                // Paštaisīts vilkšanas priekšskatījums
+                                const preview = document.createElement('div');
+                                preview.style.position = 'absolute';
+                                preview.style.top = '-1000px';
+                                preview.style.left = '-1000px';
+                                preview.style.padding = '10px 15px';
+                                preview.style.border = '2px solid var(--accent-color)';
+                                preview.style.backgroundColor = 'var(--secondary-color)';
+                                preview.style.color = 'var(--text-color)';
+                                preview.style.borderRadius = '8px';
+                                preview.style.fontFamily = 'Poppins, sans-serif';
+                                preview.style.fontSize = '14px';
+                                preview.textContent = cv.vards;
+                                preview.classList.add('custom-drag-preview');
+                                document.body.appendChild(preview);
+    
+                                e.dataTransfer.setDragImage(preview, 0, 0);
+                            });
+    
+                            // sakopšana pēc vilkšanas beigām
+                            div.addEventListener('dragend', () => {
+                                const previews = document.querySelectorAll('.custom-drag-preview');
+                                previews.forEach(p => p.remove());
+                            });
+    
+                            availableCvs.appendChild(div);
+                        });
+                    }
+                });
+        });
+    });
+
+    closeCvModal.addEventListener('click', () => {
+        cvModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === cvModal) {
+            cvModal.style.display = 'none';
+        }
+    });
+
+    // Drag and Drop funkcija
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+
+    function dragStart(event) {
+        // Saglabā ID tajam CV kurš tiek velkts
+        event.dataTransfer.setData("text", event.target.getAttribute("data-id"));
+    }
+
+    cvDropBox.addEventListener('dragover', allowDrop); // Atļauj vilkt pāri drop box
+    cvDropBox.addEventListener('drop', drop);
+
+    function drop(event) {
+        event.preventDefault();
+        const cvId = event.dataTransfer.getData("text"); // Dabūd CV ID
+
+        // Dabūd CV data balstoties pēc tā ID
+        fetch(`PHPFiles/dabut_cv.php?id=${cvId}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const cvName = data.cv.vards;
+                    // Parāda CV vārdu iekšā drop box
+                    cvDropBox.innerHTML = `<div class="cv-item">${cvName}</div>`;
+                } else {
+                    alert("Kļūda, nenoņemt CV.");
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Kļūda sazinoties ar serveri.");
+            });
+    }
+
     openButtons.forEach(btn => {
         btn.addEventListener("click", () => {
             title.textContent = btn.dataset.title;

@@ -251,11 +251,26 @@
                 <p><strong>Atrašanās vieta:</strong> <span id="modalVacancyLocation"></span></p>
                 <p><strong>Nepieciešamās prasmes:</strong> <span id="modalVacancySkills"></span></p>
                 <p><strong>Alga:</strong> <span id="modalVacancySalary"></span></p>
-                <button>Pieteikties</button>
+                <?php if ($_SESSION["userType"] === "klients"): ?>
+                    <button class="applyBtn" data-vacancy-id="<?php echo $vakance['vakancesID']; ?>">
+                        Pieteikties
+                    </button>
+                <?php endif; ?>
             </div>
         </div>
     </div>
 
+    <!-- CV Izvēles modālais logs -->
+    <div id="cvSelectModal" class="modal-CVselect">
+        <div class="modal-content-CVselect">
+            <span class="closeCvModalBtn">&times;</span>
+            <h2>Pievienot CV pieteikumam</h2>
+            <div class="cv-placeholder" id="cvUploadArea">
+                <div class="cv-drop-box">Ielikt CV</div>
+            </div>
+            <div id="availableCvs" style="margin-top: 1rem;"></div>
+        </div>
+    </div>
 
     <footer>
 
