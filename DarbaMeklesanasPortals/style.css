@@ -867,6 +867,7 @@ nav ul li a:hover {
     position: relative;
     color: var(--text-color);
     box-shadow: 0 4px 8px var(--shadow-color);
+    top: 10rem;
 }
 
 .closeCvModalBtn {
@@ -916,6 +917,24 @@ nav ul li a:hover {
 
 .cv-item:hover {
     background-color: var(--accent-color);
+}
+
+#submitApplicationBtn {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    font-size: 18px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+#submitApplicationBtn:disabled{
+    background-color: var(--gray);
+    cursor: not-allowed;
 }
 
 

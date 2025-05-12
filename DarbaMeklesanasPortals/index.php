@@ -84,6 +84,7 @@
                             <?php if ($_SESSION["userType"] === "klients"): ?>
                                 <p class="dropdown-option"><a href="IzveidotCV.php">Uztaisīt CV</a></p>
                             <?php elseif ($_SESSION["userType"] === "uznemums"): ?>
+                                <p class="dropdown-option"><a href="pazinojumi.php">Paziņojumi</a></p>
                                 <p class="dropdown-option"><a href="IzveidotVakanci.php">Uztaisīt vakanci</a></p>
                             <?php endif; ?>
                         </div>
@@ -264,11 +265,12 @@
     <div id="cvSelectModal" class="modal-CVselect">
         <div class="modal-content-CVselect">
             <span class="closeCvModalBtn">&times;</span>
-            <h2>Pievienot CV pieteikumam</h2>
+            <h2>Pievienot CV</h2>
             <div class="cv-placeholder" id="cvUploadArea">
-                <div class="cv-drop-box">Ielikt CV</div>
+                <div class="cv-drop-box">Ievelciet CV</div>
             </div>
             <div id="availableCvs" style="margin-top: 1rem;"></div>
+            <button id="submitApplicationBtn" disabled style="margin-top: 1rem;">Pieteikties</button>
         </div>
     </div>
 

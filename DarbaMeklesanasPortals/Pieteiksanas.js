@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeCvModal = document.querySelector('.closeCvModalBtn');
     const cvDropBox = document.querySelector('.cv-drop-box');
     const availableCvs = document.getElementById('availableCvs');
+    const submitBtn = document.getElementById("submitApplicationBtn");
 
     applyButtons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -73,8 +74,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    function resetCvModal() {
+        // Reset the drop box text
+        cvDropBox.innerHTML = 'Ielikt CV';
+    
+        // Disable the submit button
+        submitBtn.disabled = true;
+    
+        // Remove any previously stored CV ID
+        submitBtn.removeAttribute('data-cv-id');
+    }
+
     closeCvModal.addEventListener('click', () => {
         cvModal.style.display = 'none';
+        resetCvModal();
     });
 
     window.addEventListener('click', (e) => {
@@ -87,11 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function allowDrop(event) {
         event.preventDefault();
     }
-
-    function dragStart(event) {
-        // Saglabā ID tajam CV kurš tiek velkts
-        event.dataTransfer.setData("text", event.target.getAttribute("data-id"));
-    }
+    
 
     cvDropBox.addEventListener('dragover', allowDrop); // Atļauj vilkt pāri drop box
     cvDropBox.addEventListener('drop', drop);
@@ -107,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (data.success) {
                     const cvName = data.cv.vards;
                     // Parāda CV vārdu iekšā drop box
+                    submitBtn.disabled = false;
                     cvDropBox.innerHTML = `<div class="cv-item">${cvName}</div>`;
                 } else {
                     alert("Kļūda, nenoņemt CV.");
