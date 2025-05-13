@@ -3,16 +3,12 @@ session_start();
 header('Content-Type: application/json');
 require 'con_db.php';
 
-// Enable error reporting for debugging (REMOVE IN PRODUCTION)
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 if (!isset($_SESSION['username']) || $_SESSION['userType'] !== 'klients') {
     echo json_encode(['success' => false, 'message' => 'Nepieciešama klienta autorizācija.']);
     exit;
 }
 
-// Fetch the klients_id using the session username
+// Dabūd klienta id izmantojot tās lietotājvārdu
 $klients_username = $_SESSION['username'];
 $klients_id = null;
 
@@ -34,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $vakance_id = $_POST['vakance_id'] ?? null;
     $cv_id = $_POST['cv_id'] ?? null;
 
-    // Debugging output for variables
     error_log("klients_id: " . var_export($klients_id, true));
     error_log("vakance_id: " . var_export($vakance_id, true));
     error_log("cv_id: " . var_export($cv_id, true));
@@ -44,13 +39,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Validate that the provided values are integers
+    // Pārbauda vai dabūtie dati ir integer
     if (!is_numeric($vakance_id) || !is_numeric($cv_id)) {
         echo json_encode(['success' => false, 'message' => 'Nepareizi dati (vakance vai CV ID).']);
         exit;
     }
 
-    // Prepare and execute insert query
     $stmt = $savienojums->prepare("INSERT INTO DMPortals_Pazinojumi (vakance_id, klients_id, cv_id) VALUES (?, ?, ?)");
     if ($stmt === false) {
         echo json_encode(['success' => false, 'message' => 'Kļūda sagatavojot vaicājumu: ' . $savienojums->error]);

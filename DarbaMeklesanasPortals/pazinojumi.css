@@ -1,49 +1,85 @@
+.notification-header{
+    position: relative;
+    top: 1rem;
+}
+
 .notification-container {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    background-color: var(--background-color);
 }
 
 .notification {
+    width: 100%;
+    max-width: 800px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: white;
-    border-left: 5px solid var(--accent-color);
-    border-radius: 10px;
-    padding: 1rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background: var(--secondary-color);
+    border-left: 4px solid var(--accent-color);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    color: var(--text-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.notification:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px var(--shadow-color);
 }
 
 .notification .info {
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex: 1;
 }
 
 .notification img {
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #ccc;
+    border: 2px solid var(--gray);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.notification .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.notification .text p {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 .notification button {
     background-color: var(--accent-color);
-    color: white;
-    padding: 0.5rem 1rem;
+    color: var(--primary-color);
+    padding: 0.5rem 1.2rem;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
+    font-weight: bold;
     cursor: pointer;
     transition: background 0.3s ease;
 }
 
 .notification button:hover {
-    background-color: #005fa3;
+    background-color: #52e0c4;
 }
 
 .no-notifications {
-    color: red;
+    color: var(--accent-color);
     font-weight: bold;
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
 }
