@@ -9,7 +9,7 @@ require 'PHPFiles/con_db.php';
 
 $companyName = $_SESSION['username']; // This holds uznemuma_nosaukums
 
-// Fetch notifications (CV applications sent to this company's vacancies)
+// Dabūd paziņojumus (klienta pieteikšanās konkrētā uzņēmuma vakancei)
 $sql = "SELECT p.pazinojumi_id, p.klients_id, p.cv_id, k.lietotajvards, k.profila_bilde
         FROM DMPortals_Pazinojumi p
         JOIN DMPortals_Vakances v ON p.vakance_id = v.vakancesID
@@ -100,7 +100,7 @@ $notifications = $result->fetch_all(MYSQLI_ASSOC);
         <?php endif; ?>
     </div>
 
-    <!-- View CV Modal -->
+    <!-- CV modālais logs -->
     <div id="cvModal" class="modal">
         <div class="modal-content">
             <div id="cvFields">

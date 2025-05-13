@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Select all Apskatīt buttons
     const apskatitButtons = document.querySelectorAll('.apskatit-btn');
     const cvModal = document.getElementById("cvModal");
     const closeCVModal = document.getElementById("closeCVModal");
@@ -94,13 +93,11 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
 
-    // Loop through each Apskatīt button and add an event listener
+    // Iziet cauri katram apskatīt pogai
     apskatitButtons.forEach(button => {
         button.addEventListener("click", function(event) {
-            const cvId = event.target.getAttribute('data-cv-id'); // Get the CV ID
-            console.log(cvId);  // Log the CV ID to check it's correct
-
-            fetchCVData(cvId); // Call the function to fetch CV data
+            const cvId = event.target.getAttribute('data-cv-id'); // Dabūd cv id
+            fetchCVData(cvId); // Pasauc funkciju lai dabūtu CV datus
         });
     });
 
@@ -136,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
     }
 
-    // Close modal when the close button is clicked
+    // Aizver modālo logu ciet
     closeCVModal.addEventListener("click", function() {
         cvModal.classList.remove("show");
     });
