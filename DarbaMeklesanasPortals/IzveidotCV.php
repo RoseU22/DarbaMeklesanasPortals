@@ -80,11 +80,11 @@ if ($stmt->execute()) {
                         <div class="profile-dropdown" id="profileDropdown">
                             <p class="dropdown-option"><a href="PHPFiles/logout.php">Izlogoties</a></p>
                             <p class="dropdown-option"><a href="profils.php">Profils</a></p>
+                            <p class="dropdown-option"><a href="pazinojumi.php">Paziņojumi</a></p>
                             
                             <?php if ($_SESSION["userType"] === "klients"): ?>
                                 <p class="dropdown-option"><a href="IzveidotCV.php">Uztaisīt CV</a></p>
                             <?php elseif ($_SESSION["userType"] === "uznemums"): ?>
-                                <p class="dropdown-option"><a href="pazinojumi.php">Paziņojumi</a></p>
                                 <p class="dropdown-option"><a href="IzveidotVakanci.php">Uztaisīt vakanci</a></p>
                             <?php endif; ?>
                         </div>

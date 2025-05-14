@@ -1,25 +1,56 @@
 <?php
 session_start();
-if (!isset($_SESSION['userType']) || $_SESSION['userType'] !== 'uznemums') {
+if (!isset($_SESSION['userType'])) {
     header("Location: index.php");
     exit();
 }
 
 require 'PHPFiles/con_db.php';
 
-$companyName = $_SESSION['username']; // This holds uznemuma_nosaukums
+$userType = $_SESSION['userType'];
+$username = $_SESSION['username'];
 
-// Dabūd paziņojumus (klienta pieteikšanās konkrētā uzņēmuma vakancei)
-$sql = "SELECT p.pazinojumi_id, p.klients_id, p.cv_id, k.lietotajvards, k.profila_bilde
-        FROM DMPortals_Pazinojumi p
-        JOIN DMPortals_Vakances v ON p.vakance_id = v.vakancesID
-        JOIN DMPortals k ON p.klients_id = k.lietotajsID
-        WHERE v.uznemuma_nosaukums = ?";
-$stmt = $savienojums->prepare($sql);
-$stmt->bind_param("s", $companyName);
-$stmt->execute();
-$result = $stmt->get_result();
-$notifications = $result->fetch_all(MYSQLI_ASSOC);
+$notifications = [];
+
+if ($userType === 'uznemums') {
+    $sql = "SELECT p.pazinojumi_id, p.klients_id, p.cv_id, k.lietotajvards, k.profila_bilde, v.vakances_nosaukums
+            FROM DMPortals_Pazinojumi p
+            JOIN DMPortals_Vakances v ON p.vakance_id = v.vakancesID
+            JOIN DMPortals k ON p.klients_id = k.lietotajsID
+            WHERE v.uznemuma_nosaukums = ?";
+    $stmt = $savienojums->prepare($sql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $notifications = $result->fetch_all(MYSQLI_ASSOC);
+} elseif ($userType === 'klients') {
+    $sql = "SELECT 
+                p.pazinojumi_id,
+                v.vakances_nosaukums,
+                u.uznemuma_nosaukums,
+                u.profila_bilde,
+                u.uznemumsID
+            FROM DMPortals_Pazinojumi p
+            JOIN DMPortals_Vakances v ON p.vakance_id = v.vakancesID
+            JOIN DMPortals_Uznemums u ON v.uznemuma_nosaukums = u.uznemuma_nosaukums
+            WHERE p.klients_id = (
+                SELECT lietotajsID FROM DMPortals WHERE lietotajvards = ?
+            )";
+    
+    $stmt = $savienojums->prepare($sql);
+    if (!$stmt) {
+        die("SQL prepare error: " . $savienojums->error);
+    }
+
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $notifications = $result->fetch_all(MYSQLI_ASSOC);
+}
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -60,10 +91,11 @@ $notifications = $result->fetch_all(MYSQLI_ASSOC);
                         <div class="profile-dropdown" id="profileDropdown">
                             <p class="dropdown-option"><a href="PHPFiles/logout.php">Izlogoties</a></p>
                             <p class="dropdown-option"><a href="profils.php">Profils</a></p>
+                            <p class="dropdown-option"><a href="pazinojumi.php">Paziņojumi</a></p>
+                            
                             <?php if ($_SESSION["userType"] === "klients"): ?>
                                 <p class="dropdown-option"><a href="IzveidotCV.php">Uztaisīt CV</a></p>
                             <?php elseif ($_SESSION["userType"] === "uznemums"): ?>
-                                <p class="dropdown-option"><a href="pazinojumi.php">Paziņojumi</a></p>
                                 <p class="dropdown-option"><a href="IzveidotVakanci.php">Uztaisīt vakanci</a></p>
                             <?php endif; ?>
                         </div>
@@ -90,15 +122,33 @@ $notifications = $result->fetch_all(MYSQLI_ASSOC);
             <?php foreach ($notifications as $note): ?>
                 <div class="notification">
                     <div class="info">
-                        <img src="bilde.php?id=<?php echo $note['klients_id']; ?>&type=klients" alt="Klienta bilde">
-                        <strong><?php echo htmlspecialchars($note['lietotajvards']); ?></strong>
+                        <?php if ($userType === 'uznemums'): ?>
+                            <img src="bilde.php?id=<?php echo $note['klients_id']; ?>&type=klients" alt="Klienta bilde">
+                            <div class="nosaukumuSakartojums">
+                                <strong><?php echo htmlspecialchars($note['lietotajvards']); ?></strong>
+                                <span><?php echo htmlspecialchars($note['vakances_nosaukums']); ?></span>
+                            </div>
+                        <?php else: ?>
+                            <img src="bilde.php?id=<?php echo htmlspecialchars($note['uznemumsID']); ?>&type=uznemums" alt="Uzņēmuma bilde">
+                            <div class="nosaukumuSakartojums">
+                                <strong><?php echo htmlspecialchars($note['uznemuma_nosaukums']); ?></strong>
+                                <span><?php echo htmlspecialchars($note['vakances_nosaukums']); ?></span>
+                            </div>
+                        <?php endif; ?>
                     </div>
+
+                    <?php if ($userType === 'uznemums'): ?>
                         <input type="hidden" name="pazinojumi_id" value="<?php echo $note['pazinojumi_id']; ?>">
+                        <button class="delete-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Dzēst paziņojumu">🗑️</button>
                         <button class="apskatit-btn" data-cv-id=<?php echo $note['cv_id']; ?>>Apskatīt</button>
+                    <?php else: ?>
+                        <span class="sent-status">Aizsūtīts</span>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
     </div>
+
 
     <!-- CV modālais logs -->
     <div id="cvModal" class="modal">

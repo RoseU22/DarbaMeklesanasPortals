@@ -165,4 +165,33 @@ document.addEventListener("DOMContentLoaded", function() {
         languagesInput.setAttribute("placeholder", translations[language].languagesPlaceholder);
         additionalInfoInput.setAttribute("placeholder", translations[language].additionalInfoPlaceholder);
     }
+
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const pazinojumiId = this.getAttribute('data-paz-id');
+            const notificationDiv = this.closest('.notification');
+
+            fetch('PHPFiles/izdzest_pazinojumu.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `pazinojumi_id=${pazinojumiId}`
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data.trim() === 'success') {
+                    notificationDiv.remove(); // Remove the notification from the DOM
+                } else {
+                    alert('Neizdevās dzēst paziņojumu.');
+                }
+            })
+            .catch(error => {
+                console.error('Kļūda dzēšot paziņojumu:', error);
+            });
+        });
+    });
+
 });

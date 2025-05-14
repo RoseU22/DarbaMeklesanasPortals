@@ -1,6 +1,6 @@
 .notification-header{
     position: relative;
-    top: 1rem;
+    top: 1.5rem;
 }
 
 .notification-container {
@@ -39,6 +39,24 @@
     flex: 1;
 }
 
+.notification .nosaukumuSakartojums {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    width: 335px;
+}
+
+.notification .nosaukumuSakartojums strong {
+    word-break: break-word;
+    font-size: 1rem;
+    color: var(--white);
+}
+
+.notification .nosaukumuSakartojums span {
+    color: var(--white);
+}
+
 .notification img {
     width: 55px;
     height: 55px;
@@ -61,6 +79,18 @@
     font-weight: 500;
 }
 
+.notification .delete-btn {
+    background-color: #f44336;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-right: 5px;
+    scale: 0.8;
+}
+
+.notification .delete-btn:hover {
+    background-color: #b9170b;
+}
+
 .notification button {
     background-color: var(--accent-color);
     color: var(--primary-color);
@@ -77,9 +107,13 @@
 }
 
 .no-notifications {
-    color: var(--accent-color);
-    font-weight: bold;
+    font-size: 1.5rem;
+    color: var(--white);
+    background-color: #f44336;
+    padding: 15px;
+    border-radius: 10px;
     text-align: center;
-    padding: 2rem;
-    font-size: 1.2rem;
+    width: 35%;
+    margin-top: 20px;
+    font-weight: 600;
 }
