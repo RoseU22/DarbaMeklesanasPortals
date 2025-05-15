@@ -163,3 +163,73 @@
     object-fit: cover;
     display: block;
 }
+
+/* deleteProfile.css */
+.delete-account-btn {
+    background-color: #ff4d4f !important;
+    color: var(--primary-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-account-btn:hover {
+    background-color: #b90b0e !important;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-delete-profile {
+    background-color: var(--secondary-color);
+    padding: 30px;
+    border-radius: 12px;
+    width: 400px;
+    max-width: 90%;
+    color: var(--text-color);
+    box-shadow: 0 0 15px var(--shadow-color);
+    text-align: center;
+}
+
+.modal-delete-profile input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--gray);
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.modal-delete-profile button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-delete-profile .confirm-delete {
+    background-color: #ff4d4f !important;
+    color: var(--primary-color);
+}
+
+.modal-delete-profile .cancel-delete {
+    background-color: #aaa;
+}
+

@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.text())
             .then(data => {
                 if (data.trim() === 'success') {
-                    notificationDiv.remove(); // Remove the notification from the DOM
+                    notificationDiv.remove();
                 } else {
                     alert('Neizdevās dzēst paziņojumu.');
                 }

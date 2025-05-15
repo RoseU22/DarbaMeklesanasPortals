@@ -73,8 +73,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Nohasho jauno paroli ja tika mainīta
         $hashed_password = !empty($parole) ? password_hash($parole, PASSWORD_DEFAULT) : $user['parole'];
 
-        $stmt = $savienojums->prepare("UPDATE DMPortals SET lietotajvards = ?, vards = ?, uzvards = ?, epasts = ?, parole = ? WHERE lietotajvards = ?");
-        $stmt->bind_param("ssssss", $new_username, $vards, $uzvards, $epasts, $hashed_password, $lietotajvards);
+        $changes_made = (
+            $new_username !== $user['lietotajvards'] ||
+            $vards !== $user['vards'] ||
+            $uzvards !== $user['uzvards'] ||
+            $epasts !== $user['epasts'] ||
+            (!empty($parole) && !password_verify($parole, $user['parole']))
+        );
+
+        if ($changes_made) {
+            $stmt = $savienojums->prepare("UPDATE DMPortals SET lietotajvards = ?, vards = ?, uzvards = ?, epasts = ?, parole = ? WHERE lietotajvards = ?");
+            $stmt->bind_param("ssssss", $new_username, $vards, $uzvards, $epasts, $hashed_password, $lietotajvards);
+        }
 
     } elseif ($user_type === 'uznemums') {
         $new_username = $_POST["uznemuma_nosaukums"];
@@ -97,16 +107,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $hashed_password = !empty($parole) ? password_hash($parole, PASSWORD_DEFAULT) : $user['uznemuma_parole'];
 
-        $stmt = $savienojums->prepare("UPDATE DMPortals_Uznemums SET uznemuma_nosaukums = ?, registracijas_numurs = ?, uznemuma_epasts = ?, uznemuma_TelNr = ?, PVN_numurs = ?, uznemuma_parole = ? WHERE uznemuma_nosaukums = ?");
-        $stmt->bind_param("sssssss", $new_username, $regnumurs, $epasts, $telnr, $pvn, $hashed_password, $lietotajvards);
+        $changes_made = (
+            $new_username !== $user['uznemuma_nosaukums'] ||
+            $regnumurs !== $user['registracijas_numurs'] ||
+            $epasts !== $user['uznemuma_epasts'] ||
+            $telnr !== $user['uznemuma_TelNr'] ||
+            $pvn !== $user['PVN_numurs'] ||
+            (!empty($parole) && !password_verify($parole, $user['uznemuma_parole']))
+        );
+
+        if ($changes_made) {
+            $stmt = $savienojums->prepare("UPDATE DMPortals_Uznemums SET uznemuma_nosaukums = ?, registracijas_numurs = ?, uznemuma_epasts = ?, uznemuma_TelNr = ?, PVN_numurs = ?, uznemuma_parole = ? WHERE uznemuma_nosaukums = ?");
+            $stmt->bind_param("sssssss", $new_username, $regnumurs, $epasts, $telnr, $pvn, $hashed_password, $lietotajvards);
+        }
     }
 
-    if ($stmt->execute()) {
-        $_SESSION['username'] = $new_username;
-        echo "<script>alert('Profils atjaunināts!'); window.location.href='profils.php';</script>";
-        exit();
-    } else {
-        echo "Kļūda saglabājot datus.";
+    if($changes_made){
+        if ($stmt->execute()) {
+            $_SESSION['username'] = $new_username;
+            echo "<script>alert('Profils atjaunināts!'); window.location.href='profils.php';</script>";
+            exit();
+        } else {
+            echo "Kļūda saglabājot datus.";
+        }
     }
 }
 
@@ -123,6 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="style.css">
     <script src="autorizacija.js"></script>
     <script src="profils.js"></script>
+    <script src="dzest_profilu.js"></script>
 </head>
 <body>
     <header>
@@ -229,6 +253,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <?php endif; ?>
 
                 <button type="submit">Saglabāt izmaiņas</button>
+
+                <button type="button" class="delete-account-btn">Dzēst profilu</button>
+
+                <div class="modal-overlay">
+                    <div class="modal-delete-profile">
+                        <h3>Apstiprini profila dzēšanu</h3>
+                        <input type="text" id="confirm-username" placeholder="Lietotājvārds">
+                        <input type="email" id="confirm-email" placeholder="E-pasts">
+                        <input type="password" id="confirm-password" placeholder="Parole">
+                        <button class="confirm-delete">Dzēst</button>
+                        <button class="cancel-delete">Atcelt</button>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </form>
