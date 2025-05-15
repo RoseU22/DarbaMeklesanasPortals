@@ -45,7 +45,7 @@ if ($stmt->execute()) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Darba Meklēšanas Portāls</title>
+    <title>CV izveidošana</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="Bildes/Favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="izveidotCV.css">
@@ -58,8 +58,14 @@ if ($stmt->execute()) {
     <header>
         <div class="konteiners">
             <div class="header-left">
-                <img src="Bildes/Favicon.png" alt="Logo" class="header-logo">
-                <h1>Darba Meklēšanas Portāls</h1>
+
+                <a href="index.php">
+
+                    <img src="Bildes/Favicon.png" alt="Logo" class="header-logo">
+                    <h1>Darba Meklēšanas Portāls</h1>
+
+                </a>
+                
             </div>
             <nav>
                 <ul>

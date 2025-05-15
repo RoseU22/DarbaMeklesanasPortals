@@ -1,5 +1,3 @@
-// mekletVakanci.js
-
 document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.getElementById('searchInput');
 

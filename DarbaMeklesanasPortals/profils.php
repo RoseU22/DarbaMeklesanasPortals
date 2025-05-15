@@ -128,8 +128,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <header>
         <div class="konteiners">
             <div class="header-left">
-                <img src="Bildes/Favicon.png" alt="Logo" class="header-logo">
-                <h1>Darba Meklēšanas Portāls</h1>
+
+                <a href="index.php">
+
+                    <img src="Bildes/Favicon.png" alt="Logo" class="header-logo">
+                    <h1>Darba Meklēšanas Portāls</h1>
+
+                </a>
+                
             </div>
             <nav>
                 <ul>

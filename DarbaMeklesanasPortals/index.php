@@ -54,8 +54,13 @@
 
             <div class="header-left">
 
-                <img src="Bildes/Favicon.png" alt="Logo" class="header-logo">
-                <h1>Darba Meklēšanas Portāls</h1>
+                <a href="index.php">
+
+                    <img src="Bildes/Favicon.png" alt="Logo" class="header-logo">
+                    <h1>Darba Meklēšanas Portāls</h1>
+
+                </a>
+                
             </div>
 
 
@@ -128,7 +133,7 @@
                     </div>
 
                     <button type="submit" class="btn">Ienākt</button>
-                    <p><a href="#">Aizmirsi paroli?</a></p>
+                    <p><a href="#" id="forgotPasswordLink">Aizmirsi paroli?</a></p>
                     <p>Nav konta? <a href="#" class="register">Reģistrēties</a></p>
                 </form>
             </div>
@@ -219,7 +224,7 @@
             <h2>Pieteikties darbam</h2>
             <p>Aizpildi savu CV un sūti pieteikumus ar pāris klikšķiem!</p>
 
-            <!-- Search Input -->
+            <!-- Meklēšanas funkcija -->
             <input type="text" id="searchInput" placeholder="Meklēt vakanci pēc nosaukuma..." class="search-bar">
 
             <div class="vakances-konteiners">

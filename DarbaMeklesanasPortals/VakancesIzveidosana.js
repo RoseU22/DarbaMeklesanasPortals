@@ -82,6 +82,31 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(vacancyId); // Pārbaudiet, vai izvada pareizo ID
     });
 
+    document.querySelectorAll(".delete-vacancy-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            const box = this.closest(".vacancy-box");
+            const vacancyId = box.getAttribute("data-vacancy-id");
+
+            if (confirm("Vai tiešām vēlaties dzēst šo vakanci?")) {
+                fetch("PHPFiles/izdzest_vakanci.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: "vakancesID=" + encodeURIComponent(vacancyId)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        box.remove();
+                    } else {
+                        alert("Neizdevās dzēst vakanci.");
+                    }
+                });
+            }
+        });
+    });
+
     const vacancyGrid = document.getElementById("vacancyGrid");
 
     vacancyGrid.addEventListener("click", function(event) {

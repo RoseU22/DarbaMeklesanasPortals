@@ -57,6 +57,22 @@
     margin-top: 10px;
 }
 
+.delete-vacancy-btn {
+    margin-top: 10px;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px var(--shadow-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.delete-vacancy-btn:hover {
+    background-color: var(--white);
+}
+
 
 .Pazinojums {
     font-size: 1.2rem;
