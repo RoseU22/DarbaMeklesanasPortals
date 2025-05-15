@@ -39,6 +39,7 @@
     <script src="BurbuluAnimacija.js"></script>
     <script src="autorizacija.js"></script>
     <script src="Pieteiksanas.js"></script>
+    <script src="mekletVakanci.js"></script>
 
 </head>
 
@@ -218,6 +219,9 @@
             <h2>Pieteikties darbam</h2>
             <p>Aizpildi savu CV un sūti pieteikumus ar pāris klikšķiem!</p>
 
+            <!-- Search Input -->
+            <input type="text" id="searchInput" placeholder="Meklēt vakanci pēc nosaukuma..." class="search-bar">
+
             <div class="vakances-konteiners">
                 <?php foreach ($vakances as $vakance): ?>
                     <div class="vacancy-box" data-vacancy-id="<?php echo $vakance['vakancesID']; ?>">
@@ -234,8 +238,6 @@
                             Apskatīt
                         </button>
                     </div>
-
-                    
                 <?php endforeach; ?>
             </div>
         </div>
