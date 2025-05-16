@@ -1,171 +1,191 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-/*___________________________________________________________________________________________________________________________________________*/
+
+/* =============================== */
+/* ==== BASE STYLES & ROOT ====== */
+/* =============================== */
 
 * {
-    z-index: 2;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    z-index: 2;
 }
 
 :root {
-    --primary-color: #0A192F; 
-    --secondary-color: #112240; 
-    --accent-color: #64FFDA; 
-    --text-color: #CCD6F6; 
-    --background-color: #020C1B; 
-    --white: #FFFFFF;
-    --gray: #8892B0;
-    --shadow-color: rgba(2, 12, 27, 0.7); 
+    --primary-color: #000000;
+    --secondary-color: #1A1A1A;
+    --accent-color: #ffffff;
+    --hover-color: #e6e6e6;
+    --text-color: #f5f5f5;
+    --muted-color: #888888;
+    --shadow-color: rgba(255, 255, 255, 0.1);
+    --transition-speed: 0.3s;
 }
 
 body {
     font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
+    background-color: var(--primary-color);
     color: var(--text-color);
-    line-height: 1.5; 
+    line-height: 1.6;
+    transition: background var(--transition-speed), color var(--transition-speed);
 }
 
-/*________________________________________________________________RITJOSLA___________________________________________________________________________*/
+/* =============================== */
+/* ==== SCROLLBAR CUSTOM STYLING */
+/* =============================== */
 
 html {
     scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar {
-    width: 8px; 
+    width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--primary-color);
-    border-radius: 10px;
+    background: var(--secondary-color);
 }
 
 ::-webkit-scrollbar-thumb {
     background: var(--accent-color);
     border-radius: 10px;
-    transition: background 0.3s ease;
+    transition: background var(--transition-speed);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--secondary-color);
+    background: var(--hover-color);
 }
 
-/*________________________________________________________________HEADERIS___________________________________________________________________________*/
+/* =============================== */
+/* ========== HEADER ============ */
+/* =============================== */
+
+header {
+    background: var(--primary-color);
+    color: var(--accent-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    animation: slideDown 0.6s ease-out;
+}
 
 header .konteiners {
     width: 95%;
     margin: 0 auto;
+    padding: 12px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0; 
-}
-
-header {
-    background: var(--primary-color);
-    color: var(--white);
-    box-shadow: 0 2px 4px var(--shadow-color); 
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    animation: fadeInDown 1s ease-out;
 }
 
 .header-left {
     display: flex;
     align-items: center;
-    gap: 10px; 
+    gap: 12px;
 }
 
-.header-left a{
+.header-left a {
     display: contents;
 }
 
 .header-logo {
-    width: 80px; 
+    width: 70px;
     height: auto;
-    transition: transform 0.3s ease;
+    transition: transform var(--transition-speed);
 }
 
 .header-logo:hover {
-    transform: rotate(15deg) scale(1.1);
+    transform: scale(1.1) rotate(5deg);
 }
 
 header h1 {
-    font-size: 20px; 
+    font-size: 1.1rem;
+    font-weight: 600;
     letter-spacing: 1px;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: var(--white);
-    margin: 0; 
+    color: var(--accent-color);
+    margin-top: 13px;
 }
 
+/* =============================== */
+/* ====== NAVIGATION BAR ======== */
+/* =============================== */
+
 nav ul {
-    display: flex;
-    padding: 0;
-    margin: 0; 
     list-style: none;
-    gap: 15px; 
+    display: flex;
+    gap: 18px;
 }
 
 nav ul li a {
-    color: var(--white);
     text-decoration: none;
-    font-size: 14px; 
-    padding: 6px 12px; 
-    border-radius: 15px; 
-    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    color: var(--accent-color);
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: 
+        background var(--transition-speed),
+        color var(--transition-speed),
+        transform var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 nav ul li a:hover {
     background: var(--accent-color);
     color: var(--primary-color);
-    transform: translateY(-3px); 
+    transform: translateY(-4px) scale(1.05) rotate(3deg);
 }
 
-/*_______________Login poga_______________________________*/
+/* =============================== */
+/* ====== ANIMATIONS ============ */
+/* =============================== */
 
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*=============== Login Button ===============*/
 .login-btn a {
     text-decoration: none;
-    color: var(--white);
+    color: #000;
 }
 
 .login-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--accent-color);
-    color: var(--primary-color);
-    font-size: 14px; 
-    padding: 8px 16px; 
-    border: none;
-    border-radius: 20px;
+    background: #fff;
+    color: #000;
+    font-size: 14px;
+    padding: 10px 20px;
+    border: 2px solid #000;
+    border-radius: 30px;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 2px 4px var(--shadow-color); 
-    min-width: 140px; 
-    width: fit-content; 
-    max-width: 100%; 
-    white-space: nowrap; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    min-width: 140px;
+    white-space: nowrap;
 }
 
-
-.login-btn i{
-    padding-right: 5px;
+.login-btn i {
+    padding-right: 8px;
 }
 
 .login-btn:hover {
-    background: var(--white);
+    background: var(--secondary-color);
+    color: var(--accent-color);
     transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(100, 255, 218, 0.4); 
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.25);
 }
 
-/*_______________Login poga: dropdown_______________________________*/
-
+/*=============== Dropdown: Before Login ===============*/
 .login-container {
     position: relative;
     display: inline-block;
@@ -174,264 +194,273 @@ nav ul li a:hover {
 .login-dropdown {
     display: none;
     position: absolute;
-    top: 45px;
-    transform: translateX(-50%);
-    background: var(--accent-color);
-    border-radius: 20px; 
-    box-shadow: 0 4px 8px var(--shadow-color);
-    width: 140px;
-    text-align: center;
+    top: 48px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.95);
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    min-width: 160px;
     padding: 10px 0;
-    z-index: 100;
-    
     opacity: 0;
-    transform: translateY(-10px);
+    z-index: 100;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .login-dropdown.show {
     display: block;
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(-50%) scale(1);
 }
 
 .dropdown-option {
-    padding: 10px;
-    margin: 5px 10px; 
-    background: var(--accent-color);
-    color: var(--primary-color);
+    padding: 10px 20px;
+    color: #000;
+    background: #fff;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
-    border-radius: 20px; 
+    border-radius: 30px;
+    margin: 6px 10px;
+    font-weight: 500;
 }
 
-.dropdown-option:hover {
-    background: var(--white);
-    color: var(--primary-color);
-    transform: scale(1.05);
+.dropdown-option a{
+   color: var(--primary-color); 
+   text-decoration: none;
 }
 
+.dropdown-option a:hover{
+   color: var(--accent-color); 
+   text-decoration: none;
+}
 
-/*_________Login poga: pēc login____________________*/
-
+/*=============== Profile Button: After Login ===============*/
 .profile-container {
     position: relative;
     display: inline-block;
 }
 
 .profile-dropdown {
-    visibility: hidden; 
-    position: absolute;
-    transform: translateX(-50%);
-    background: var(--accent-color);
-    min-width: 140px;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px var(--shadow-color);
-    text-align: center;
-    padding: 10px 0;
-    top: 50px;
-    z-index: 100;
+    visibility: hidden;
     opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s; 
+    position: absolute;
+    top: 55px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.95);
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    padding: 10px 0;
+    min-width: 160px;
+    z-index: 100;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
 }
 
 .profile-dropdown.show {
-    visibility: visible; 
+    visibility: visible;
     opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0s; 
+    transform: translateX(-50%) scale(1);
+    transition-delay: 0s;
 }
 
 .profile-btn {
     display: flex;
     align-items: center;
-    background: var(--accent-color);
-    color: var(--primary-color);
+    background: #fff;
+    color: #000;
     font-size: 14px;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 20px;
+    padding: 10px 20px;
+    border: 2px solid #000;
+    border-radius: 30px;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 2px 4px var(--shadow-color);
-    min-width: 140px;
-    width: fit-content;
-    max-width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
     white-space: nowrap;
 }
 
-.profile-btn img{
-    width: 25px;
-    height: 25px;
-    border-radius: 2rem;
-    margin-right: 15px;
+.profile-btn img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
 .profile-btn:hover {
-    background: var(--white);
+    background: var(--secondary-color);
+    color: #fff;
     transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(100, 255, 218, 0.4); 
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.25);
 }
 
 .profile-btn i {
-    margin-right: 5px;
+    margin-right: 6px;
 }
 
-.profile-container a{
-    color: var(--primary-color);
-    text-decoration: none;
+.profile-dropdown .dropdown-option:hover,
+.login-dropdown .dropdown-option:hover {
+    background: var(--primary-color);
+    color: var(--accent-color);
+    transform: translateX(5px);
 }
 
-.dropdown-option {
-    padding: 10px;
-    margin: 5px 10px;   
-    background: var(--accent-color);
-    color: var(--primary-color);
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
-    border-radius: 20px;
-}
-
-.dropdown-option:hover {
-    background: var(--white);
-    color: var(--primary-color);
-    transform: scale(1.05);
+/* Make the <a> inside also change color on hover */
+.profile-dropdown .dropdown-option:hover a,
+.login-dropdown .dropdown-option:hover a {
+    color: var(--accent-color);
+    text-decoration: none; /* optional: remove underline on hover */
 }
 
 
-/*______________________________________________________________MODĀLAISLOGS_____________________________________________________________________________*/
+
+/*______________________________________________________________MODĀLAISLOGS - Using Provided CSS Variables_____________________________________________________________________________*/
 
 .modal {
     display: none;
     position: fixed;
     z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
     display: flex;
     justify-content: center;
     align-items: center;
     visibility: hidden;
     opacity: 0;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease;
+    font-family: 'Poppins', sans-serif;
 }
 
 .modal.show {
     visibility: visible;
     opacity: 1;
+    scale: 1.2;
 }
 
 .modal-content {
-    background: var(--primary-color);
-    padding: 20px; 
-    border-radius: 8px; 
-    width: 300px; 
+    background: var(--primary-color); /* #000000 */
+    padding: 24px 28px;
+    border-radius: 12px;
+    width: 320px;
+    max-width: 90%;
     text-align: center;
     position: relative;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3); 
-    border: 1px solid var(--gray);
-    animation: slideIn 0.5s ease-out;
-    scale: 1.35;
+    border: 1px solid var(--secondary-color); /* #1A1A1A */
+    animation: fadeInScale var(--transition-speed) ease forwards;
+}
+
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .modal-content h2 {
-    color: var(--white);
-    font-size: 18px; 
-    margin-bottom: 10px;
+    color: var(--accent-color); /* #ffffff */
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
 }
 
-/*_______________Aizvērt_______________________________*/
+/*_______________Close Button_______________*/
 
 .close {
     position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 18px; 
+    top: 14px;
+    right: 18px;
+    font-size: 22px;
     cursor: pointer;
-    color: var(--white);
-    transition: color 0.3s ease, transform 0.3s ease;
+    color: var(--muted-color); /* #888888 */
+    transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
+    user-select: none;
 }
 
 .close:hover {
-    color: var(--accent-color);
+    color: var(--accent-color); /* #ffffff */
     transform: rotate(90deg);
 }
 
-/*_______________Ievades lauki _______________________________*/
+/*_______________Input Fields_______________*/
 
 .modal-content input {
-    width: 90%;
-    padding: 10px; 
-    margin: 8px 0; 
-    border: 1px solid var(--gray); 
-    border-radius: 4px; 
-    font-size: 14px; 
-    background: var(--secondary-color);
-    color: var(--white);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    padding: 12px 14px;
+    margin: 10px 0;
+    border: 1px solid var(--secondary-color); /* #1A1A1A */
+    border-radius: 6px;
+    font-size: 15px;
+    background: var(--secondary-color); /* #1A1A1A */
+    color: var(--accent-color); /* #ffffff */
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    font-weight: 400;
+}
+
+.modal-content input::placeholder {
+    color: var(--muted-color); /* #888888 */
 }
 
 .modal-content input:focus {
-    border-color: var(--accent-color);
+    border-color: var(--hover-color); /* #e6e6e6 */
     outline: none;
-    box-shadow: 0 0 6px var(--accent-color); 
+    box-shadow: 0 0 8px 2px var(--hover-color);
 }
 
-/*_______________Login poga_______________________________*/
+/*_______________Buttons_______________*/
 
 .modal-content .btn {
-    background: var(--accent-color);
-    color: var(--primary-color);
+    background: var(--accent-color); /* #ffffff */
+    color: var(--primary-color); /* #000000 */
     border: none;
-    padding: 10px 16px; 
-    font-size: 14px; 
-    font-weight: 600;
-    border-radius: 20px; 
+    padding: 12px 0;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 25px;
     cursor: pointer;
     text-transform: uppercase;
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    transition: background var(--transition-speed) ease, color var(--transition-speed) ease, transform 0.2s ease;
     width: 100%;
+    box-shadow: 0 4px 10px var(--shadow-color);
 }
 
 .modal-content .btn:hover {
-    background: var(--white);
+    background: var(--hover-color); /* #e6e6e6 */
+    color: var(--primary-color); /* #000000 */
     transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(100, 255, 218, 0.4); 
+    box-shadow: 0 6px 14px var(--shadow-color);
 }
 
-#confirmLanguage:hover{
-    background: var(--white);
-}
-
-/*_______________Aizmirsi paroli / reģistrēties_______________________________*/
+/*_______________Info Text & Links_______________*/
 
 .modal-content p {
-    margin-top: 10px; 
-    position: relative;
-    top: 8px; 
-    font-size: 12px; 
-    color: var(--white);
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--muted-color); /* #888888 */
 }
 
 .modal-content a {
-    color: var(--accent-color);
-    text-decoration: none;
+    color: var(--accent-color); /* #ffffff */
     font-weight: 600;
-    transition: color 0.3s ease, text-decoration 0.3s ease;
+    text-decoration: none;
+    transition: color var(--transition-speed) ease, text-decoration var(--transition-speed) ease;
 }
 
 .modal-content a:hover {
-    color: var(--white);
+    color: var(--hover-color); /* #e6e6e6 */
     text-decoration: underline;
 }
 
 /*______________________________________________________________SĀKUMLAPA_____________________________________________________________________________*/
 
 #sakums h2 {
-    color: var(--white);
+    color: var(--accent-color); /* was var(--white) but use your --accent-color */
     animation: fadeInUp 1.5s ease-out;
 }
 
@@ -458,37 +487,9 @@ h2 {
     list-style: none;
 }
 
-nav ul {
-    display: flex;
-    padding: 0;
-    list-style: none;
-    justify-content: space-evenly;
-    width: 100%;
-}
-
-nav ul li {
-    margin: 0 10px; 
-    animation: fadeIn 1s ease-out;
-}
-
-nav ul li a {
-    color: var(--white);
-    text-decoration: none;
-    font-size: 16px; 
-    padding: 6px 12px; 
-    border-radius: 15px; 
-    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
-}
-
-nav ul li a:hover {
-    background: var(--accent-color);
-    color: var(--primary-color);
-    transform: translateY(-3px); 
-}
-
 #sakums {
     background: var(--primary-color);
-    color: var(--white);
+    color: var(--accent-color);
     text-align: center;
     padding: 40px 0; 
     border-radius: 0 0 30px 30px; 
@@ -539,14 +540,15 @@ nav ul li a:hover {
     font-size: 14px; 
     border-radius: 20px; 
     margin-top: 15px; 
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    transition: background var(--transition-speed) ease, transform 0.2s ease, box-shadow var(--transition-speed) ease;
     cursor: pointer;
 }
 
 .btn:hover {
-    background: var(--white);
+    background: var(--hover-color);
+    color: var(--primary-color);
     transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(100, 255, 218, 0.4); 
+    box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 /*____________________________________________________________BURBUĻU ANIMĀCIJA_______________________________________________________________________________*/
@@ -558,6 +560,7 @@ nav ul li a:hover {
     pointer-events: none;
     overflow: hidden;
     z-index: 1;
+    background: transparent;
 }
 
 .burbulis {
@@ -565,10 +568,11 @@ nav ul li a:hover {
     bottom: -50px;
     width: 20px; 
     height: 20px;
-    background: radial-gradient(circle, rgba(100, 255, 218, 0.8), rgba(100, 255, 218, 0.3));
+    background: radial-gradient(circle, var(--hover-color) 80%, transparent 100%);
     border-radius: 50%;
     opacity: 0.7;
     animation: rise linear infinite;
+    box-shadow: 0 0 10px var(--hover-color);
 }
 
 @keyframes rise {
@@ -582,7 +586,37 @@ nav ul li a:hover {
     }
 }
 
-/*________________________________________________________________Pieteikšanās sekcija___________________________________________________________________________*/
+/* Optional fadeIn and fadeInUp keyframes */
+
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Root colors assumed from your input */
+:root {
+    --primary-color: #000000;
+    --secondary-color: #1A1A1A;
+    --accent-color: #ffffff;
+    --hover-color: #e6e6e6;
+    --text-color: #f5f5f5;
+    --muted-color: #888888;
+    --shadow-color: rgba(255, 255, 255, 0.1);
+    --transition-speed: 0.3s;
+}
+
+/*___________Pieteikšanās sekcija______________*/
 
 .vakances-konteiners {
     display: grid;
@@ -604,54 +638,54 @@ nav ul li a:hover {
     }
 }
 
-
 .vacancy-box {
-    background: var(--white); 
+    background: var(--secondary-color);
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 4px 10px var(--shadow-color);
     text-align: center;
-    padding: 15px;
-    width: 250px; 
-    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    padding: 20px 15px;
+    width: 250px;
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    border: 1px solid var(--muted-color);
+    color: var(--text-color);
     height: auto;
-    border: 1px solid var(--gray); 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
-
 
 .vacancy-box:hover {
-    transform: translateY(-5px); 
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px var(--shadow-color);
 }
-
 
 .vacancy-title {
-    font-size: 1.2rem; 
-    color: var(--primary-color); 
-    margin-bottom: 10px;
-    font-weight: 600; 
+    font-size: 1.3rem;
+    color: var(--accent-color);
+    margin-bottom: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
 }
-
 
 .vakance-image {
     width: 100%;
     height: auto;
-    border-radius: 8px; 
-    margin-bottom: 10px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px var(--shadow-color);
 }
-
 
 .vacancy-location {
     font-size: 1rem;
-    color: var(--secondary-color); 
-    margin-top: 10px;
+    color: var(--muted-color);
+    margin-top: 8px;
 }
-
 
 .Pazinojums {
     font-size: 1.2rem;
     height: 60px;
-    color: #fff;
-    background-color: #f44336;
+    color: var(--accent-color);
+    background-color: #f44336; /* Kept this red for alerts */
     padding: 15px;
     border-radius: 10px;
     text-align: center;
@@ -659,52 +693,52 @@ nav ul li a:hover {
     box-sizing: border-box;
     margin-top: 20px;
     font-weight: 600;
+    user-select: none;
 }
-
 
 .vacancy-box .btn {
     background: var(--accent-color);
-    color: var(--white);
+    color: var(--primary-color);
     border: none;
-    padding: 12px 20px;
+    padding: 14px 20px;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 700;
     border-radius: 30px;
     cursor: pointer;
     text-transform: uppercase;
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition: background var(--transition-speed) ease, transform 0.2s ease;
     width: 100%;
     margin-top: 15px;
 }
 
-
 .vacancy-box .btn:hover {
-    background: var(--secondary-color);
-    transform: scale(1.05); 
+    background: var(--hover-color);
+    color: var(--primary-color);
+    transform: scale(1.05);
 }
 
-#vacancyButton{
+#vacancyButton {
     width: 90%;
     margin-left: 80px;
 }
 
 @media (max-width: 768px) {
     .vacancy-box {
-        width: 90%; 
+        width: 90%;
         margin-bottom: 20px;
     }
 
     .vacancy-title {
-        font-size: 1.1rem; 
+        font-size: 1.1rem;
     }
 
     .vacancy-location {
-        font-size: 0.9rem; 
+        font-size: 0.9rem;
     }
 
     .vacancy-box .btn {
         font-size: 16px;
-        padding: 10px 15px; 
+        padding: 12px 15px;
     }
 }
 
@@ -717,14 +751,12 @@ nav ul li a:hover {
     font-size: 1rem;
     border: 2px solid var(--accent-color);
     border-radius: 8px;
-    background-color: var(--background-color);
+    background-color: var(--secondary-color);
     color: var(--text-color);
     box-shadow: 0 2px 6px var(--shadow-color);
 }
 
-
-
-/*__________________Pieteikšanās modālais logs______________________*/
+/*___________Pieteikšanās modālais logs______________*/
 
 .openModalBtn {
     margin-top: 10px;
@@ -736,17 +768,15 @@ nav ul li a:hover {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 12px rgba(100, 255, 218, 0.2);
+    transition: background-color var(--transition-speed) ease, transform 0.2s ease;
 }
 
 .openModalBtn:hover {
-    background-color: #52e0c4;
+    background-color: var(--primary-color);
+    color: var(--accent-color);
     transform: scale(1.03);
-    box-shadow: 0 6px 18px rgba(100, 255, 218, 0.3);
 }
 
-/* Modāls fons */
 .PieteiksanasModal {
     position: fixed;
     z-index: 1000;
@@ -762,13 +792,11 @@ nav ul li a:hover {
     transition: opacity 0.4s ease;
 }
 
-/* Kad aktīvs, iespējojiet redzamību un animāciju */
 .PieteiksanasModal.active {
     opacity: 1;
     pointer-events: auto;
 }
 
-/* Modālā satura logs */
 .PieteiksanasModal .modal-content {
     background-color: var(--secondary-color);
     color: var(--text-color);
@@ -777,7 +805,6 @@ nav ul li a:hover {
     gap: 30px;
     padding: 40px;
     border-radius: 16px;
-    box-shadow: 0 10px 30px var(--shadow-color);
     width: 90%;
     max-width: 900px;
     position: relative;
@@ -787,26 +814,22 @@ nav ul li a:hover {
     transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
-/* Animēt saturu, kad modāls ir aktīvs */
 .PieteiksanasModal.active .modal-content {
     transform: scale(1);
     opacity: 1;
 }
 
-.PieteiksanasModal .modal-left{
+.PieteiksanasModal .modal-left {
     display: flex;
     align-items: center;
 }
 
-/* Kreisais attēla panelis */
 .PieteiksanasModal .modal-left img {
     max-width: 300px;
     height: auto;
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba( 82, 224, 196, 0.3);
 }
 
-/* Labais teksta/informācijas panelis */
 .PieteiksanasModal .modal-right {
     flex: 1;
     display: flex;
@@ -827,19 +850,19 @@ nav ul li a:hover {
 }
 
 .PieteiksanasModal .modal-right strong {
-    color: var(--white);
+    color: var(--accent-color);
 }
 
-/* Modālās aizvēršanas poga */
 .PieteiksanasModal .closeModalBtn {
     position: absolute;
     top: 15px;
     right: 25px;
     font-size: 32px;
-    color: var(--gray);
+    color: var(--muted-color);
     cursor: pointer;
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
 }
+
 .PieteiksanasModal .closeModalBtn:hover {
     color: var(--accent-color);
     transform: rotate(90deg);
@@ -855,14 +878,19 @@ nav ul li a:hover {
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-.PieteiksanasModal .modal-right button:hover {
-    background-color: #52e0c4;
-    transform: scale(1.02);
+    transition: background-color var(--transition-speed) ease, transform 0.2s ease;
 }
 
-/*__________________CV izvēles modālais logs______________________*/
+.PieteiksanasModal .modal-right button:hover {
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    filter: brightness(1.1);
+    transform: scale(1.02);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+
+/*___________CV izvēles modālais logs______________*/
 
 .modal-CVselect {
     display: none;
@@ -873,7 +901,7 @@ nav ul li a:hover {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .modal-content-CVselect {
@@ -891,12 +919,12 @@ nav ul li a:hover {
 
 .closeCvModalBtn {
     position: absolute;
-    top: 15px;
+    top: 9px;
     right: 25px;
     font-size: 32px;
-    color: var(--gray);
+    color: var(--muted-color);
     cursor: pointer;
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
 }
 
 .closeCvModalBtn:hover {
@@ -905,19 +933,18 @@ nav ul li a:hover {
 }
 
 .cv-drop-box {
-    border: 2px dashed var(--gray);
+    border: 2px dashed var(--muted-color);
     border-radius: 10px;
     padding: 30px;
     text-align: center;
     background-color: var(--secondary-color);
-    transition: background 0.3s;
+    transition: background var(--transition-speed);
     color: var(--text-color);
 }
 
-
 .cv-drop-box:hover .cv-item {
     background-color: var(--secondary-color);
-    color: var(--white);
+    color: var(--accent-color);
     cursor: default;
 }
 
@@ -929,13 +956,15 @@ nav ul li a:hover {
     padding: 10px;
     margin: 5px;
     background-color: var(--secondary-color);
-    color: var(--white);
+    color: var(--accent-color);
     border-radius: 5px;
     cursor: pointer;
+    transition: background var(--transition-speed);
 }
 
 .cv-item:hover {
     background-color: var(--accent-color);
+    color: var(--primary-color);
 }
 
 #submitApplicationBtn {
@@ -946,29 +975,56 @@ nav ul li a:hover {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
     width: 100%;
-    font-weight: 600;
-    transition: all 0.3s ease;
 }
 
-#submitApplicationBtn:disabled{
-    background-color: var(--gray);
-    cursor: not-allowed;
+#submitApplicationBtn:hover {
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
 }
 
+/* Scrollbar styling for modals (optional) */
+.PieteiksanasModal::-webkit-scrollbar,
+.modal-CVselect::-webkit-scrollbar {
+    width: 8px;
+}
+
+.PieteiksanasModal::-webkit-scrollbar-thumb,
+.modal-CVselect::-webkit-scrollbar-thumb {
+    background-color: var(--muted-color);
+    border-radius: 10px;
+}
 
 /*____________________________________________________________FOOTERIS_______________________________________________________________________________*/
 
 footer {
     background: var(--primary-color);
-    color: var(--white);
+    color: var(--accent-color); /* changed var(--white) to var(--accent-color) for consistency */
     text-align: center;
-    padding: 20px 0; 
-    margin-top: auto; 
-    border-radius: 50px 50px 0 0; 
-    box-shadow: 0 -4px 8px var(--shadow-color); 
+    padding: 20px 0;
+    margin-top: auto;
+    border-radius: 50px 50px 0 0;
+    box-shadow: 0 -4px 8px var(--shadow-color);
     animation: fadeInUp 1s ease-out;
     position: relative;
     bottom: 0;
     width: 100%;
+    font-size: 1rem;
+    font-weight: 600;
+    user-select: none;
 }
+
+/* If you want the fadeInUp keyframes (if not already defined) */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+

@@ -108,9 +108,14 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     closeCVModal.addEventListener("click", function() {
-        cvModal.classList.remove("show");
-    });
+        const modal = document.getElementById("cvModal");
 
+        modal.classList.add("fade-out");
+
+        setTimeout(() => {
+            modal.classList.remove("fade-out", "show");
+        }, 300);
+    });
 
     const cvGrid = document.getElementById("cvGrid");
 

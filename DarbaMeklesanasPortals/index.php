@@ -113,62 +113,66 @@
         </div>
 
         <!--Modālais logs (Autorizācija)-->
-        <div id="loginModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Pieslēgties</h2>
+        <?php if (!isset($_SESSION["username"])): ?>
+            <div id="loginModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Pieslēgties</h2>
 
-                <form id="loginForm" method="POST" action="PHPFiles/login.php">
-                    <input type="hidden" name="userType" id="loginUserType" value="<?php echo $userType; ?>">
+                    <form id="loginForm" method="POST" action="PHPFiles/login.php">
+                        <input type="hidden" name="userType" id="loginUserType" value="<?php echo $userType; ?>">
 
-                    <div id="LoginClientFields" <?php echo $userType === "klients" ? '' : 'style="display:none;"'; ?>>
-                        <input type="text" name="username" placeholder="Lietotājvārds" required>
-                        <input type="password" name="password" placeholder="Parole" required>
-                    </div>
+                        <div id="LoginClientFields" <?php echo $userType === "klients" ? '' : 'style="display:none;"'; ?>>
+                            <input type="text" name="username" placeholder="Lietotājvārds" required>
+                            <input type="password" name="password" placeholder="Parole" required>
+                        </div>
 
-                    <div id="LoginCompanyFields" <?php echo $userType === "uznemums" ? '' : 'style="display:none;"'; ?>>
-                        <input type="text" name="company_name" placeholder="Uzņēmuma nosaukums" required>
-                        <!-- <input type="email" name="company_email" placeholder="Uzņēmuma e-pasts" required> -->
-                        <input type="password" name="company_password" placeholder="Parole" required>
-                    </div>
+                        <div id="LoginCompanyFields" <?php echo $userType === "uznemums" ? '' : 'style="display:none;"'; ?>>
+                            <input type="text" name="company_name" placeholder="Uzņēmuma nosaukums" required>
+                            <!-- <input type="email" name="company_email" placeholder="Uzņēmuma e-pasts" required> -->
+                            <input type="password" name="company_password" placeholder="Parole" required>
+                        </div>
 
-                    <button type="submit" class="btn">Ienākt</button>
-                    <p><a href="#" id="forgotPasswordLink">Aizmirsi paroli?</a></p>
-                    <p>Nav konta? <a href="#" class="register">Reģistrēties</a></p>
-                </form>
+                        <button type="submit" class="btn">Ienākt</button>
+                        <p><a href="#" id="forgotPasswordLink">Aizmirsi paroli?</a></p>
+                        <p>Nav konta? <a href="#" class="register">Reģistrēties</a></p>
+                    </form>
+                </div>
             </div>
-        </div>
+        <?php endif; ?>
 
         <!-- Modālais logs (Reģistrācija) -->
-        <div id="registerModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Reģistrēties</h2>
+        <?php if (!isset($_SESSION["username"])): ?>
+            <div id="registerModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Reģistrēties</h2>
 
-                <form id="registerForm" method="POST" action="PHPFiles/register.php">
-                    <input type="hidden" name="userType" id="registerUserType" value="<?php echo $userType; ?>">
+                    <form id="registerForm" method="POST" action="PHPFiles/register.php">
+                        <input type="hidden" name="userType" id="registerUserType" value="<?php echo $userType; ?>">
 
-                    <div id="clientFields" <?php echo $userType === "klients" ? '' : 'style="display:none;"'; ?>>
-                        <input type="text" name="lietotajvards" placeholder="Lietotājvārds" required>
-                        <input type="text" name="vards" placeholder="Vārds" required>
-                        <input type="text" name="uzvards" placeholder="Uzvārds" required>
-                        <input type="password" name="parole" placeholder="Parole" required>
-                        <input type="email" name="epasts" placeholder="E-pasts" required>
-                    </div>
+                        <div id="clientFields" <?php echo $userType === "klients" ? '' : 'style="display:none;"'; ?>>
+                            <input type="text" name="lietotajvards" placeholder="Lietotājvārds" required>
+                            <input type="text" name="vards" placeholder="Vārds" required>
+                            <input type="text" name="uzvards" placeholder="Uzvārds" required>
+                            <input type="password" name="parole" placeholder="Parole" required>
+                            <input type="email" name="epasts" placeholder="E-pasts" required>
+                        </div>
 
-                    <div id="companyFields" <?php echo $userType === "uznemums" ? '' : 'style="display:none;"'; ?>>
-                        <input type="text" name="companyName" placeholder="Uzņēmuma nosaukums" required>
-                        <input type="text" name="regNumber" placeholder="Reģistrācijas numurs" required>
-                        <input type="email" name="companyEmail" placeholder="Uzņēmuma e-pasts" required>
-                        <input type="text" name="phone" placeholder="Telefona numurs" required>
-                        <input type="text" name="vatNumber" placeholder="PVN numurs" required>
-                        <input type="password" name="companyPassword" placeholder="Parole" required>
-                    </div>
+                        <div id="companyFields" <?php echo $userType === "uznemums" ? '' : 'style="display:none;"'; ?>>
+                            <input type="text" name="companyName" placeholder="Uzņēmuma nosaukums" required>
+                            <input type="text" name="regNumber" placeholder="Reģistrācijas numurs" required>
+                            <input type="email" name="companyEmail" placeholder="Uzņēmuma e-pasts" required>
+                            <input type="text" name="phone" placeholder="Telefona numurs" required>
+                            <input type="text" name="vatNumber" placeholder="PVN numurs" required>
+                            <input type="password" name="companyPassword" placeholder="Parole" required>
+                        </div>
 
-                    <button type="submit" class="btn">Reģistrēties</button>
-                </form>
+                        <button type="submit" class="btn">Reģistrēties</button>
+                    </form>
+                </div>
             </div>
-        </div>
+        <?php endif; ?>
 
     </header>
 
@@ -261,7 +265,7 @@
                 <p><strong>Atrašanās vieta:</strong> <span id="modalVacancyLocation"></span></p>
                 <p><strong>Nepieciešamās prasmes:</strong> <span id="modalVacancySkills"></span></p>
                 <p><strong>Alga:</strong> <span id="modalVacancySalary"></span></p>
-                <?php if ($_SESSION["userType"] === "klients"): ?>
+                <?php if ($_SESSION["userType"] === "klients" && isset($_SESSION["username"])): ?>
                     <button class="applyBtn" data-vacancy-id="">
                         Pieteikties
                     </button>

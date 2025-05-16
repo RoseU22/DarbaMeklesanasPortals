@@ -264,7 +264,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="text" id="confirm-username" placeholder="Lietotājvārds">
                         <input type="email" id="confirm-email" placeholder="E-pasts">
                         <input type="password" id="confirm-password" placeholder="Parole">
-                        <button class="confirm-delete">Dzēst</button>
+                        <button type="button" class="confirm-delete">Dzēst</button>
                         <button type="button" class="cancel-delete">Atcelt</button>
                     </div>
                 </div>

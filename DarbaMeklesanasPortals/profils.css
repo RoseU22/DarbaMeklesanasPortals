@@ -1,22 +1,12 @@
-:root {
-    --primary-color: #0A192F;
-    --secondary-color: #112240;
-    --accent-color: #64FFDA;
-    --text-color: #CCD6F6;
-    --background-color: #020C1B;
-    --white: #FFFFFF;
-    --gray: #8892B0;
-    --shadow-color: rgba(2, 12, 27, 0.7);
-}
-
 .accountprofile-container {
     max-width: 600px;
     margin: 60px auto;
     background-color: var(--secondary-color);
     padding: 30px 40px;
     border-radius: 16px;
-    box-shadow: 0 10px 30px var(--shadow-color);
+    box-shadow: 0 0px 5px var(--shadow-color);
     scale: 1.1;
+    animation: fadeInUp 0.7s ease forwards;
 }
 
 .accountprofile-container h2 {
@@ -29,7 +19,7 @@
     display: block;
     margin-top: 15px;
     font-weight: bold;
-    color: var(--white);
+    color: var(--accent-color);
 }
 
 .accountprofile-container input {
@@ -40,6 +30,13 @@
     border: none;
     background-color: var(--primary-color);
     color: var(--text-color);
+    transition: box-shadow var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+
+.accountprofile-container input:focus {
+    outline: none;
+    box-shadow: 0 0 10px var(--accent-color);
+    transform: scale(1.02);
 }
 
 .accountprofile-container button {
@@ -53,25 +50,25 @@
     font-weight: bold;
     border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color var(--transition-speed) ease, transform 0.2s ease;
 }
 
 .accountprofile-container button:disabled {
-    background-color: var(--gray);
+    background-color: var(--muted-color);
     color: var(--primary-color);
     cursor: not-allowed;
     border: 1px solid #999;
 }
 
 .accountprofile-container button:disabled:hover {
-    background-color: var(--gray);
+    background-color: var(--muted-color);
 }
-
 
 .accountprofile-container button:hover {
-    background-color: #52e0c4;
-    transform: scale(1.02);
+    background-color: var(--hover-color);
+    transform: scale(1.05);
 }
+
 
 .accountprofile-container {
     max-width: 900px;
@@ -92,6 +89,7 @@
     margin: auto;
     flex-direction: column;
     gap: 20px;
+    animation: floatSlow 4s ease-in-out infinite;
 }
 
 .upload-placeholder {
@@ -100,11 +98,11 @@
     align-items: center;
     width: 180px;
     height: 180px;
-    border: 2px dotted #aaa;
+    border: 2px dotted var(--muted-color);
     border-radius: 50%;
     text-align: center;
     font-size: 14px;
-    color: #555;
+    color: var(--muted-color);
     cursor: pointer;
     padding: 10px;
 }
@@ -115,6 +113,7 @@
 
 .profile-form h2 {
     margin-top: 0;
+    color: var(--accent-color);
 }
 
 .profile-form input[type="text"],
@@ -123,27 +122,36 @@
     width: 100%;
     padding: 8px;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--muted-color);
     border-radius: 4px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
 }
 
 .profile-form button[disabled] {
-    background-color: #ccc;
+    background-color: var(--muted-color);
     color: #666;
     cursor: not-allowed;
 }
 
 .profile-form button:not([disabled]) {
     background-color: var(--accent-color);
+    color: var(--primary-color);
     cursor: pointer;
 }
 
-.profile-image-container span{
-    margin: 20px 0px;
+.profile-form button[type="submit"]:hover{
+    animation: pulseGlowWhite 1.5s infinite alternate;
 }
 
-.profile-image-container p{
-    color: var(--white);
+
+.profile-image-container span {
+    margin: 20px 0px;
+    color: var(--accent-color);
+}
+
+.profile-image-container p {
+    color: var(--accent-color);
 }
 
 .upload-image-label {
@@ -152,7 +160,7 @@
     height: 180px;
     border-radius: 50%;
     overflow: hidden;
-    border: 2px dotted #aaa;
+    border: 2px dotted var(--muted-color);
     cursor: pointer;
     position: relative;
 }
@@ -174,11 +182,13 @@
     cursor: pointer;
     font-weight: bold;
     margin-top: 20px;
-    transition: background-color 0.3s ease;
+    transition: background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
 }
 
 .delete-account-btn:hover {
     background-color: #b90b0e !important;
+    box-shadow: 0 0 15px 3px rgba(185, 11, 14, 0.7);
+    animation: pulseGlow 1.5s infinite alternate;
 }
 
 .modal-overlay {
@@ -201,7 +211,7 @@
     width: 400px;
     max-width: 90%;
     color: var(--text-color);
-    box-shadow: 0 0 15px var(--shadow-color);
+    box-shadow: 0 0 5px var(--shadow-color);
     text-align: center;
 }
 
@@ -210,8 +220,8 @@
     padding: 8px;
     margin-top: 10px;
     border-radius: 8px;
-    border: 1px solid var(--gray);
-    background-color: var(--background-color);
+    border: 1px solid var(--muted-color);
+    background-color: var(--primary-color);
     color: var(--text-color);
 }
 
@@ -229,7 +239,54 @@
     color: var(--primary-color);
 }
 
+.modal-delete-profile .confirm-delete:hover{
+    animation: pulseGlow 1.5s infinite alternate;
+}
+
 .modal-delete-profile .cancel-delete {
-    background-color: #aaa;
+    background-color: var(--muted-color);
+    color: var(--primary-color);
+}
+
+.modal-delete-profile .cancel-delete:hover {
+    animation: pulseGlowWhite 1.5s infinite alternate;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(255, 77, 79, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(255, 77, 79, 1);
+  }
+}
+
+@keyframes pulseGlowWhite {
+  0%, 100% {
+    box-shadow: 0 0 8px var(--accent-color);
+  }
+  50% {
+    box-shadow: 0 0 16px var(--accent-color);
+  }
 }
 

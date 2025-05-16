@@ -1,17 +1,6 @@
-:root {
-    --primary-color: #0A192F;
-    --secondary-color: #112240;
-    --accent-color: #64FFDA;
-    --text-color: #CCD6F6;
-    --background-color: #020C1B;
-    --white: #FFFFFF;
-    --gray: #8892B0;
-    --shadow-color: rgba(2, 12, 27, 0.7);
-}
-
 html, body {
     height: 100vh;
-    background-color: var(--background-color);
+    background-color: var(--primary-color);
     color: var(--text-color);
 }
 
@@ -32,8 +21,8 @@ html, body {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(2, 12, 27, 0.7);
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: opacity var(--transition-speed) ease-in-out, visibility var(--transition-speed) ease-in-out;
 }
 
 .modal.show {
@@ -42,18 +31,20 @@ html, body {
 }
 
 .modal-content {
-    background: var(--primary-color);
+    background: var(--secondary-color);
     padding: 30px;
     border-radius: 12px;
     width: 350px;
     text-align: center;
     position: relative;
-    box-shadow: 0 5px 15px var(--shadow-color);
-    border: 1px solid var(--gray);
+    box-shadow: 0 8px 20px var(--shadow-color);
+    border: 1px solid var(--muted-color);
+    animation: zoomIn 0.3s ease;
+    scale: 0.9;
 }
 
 .modal-content h2 {
-    color: var(--white);
+    color: var(--accent-color);
     font-size: 22px;
     margin-bottom: 15px;
 }
@@ -64,12 +55,13 @@ html, body {
     right: 15px;
     font-size: 22px;
     cursor: pointer;
-    color: var(--white);
-    transition: color 0.3s, transform 0.3s;
+    color: var(--accent-color);
+    transition: color var(--transition-speed), transform var(--transition-speed);
 }
 
 .close:hover {
-    color: var(--accent-color);
+    color: var(--hover-color);
+    transform: rotate(90deg);
 }
 
 .modal-content select,
@@ -77,12 +69,12 @@ html, body {
     width: 90%;
     padding: 12px;
     margin: 10px 0;
-    border: 2px solid var(--gray);
+    border: 2px solid var(--muted-color);
     border-radius: 6px;
     font-size: 16px;
-    background: var(--secondary-color);
+    background: var(--primary-color);
     color: var(--text-color);
-    transition: border-color 0.3s ease;
+    transition: border-color var(--transition-speed) ease;
 }
 
 .modal-content select:focus,
@@ -101,12 +93,14 @@ html, body {
     border-radius: 30px;
     cursor: pointer;
     text-transform: uppercase;
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition: background var(--transition-speed), transform 0.2s ease;
     width: 100%;
+    box-shadow: 0 4px 10px var(--shadow-color);
 }
 
 .modal-content .btn:hover {
-    background: var(--secondary-color);
+    background: var(--hover-color);
+    color: var(--primary-color);
     transform: scale(1.05);
 }
 
@@ -127,21 +121,21 @@ main .container {
     font-size: 14px;
     border-radius: 20px;
     margin-top: 15px;
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    transition: background var(--transition-speed), transform 0.2s ease, box-shadow var(--transition-speed);
     cursor: pointer;
+    box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .btn i {
     font-weight: 900;
 }
 
-#cvButton{
+#cvButton {
     width: 90%;
 }
 
 .btn:hover {
-    background-color: var(--accent-color);
-    color: var(--primary-color);
+    background-color: var(--hover-color);
     transform: scale(1.05);
 }
 
@@ -155,9 +149,25 @@ main .container {
 /* CV Modāls */
 #cvModal .modal {
     display: flex;
-    background-color: rgba(2, 12, 27, 0.8);
+    background-color: rgba(0, 0, 0, 0.85);
     font-family: 'Poppins', sans-serif;
 }
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+.fade-out {
+    animation: fadeOut 0.3s forwards;
+}
+
 
 #cvModal .modal-content {
     background-color: var(--secondary-color);
@@ -165,10 +175,10 @@ main .container {
     width: 80%;
     max-width: 800px;
     padding: 30px;
-    box-shadow: 0 4px 20px var(--shadow-color);
+    box-shadow: 0 6px 20px var(--shadow-color);
     overflow-y: auto;
     max-height: 90vh;
-    scale: 1;
+    scale: 0.8;
 }
 
 #cvModal h2 {
@@ -202,20 +212,20 @@ main .container {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid var(--gray);
+    border: 1px solid var(--muted-color);
     border-radius: 5px;
     font-size: 16px;
     color: var(--text-color);
     background-color: var(--primary-color);
-    transition: all 0.3s ease;
+    transition: all var(--transition-speed) ease;
     resize: none;
 }
 
 #cvModal input:focus,
 #cvModal textarea:focus {
     border-color: var(--accent-color);
-    background-color: var(--white);
-    color: var(--background-color);
+    background-color: var(--hover-color);
+    color: var(--primary-color);
     outline: none;
 }
 
@@ -233,11 +243,12 @@ main .container {
     cursor: pointer;
     width: 100%;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: all var(--transition-speed) ease;
+    box-shadow: 0 4px 12px var(--shadow-color);
 }
 
 #cvModal #saveCV:disabled {
-    background-color: var(--gray);
+    background-color: var(--muted-color);
     cursor: not-allowed;
 }
 
@@ -276,7 +287,7 @@ main .container {
 .Pazinojums {
     font-size: 1.2rem;
     height: 60px;
-    color: var(--white);
+    color: var(--accent-color);
     background-color: #f44336;
     padding: 15px;
     border-radius: 10px;
@@ -296,20 +307,21 @@ main .container {
 }
 
 .cv-box {
-    background: var(--white);
+    background: var(--secondary-color);
     border-radius: 12px;
-    box-shadow: 0 4px 10px var(--shadow-color);
+    box-shadow: 0 0px 5px var(--shadow-color);
     text-align: center;
     padding: 15px;
     width: 250px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
     height: 18rem;
     color: var(--text-color);
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .cv-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px var(--shadow-color);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 20px var(--shadow-color);
 }
 
 .cv-image {
@@ -324,4 +336,27 @@ main .container {
     color: var(--accent-color);
     margin-top: 2px;
     text-transform: uppercase;
+}
+
+/* Animācijas */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zoomIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
