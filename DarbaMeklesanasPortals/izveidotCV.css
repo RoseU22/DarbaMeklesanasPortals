@@ -194,6 +194,7 @@ main .container {
     font-size: 30px;
     color: var(--accent-color);
     cursor: pointer;
+    right: 20px;
 }
 
 #cvModal label {

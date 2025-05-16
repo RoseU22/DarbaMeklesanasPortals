@@ -52,6 +52,7 @@ if ($stmt->execute()) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <script src="autorizacija.js"></script>
     <script src="CVizveidosana.js"></script>
+    <script src="gaismasRezims.js"></script>
 </head>
 
 <body>
@@ -76,6 +77,9 @@ if ($stmt->execute()) {
                     <li><a href="#Kontakti">Kontakti</a></li>
                 </ul>
             </nav>
+
+            <button id="themeToggle" class="theme-toggle">🌙</button>
+
             <div>
                 <?php if (isset($_SESSION["username"])): ?>
                     <!-- Ielogojies lietotājs -->

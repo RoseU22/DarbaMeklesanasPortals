@@ -149,6 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="autorizacija.js"></script>
     <script src="profils.js"></script>
     <script src="dzest_profilu.js"></script>
+    <script src="gaismasRezims.js"></script>
 </head>
 <body>
     <header>
@@ -172,6 +173,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li><a href="#Kontakti">Kontakti</a></li>
                 </ul>
             </nav>
+
+            <button id="themeToggle" class="theme-toggle">🌙</button>
+
             <div>
                 <?php if (isset($_SESSION["username"])): ?>
                     <div class="profile-container">

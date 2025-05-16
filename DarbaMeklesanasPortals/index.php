@@ -40,6 +40,7 @@
     <script src="autorizacija.js"></script>
     <script src="Pieteiksanas.js"></script>
     <script src="mekletVakanci.js"></script>
+    <script src="gaismasRezims.js"></script>
 
 </head>
 
@@ -75,6 +76,8 @@
                 </ul>
 
             </nav>
+
+            <button id="themeToggle" class="theme-toggle">🌙</button>
 
             <div>
                 <?php if (isset($_SESSION["username"])): ?>

@@ -63,6 +63,7 @@ if ($userType === 'uznemums') {
     <link rel="shortcut icon" href="Bildes/Favicon.png" type="image/x-icon">
     <script src="autorizacija.js"></script>
     <script src="apskatitCV.js"></script>
+    <script src="gaismasRezims.js"></script>
 </head>
 <body>
 
@@ -87,6 +88,9 @@ if ($userType === 'uznemums') {
                     <li><a href="#Kontakti">Kontakti</a></li>
                 </ul>
             </nav>
+
+            <button id="themeToggle" class="theme-toggle">🌙</button>
+
             <div>
                 <?php if (isset($_SESSION["username"])): ?>
                     <div class="profile-container">
