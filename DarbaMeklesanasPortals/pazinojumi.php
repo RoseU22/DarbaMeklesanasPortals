@@ -1,6 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['userType'])) {
+
+if (!isset($_SESSION['username']) || !isset($_SESSION['userType'])) {
     header("Location: index.php");
     exit();
 }
@@ -17,7 +18,7 @@ if ($userType === 'uznemums') {
             FROM DMPortals_Pazinojumi p
             JOIN DMPortals_Vakances v ON p.vakance_id = v.vakancesID
             JOIN DMPortals k ON p.klients_id = k.lietotajsID
-            WHERE v.uznemuma_nosaukums = ?";
+            WHERE v.uznemuma_nosaukums = ? AND p.uznemums_izdzesa = 0";
     $stmt = $savienojums->prepare($sql);
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -29,14 +30,14 @@ if ($userType === 'uznemums') {
                 v.vakances_nosaukums,
                 u.uznemuma_nosaukums,
                 u.profila_bilde,
-                u.uznemumsID
+                u.uznemumsID,
+                p.uznemums_izdzesa
             FROM DMPortals_Pazinojumi p
             JOIN DMPortals_Vakances v ON p.vakance_id = v.vakancesID
             JOIN DMPortals_Uznemums u ON v.uznemuma_nosaukums = u.uznemuma_nosaukums
-            WHERE p.klients_id = (
+            WHERE p.klients_izdzesa = 0 AND p.klients_id = (
                 SELECT lietotajsID FROM DMPortals WHERE lietotajvards = ?
             )";
-    
     $stmt = $savienojums->prepare($sql);
     if (!$stmt) {
         die("SQL prepare error: " . $savienojums->error);
@@ -47,8 +48,6 @@ if ($userType === 'uznemums') {
     $result = $stmt->get_result();
     $notifications = $result->fetch_all(MYSQLI_ASSOC);
 }
-
-
 
 
 ?>
@@ -148,7 +147,10 @@ if ($userType === 'uznemums') {
                         <button class="delete-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Dzēst paziņojumu">🗑️</button>
                         <button class="apskatit-btn" data-cv-id=<?php echo $note['cv_id']; ?>>Apskatīt</button>
                     <?php else: ?>
-                        <span class="sent-status">Aizsūtīts</span>
+                        <span class="sent-status">
+                            <button class="delete-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Dzēst paziņojumu">🗑️</button>
+                            <?php echo ($note['uznemums_izdzesa'] == 1) ? 'Noraidīts' : 'Aizsūtīts'; ?>
+                        </span>
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>
