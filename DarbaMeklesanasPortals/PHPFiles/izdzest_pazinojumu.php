@@ -13,7 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pazinojumi_id'])) {
     $userType = $_SESSION['userType'];
     $columnToUpdate = $userType === 'uznemums' ? 'uznemums_izdzesa' : 'klients_izdzesa';
 
-    $sql = "UPDATE DMPortals_Pazinojumi SET $columnToUpdate = 1 WHERE pazinojumi_id = ?";
+    if ($userType === 'uznemums') {
+        $sql = "UPDATE DMPortals_Pazinojumi SET $columnToUpdate = 1, statuss = 'Noraidīts' WHERE pazinojumi_id = ?";
+    } else {
+        $sql = "UPDATE DMPortals_Pazinojumi SET $columnToUpdate = 1 WHERE pazinojumi_id = ?";
+    }
     $stmt = $savienojums->prepare($sql);
     if (!$stmt) {
         echo "prepare_error";
@@ -35,8 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pazinojumi_id'])) {
     exit();
 }
 
-// --- Additional deletion logic below (separate from original block) ---
-require 'con_db.php'; // Reconnect to DB
+require 'con_db.php';
 
 $checkSql = "SELECT uznemums_izdzesa, klients_izdzesa FROM DMPortals_Pazinojumi WHERE pazinojumi_id = ?";
 $checkStmt = $savienojums->prepare($checkSql);

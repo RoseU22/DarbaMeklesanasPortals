@@ -167,6 +167,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     const deleteButtons = document.querySelectorAll('.delete-btn');
+    const acceptButtons = document.querySelectorAll('.accept-btn');
 
     deleteButtons.forEach(button => {
         button.addEventListener('click', function () {
@@ -193,5 +194,29 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
     });
+
+    acceptButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const pazinojumiId = button.getAttribute('data-paz-id');
+
+            fetch('PHPFiles/akceptet_pazinojumu.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `pazinojumi_id=${pazinojumiId}`
+            })
+            .then(response => response.text())
+            .then(result => {
+                if (result === 'success') {
+                    location.reload();
+                } else {
+                    alert('Kļūda apstiprināšanā!');
+                }
+            })
+            .catch(() => alert('Servera kļūda.'));
+        });
+    });
+
 
 });

@@ -57,6 +57,24 @@
     color: var(--white);
 }
 
+.notification .sent-status{
+    display: flex;
+    flex-direction: row;
+}
+
+.notification .sent-status .status {
+    color: var(--white);
+    display: flex;
+    align-items: center;
+}
+
+.notification .status{
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
 .notification img {
     width: 55px;
     height: 55px;
@@ -78,6 +96,22 @@
     font-size: 1rem;
     font-weight: 500;
 }
+
+.accept-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+.accept-btn:hover {
+    background-color: #218838;
+}
+
 
 .notification .delete-btn {
     background-color: #f44336;

@@ -14,7 +14,7 @@ $username = $_SESSION['username'];
 $notifications = [];
 
 if ($userType === 'uznemums') {
-    $sql = "SELECT p.pazinojumi_id, p.klients_id, p.cv_id, k.lietotajvards, k.profila_bilde, v.vakances_nosaukums
+    $sql = "SELECT p.pazinojumi_id, p.klients_id, p.statuss, p.cv_id, k.lietotajvards, k.profila_bilde, v.vakances_nosaukums
             FROM DMPortals_Pazinojumi p
             JOIN DMPortals_Vakances v ON p.vakance_id = v.vakancesID
             JOIN DMPortals k ON p.klients_id = k.lietotajsID
@@ -31,7 +31,7 @@ if ($userType === 'uznemums') {
                 u.uznemuma_nosaukums,
                 u.profila_bilde,
                 u.uznemumsID,
-                p.uznemums_izdzesa
+                p.statuss
             FROM DMPortals_Pazinojumi p
             JOIN DMPortals_Vakances v ON p.vakance_id = v.vakancesID
             JOIN DMPortals_Uznemums u ON v.uznemuma_nosaukums = u.uznemuma_nosaukums
@@ -143,13 +143,21 @@ if ($userType === 'uznemums') {
                     </div>
 
                     <?php if ($userType === 'uznemums'): ?>
+
                         <input type="hidden" name="pazinojumi_id" value="<?php echo $note['pazinojumi_id']; ?>">
-                        <button class="delete-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Dzēst paziņojumu">🗑️</button>
-                        <button class="apskatit-btn" data-cv-id=<?php echo $note['cv_id']; ?>>Apskatīt</button>
+
+                        <?php if ($note['statuss'] !== 'Akceptēts'): ?>
+                            <button class="accept-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Akceptēt pieprasījumu">✅</button>
+                            <button class="delete-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Dzēst paziņojumu">🗑️</button>
+                            <button class="apskatit-btn" data-cv-id="<?php echo $note['cv_id']; ?>">Apskatīt</button>
+                        <?php else: ?>
+                            <span class="status"><?php echo htmlspecialchars($note['statuss']);?></span>
+                            <button class="apskatit-btn" data-cv-id="<?php echo $note['cv_id']; ?>">Apskatīt</button>
+                        <?php endif; ?>
                     <?php else: ?>
                         <span class="sent-status">
+                            <span class="status"><?php echo htmlspecialchars($note['statuss'] ?? 'Aizsūtīts');?></span>
                             <button class="delete-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Dzēst paziņojumu">🗑️</button>
-                            <?php echo ($note['uznemums_izdzesa'] == 1) ? 'Noraidīts' : 'Aizsūtīts'; ?>
                         </span>
                     <?php endif; ?>
                 </div>
