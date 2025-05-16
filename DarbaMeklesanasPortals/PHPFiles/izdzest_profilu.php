@@ -91,7 +91,7 @@ if ($userType === 'klients') {
     $del_user->execute();
 }
 
-// Iznīvina sessiju
+// Iznīcina sessiju
 session_unset();
 session_destroy();
 

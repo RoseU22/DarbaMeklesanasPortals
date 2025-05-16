@@ -51,6 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
     }
 
+    $changes_made = false;
+
     if ($user_type === 'klients') {
         $new_username = $_POST["lietotajvards"];
         $vards = $_POST["vards"];
@@ -58,7 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $epasts = $_POST["epasts"];
         $parole = $_POST["parole"];
 
-        // Pārbauda vai jau neeksistē lietotājs ar tādu vārdu ko grib rediģēt uz
         if ($new_username !== $lietotajvards) {
             $check_stmt = $savienojums->prepare("SELECT lietotajvards FROM DMPortals WHERE lietotajvards = ?");
             $check_stmt->bind_param("s", $new_username);
@@ -70,7 +71,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
-        // Nohasho jauno paroli ja tika mainīta
         $hashed_password = !empty($parole) ? password_hash($parole, PASSWORD_DEFAULT) : $user['parole'];
 
         $changes_made = (
@@ -122,7 +122,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    if($changes_made){
+    // Parāda paziņojumu, ja izmaiņas tika veiktas
+    if ($changes_made) {
         if ($stmt->execute()) {
             $_SESSION['username'] = $new_username;
             echo "<script>alert('Profils atjaunināts!'); window.location.href='profils.php';</script>";
@@ -131,6 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Kļūda saglabājot datus.";
         }
     }
+
 }
 
 ?>
@@ -263,7 +265,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="email" id="confirm-email" placeholder="E-pasts">
                         <input type="password" id="confirm-password" placeholder="Parole">
                         <button class="confirm-delete">Dzēst</button>
-                        <button class="cancel-delete">Atcelt</button>
+                        <button type="button" class="cancel-delete">Atcelt</button>
                     </div>
                 </div>
                 
