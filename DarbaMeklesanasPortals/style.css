@@ -633,18 +633,6 @@ h2 {
     }
 }
 
-/* Root colors assumed from your input */
-:root {
-    --primary-color: #000000;
-    --secondary-color: #1A1A1A;
-    --accent-color: #ffffff;
-    --hover-color: #e6e6e6;
-    --text-color: #f5f5f5;
-    --muted-color: #888888;
-    --shadow-color: rgba(255, 255, 255, 0.1);
-    --transition-speed: 0.3s;
-}
-
 /*___________Pieteikšanās sekcija______________*/
 
 .vakances-konteiners {
@@ -1061,3 +1049,164 @@ footer {
     }
 }
 
+/*____________________________________________________________RESPONSIVITĀTE_______________________________________________________________________________*/
+
+@media screen and (max-width: 1670px) {
+
+    .vakances-konteiners{
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media screen and (max-width: 1555px) {
+
+    .vakances-konteiners{
+        grid-template-columns: repeat(4, 1fr);
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1240px) {
+
+    .vakances-konteiners{
+        grid-template-columns: repeat(3, 1fr);
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    nav ul {
+        gap: 0.7rem;
+        font-size: 0.9rem;
+    }
+
+    .vacancy-box {
+        flex: 0 1 48%;
+    }
+
+    .modal-content {
+        flex-direction: column;
+    }
+
+    .modal-left, .modal-right {
+        width: 80%;
+        margin: auto;
+    }
+
+    .modal-left img {
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 940px) {
+    header .konteiners {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-left {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    .theme-toggle {
+        margin-top: 1rem;
+    }
+
+    .vakances-konteiners {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .vacancy-box {
+        width: 100%;
+        max-width: 90%;
+    }
+
+    .search-bar {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .modal-content {
+        flex-direction: column;
+    }
+
+    .modal-content-CVselect {
+        width: 95%;
+    }
+}
+
+@media (max-width: 1175px) {
+    .PieteiksanasModal .modal-content {
+        flex-direction: column;
+        padding: 10px;
+        scale: 0.9;
+    }
+
+    .PieteiksanasModal .modal-left img {
+        border-radius: 8px 8px 0 0;
+        margin: auto;
+    }
+
+    .PieteiksanasModal .modal-right {
+        padding: 10px;
+        width: 80%;
+        margin: auto;
+    }
+
+    .PieteiksanasModal .modal-left {
+        padding: 10px;
+        width: 80%;
+        margin: auto;
+    }
+}
+
+@media (max-width: 670px) {
+    .PieteiksanasModal .modal-content {
+        flex-direction: column;
+        padding: 10px;
+        scale: 0.7;
+    }
+
+}
+
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    nav ul {
+        font-size: 0.9rem;
+    }
+
+    .vacancy-title {
+        font-size: 1rem;
+    }
+
+    .vacancy-box button {
+        font-size: 0.9rem;
+    }
+
+    .modal-content {
+        padding: 1rem;
+    }
+
+    .btn, button {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+}

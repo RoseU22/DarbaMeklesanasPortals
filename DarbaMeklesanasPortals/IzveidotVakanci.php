@@ -63,6 +63,8 @@ if ($stmt->execute()) {
     <script src="autorizacija.js"></script>
     <script src="VakancesIzveidosana.js"></script>
     <script src="gaismasRezims.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
 </head>
 
 <body>
@@ -144,12 +146,24 @@ if ($stmt->execute()) {
                         <img src="Bildes/Vakance.png" alt="Vakance Image" class="vakance-image">
                         <p class="vacancy-location"><?php echo htmlspecialchars($vacancy['atrasanas_vieta']); ?></p>
                         <button class="delete-vacancy-btn">Dzēst vakanci</button>
+                        <button class="view-stats-btn" data-vacancy-id="<?php echo $vacancy['vakancesID']; ?>">Skatīt statistiku</button>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
                 <p class="Pazinojums">Nav izveidotas nevienas vakances!</p>
             <?php endif; ?>
         </div>
+
+        <!-- Statistikas modāls -->
+        <div id="statsModal" class="stats-modal">
+            <div class="modal-content stats-modal-content">
+                <span id="closeStatsModal" class="close stats-modal-close">&times;</span>
+                <h2>Vakances statistika</h2>
+                <p id="statsModalContent" class="stats-modal-text">Ielādē statistiku...</p>
+                <canvas id="statsChart" style="max-width: 100%; display: none;"></canvas>
+            </div>
+        </div>
+
 
         <!-- Vakances modāls -->
         <div id="vacancyModal" class="modal">

@@ -129,6 +129,7 @@ if ($userType === 'uznemums') {
             <p class="no-notifications">Nav paziņojuma</p>
         <?php else: ?>
             <?php foreach ($notifications as $note): ?>
+                <script>console.log('Showing notification: ID <?php echo $note['pazinojumi_id']; ?>');</script>
                 <div class="notification">
                     <div class="info">
                         <?php if ($userType === 'uznemums'): ?>
