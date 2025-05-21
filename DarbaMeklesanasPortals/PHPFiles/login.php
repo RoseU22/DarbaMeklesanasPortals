@@ -34,7 +34,7 @@ if ($userType === "klients"){
 
 // Login klientiem
 if ($userType === "klients") {
-    $stmt = $savienojums->prepare("SELECT parole FROM DMPortals WHERE lietotajvards = ?");
+    $stmt = $savienojums->prepare("SELECT parole, loma FROM DMPortals WHERE lietotajvards = ?");
     if (!$stmt) {
         echo json_encode(["success" => false, "error" => "Datu bāzes vaicājums neizdevās"]);
         exit;
@@ -45,12 +45,13 @@ if ($userType === "klients") {
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($hashed_password);
+        $stmt->bind_result($hashed_password, $loma);
         $stmt->fetch();
 
         if (password_verify($password, $hashed_password)) {
             $_SESSION["username"] = $username;
             $_SESSION["userType"] = "klients";
+            $_SESSION["loma"] = $loma;
             echo json_encode(["success" => true, "username" => $username, "userType" => "klients"]);
         } else {
             echo json_encode(["success" => false, "error" => "Nepareiza parole"]);

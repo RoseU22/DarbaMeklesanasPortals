@@ -20,6 +20,19 @@
         }
     }
 
+    $isAdmin = false;
+    if (isset($_SESSION["username"]) && $_SESSION["userType"] === "klients") {
+        $username = $savienojums->real_escape_string($_SESSION["username"]);
+        $admin_query = "SELECT loma FROM DMPortals WHERE lietotajvards = '$username' LIMIT 1";
+        $admin_result = $savienojums->query($admin_query);
+        if ($admin_result && $admin_result->num_rows > 0) {
+            $row = $admin_result->fetch_assoc();
+            if (strtolower($row['loma']) === 'administrators') {
+                $isAdmin = true;
+            }
+        }
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -89,12 +102,17 @@
                         <div class="profile-dropdown" id="profileDropdown">
                             <p class="dropdown-option"><a href="PHPFiles/logout.php">Izlogoties</a></p>
                             <p class="dropdown-option"><a href="profils.php">Profils</a></p>
-                            <p class="dropdown-option"><a href="pazinojumi.php">Paziņojumi</a></p>
-                            
-                            <?php if ($_SESSION["userType"] === "klients"): ?>
-                                <p class="dropdown-option"><a href="IzveidotCV.php">Uztaisīt CV</a></p>
-                            <?php elseif ($_SESSION["userType"] === "uznemums"): ?>
-                                <p class="dropdown-option"><a href="IzveidotVakanci.php">Uztaisīt vakanci</a></p>
+
+                            <?php if ($isAdmin): ?>
+                                <p id="admin" class="dropdown-option"><a href="admin_login.php">Admin panelis</a></p>
+                            <?php else: ?>
+                                <p class="dropdown-option"><a href="pazinojumi.php">Paziņojumi</a></p>
+
+                                <?php if ($_SESSION["userType"] === "klients"): ?>
+                                    <p class="dropdown-option"><a href="IzveidotCV.php">Uztaisīt CV</a></p>
+                                <?php elseif ($_SESSION["userType"] === "uznemums"): ?>
+                                    <p class="dropdown-option"><a href="IzveidotVakanci.php">Uztaisīt vakanci</a></p>
+                                <?php endif; ?>
                             <?php endif; ?>
                         </div>
                     </div>

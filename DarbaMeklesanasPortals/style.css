@@ -256,6 +256,9 @@ nav ul li a:hover {
 .dropdown-option a{
    color: var(--primary-color); 
    text-decoration: none;
+   display: flex;
+   justify-content: center;
+   text-align: center;
 }
 
 .dropdown-option a:hover{
@@ -336,16 +339,36 @@ nav ul li a:hover {
     border: 2px solid #000;
 }
 
-/* Make the <a> inside also change color on hover */
+
 .profile-dropdown .dropdown-option:hover a,
 .login-dropdown .dropdown-option:hover a {
     color: var(--accent-color);
-    text-decoration: none; /* optional: remove underline on hover */
+    text-decoration: none; 
 }
 
+@keyframes neonGlow {
+  0% {
+    box-shadow: 0 0 3px #ffeb00, 0 0 6px #ffeb00;
+  }
+  50% {
+    box-shadow: 0 0 4px #d6c300, 0 0 8px #d6c300;
+  }
+  100% {
+    box-shadow: 0 0 3px #ffeb00, 0 0 6px #ffeb00;
+  }
+}
 
+#admin {
+    background-color: #ffeb00;
+    border: none;
+    animation: neonGlow 2s infinite ease-in-out;
+}
 
-/*______________________________________________________________MODĀLAISLOGS - Using Provided CSS Variables_____________________________________________________________________________*/
+#admin a{
+    color: #000;
+}
+
+/*______________________________________________________________MODĀLAISLOGS_____________________________________________________________________________*/
 
 .modal {
     display: none;

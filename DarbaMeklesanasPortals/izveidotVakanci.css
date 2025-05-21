@@ -1,4 +1,3 @@
-/* Base */
 .augstums {
     min-height: 80vh;
 }
@@ -14,7 +13,7 @@
     animation: fadeIn 0.6s ease-in;
 }
 
-/* Modernized vacancy box */
+
 .vacancy-box {
     background: var(--accent-color);
     border-radius: 16px;
@@ -32,7 +31,7 @@
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
-/* Title */
+
 .vacancy-title {
     font-size: 1.25rem;
     color: var(--primary-color);
@@ -41,7 +40,7 @@
     letter-spacing: 0.5px;
 }
 
-/* Image */
+
 .vakance-image {
     width: 100%;
     height: auto;
@@ -54,7 +53,7 @@
     transform: scale(1.03);
 }
 
-/* Location */
+
 .vacancy-location {
     font-size: 1rem;
     color: var(--secondary-color);
@@ -62,11 +61,11 @@
     font-weight: 500;
 }
 
-/* Delete button */
+
 .delete-vacancy-btn {
     margin-top: 12px;
-    background-color: var(--primary-color);
-    color: var(--accent-color);
+    background-color: #f44336;
+    color: #ffffff;
     border: none;
     padding: 8px 14px;
     border-radius: 6px;
@@ -76,8 +75,7 @@
 }
 
 .delete-vacancy-btn:hover {
-    background-color: var(--muted-color);
-    color: var(--accent-color);
+    background-color: #a51a10;
     transform: scale(1.05);
 }
 
@@ -97,7 +95,7 @@
 
 .view-stats-btn:hover {
     background-color: var(--muted-color);
-    color: var(--accent-color);
+    color: #ffffff;
     transform: scale(1.05);
 }
 
@@ -111,33 +109,33 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(26, 26, 26, 0.95); /* --secondary-color with some opacity */
+  background-color: rgba(26, 26, 26, 0.95);
   font-family: 'Poppins', sans-serif;
   transition: background-color var(--transition-speed);
   backdrop-filter: blur(8px);
 }
 
 .stats-modal-content {
-  background-color: var(--primary-color); /* solid black */
-  color: var(--text-color); /* white-ish text */
-  margin: 5% auto; /* reduce top margin for better vertical centering */
-  padding: 40px 50px; /* more padding for spaciousness */
+  background-color: var(--primary-color); 
+  color: var(--text-color); 
+  margin: 5% auto; 
+  padding: 40px 50px; 
   border-radius: 20px;
   width: 90%;
-  max-width: 700px; /* wider max width for the modal */
+  max-width: 700px; 
   box-shadow: 0 8px 20px var(--shadow-color);
   text-align: center;
-  border: 1.5px solid var(--accent-color); /* white border */
+  border: 1.5px solid var(--accent-color); 
   transition: box-shadow var(--transition-speed);
 }
 
-/* Optional: Make the canvas inside fill modal nicely */
+
 .stats-modal-content canvas#statsChart {
   width: 100% !important;
-  height: 400px !important;  /* taller for better label spacing */
+  height: 400px !important;  
   margin-top: 20px;
   border-radius: 10px;
-  background-color: var(--secondary-color);
+  background-color: #ffffff;
   box-shadow: 0 0 15px var(--shadow-color);
 }
 
@@ -178,7 +176,6 @@
 }
 
 
-/* Vispārīga poga lodziņā */
 .vacancy-box .btn {
     background: var(--accent-color);
     color: var(--accent-color);
@@ -199,13 +196,13 @@
     transform: scale(1.08);
 }
 
-/* Responsive button alignment */
+
 #vacancyButton {
     width: 90%;
     margin-left: 80px;
 }
 
-/* Notification */
+
 .Pazinojums {
     font-size: 1.2rem;
     color: var(--accent-color);
@@ -219,7 +216,7 @@
     animation: slideUp 0.4s ease-out;
 }
 
-/* MODAL STYLES */
+
 #vacancyModal .modal {
     display: none;
     position: fixed;
@@ -270,7 +267,7 @@
     transform: rotate(90deg);
 }
 
-/* Form Inputs */
+
 #vacancyModal input[type="text"],
 #vacancyModal input[type="number"],
 #vacancyModal textarea {
@@ -300,7 +297,7 @@
     min-height: 120px;
 }
 
-/* Submit button */
+
 #vacancyModal button {
     padding: 14px 25px;
     font-size: 18px;
@@ -339,14 +336,14 @@ background-color: var(--accent-color);
     cursor: not-allowed;
 }
 
-/* Form layout */
+
 #vacancyModal .form-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .vacancy-box {
         width: 90%;
