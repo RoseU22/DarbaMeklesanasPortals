@@ -1,0 +1,98 @@
+nav{
+    margin-left: 150px;
+}
+
+body {
+    margin: 0;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+}
+
+.statistics-container {
+    display: flex;
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    box-shadow: 0 0 15px var(--shadow-color);
+    overflow: hidden;
+    opacity: 0;
+    transform: scale(0.95);
+    animation: fadeScaleIn 0.8s ease forwards;
+}
+
+@keyframes fadeScaleIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.chart-wrapper {
+    flex: 1;
+    padding: 30px;
+    background-color: #e5e5e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stats-wrapper {
+    flex: 0.5;
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 25px;
+    background-color: var(--accent-color); 
+    color: var(--primary-color); 
+    text-align: center; 
+}
+
+.stat-item {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideFadeUp 0.6s ease forwards;
+}
+
+.stats-wrapper .stat-item:nth-child(1) {
+  animation-delay: 0.3s;
+}
+.stats-wrapper .stat-item:nth-child(2) {
+  animation-delay: 0.5s;
+}
+.stats-wrapper .stat-item:nth-child(3) {
+  animation-delay: 0.7s;
+}
+.stats-wrapper .stat-item:nth-child(4) {
+  animation-delay: 0.9s;
+}
+
+@keyframes slideFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stat-item h3:hover, .stat-item p:hover {
+  transform: translateY(0) scale(1.2);
+  transition: transform 0.3s ease;
+  cursor: default;
+}
+
+.stat-item h3 {
+    margin: 0 0 8px 0;
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.stat-item p {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: center; 
+}

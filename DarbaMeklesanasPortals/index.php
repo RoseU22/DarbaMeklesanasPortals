@@ -25,12 +25,20 @@
         $username = $savienojums->real_escape_string($_SESSION["username"]);
         $admin_query = "SELECT loma FROM DMPortals WHERE lietotajvards = '$username' LIMIT 1";
         $admin_result = $savienojums->query($admin_query);
+        
         if ($admin_result && $admin_result->num_rows > 0) {
             $row = $admin_result->fetch_assoc();
             if (strtolower($row['loma']) === 'administrators') {
                 $isAdmin = true;
+                $_SESSION['isAdmin'] = true; 
+            } else {
+                $_SESSION['isAdmin'] = false; 
             }
+        } else {
+            $_SESSION['isAdmin'] = false;
         }
+    } else {
+        $_SESSION['isAdmin'] = false;
     }
 
 ?>
@@ -103,8 +111,8 @@
                             <p class="dropdown-option"><a href="PHPFiles/logout.php">Izlogoties</a></p>
                             <p class="dropdown-option"><a href="profils.php">Profils</a></p>
 
-                            <?php if ($isAdmin): ?>
-                                <p id="admin" class="dropdown-option"><a href="admin_login.php">Admin panelis</a></p>
+                            <?php if (!empty($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true): ?>
+                                <p id="admin" class="dropdown-option"><a href="Admin/admin_panelis.php">Admin panelis</a></p>
                             <?php else: ?>
                                 <p class="dropdown-option"><a href="pazinojumi.php">Paziņojumi</a></p>
 

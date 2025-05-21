@@ -1,5 +1,3 @@
-/* admin_login.css */
-
 :root {
     --primary-color: #000000;
     --secondary-color: #1A1A1A;
@@ -23,9 +21,9 @@ body {
 
 .login-box {
     background: var(--primary-color);
-    padding: 32px 36px; /* increased padding for bigger look */
+    padding: 32px 36px; 
     border-radius: 12px;
-    width: 400px;       /* bigger width */
+    width: 400px;       
     max-width: 90%;
     text-align: center;
     position: relative;
@@ -34,7 +32,7 @@ body {
     border: 1px solid var(--secondary-color);
     animation: fadeInScale var(--transition-speed) ease forwards;
     box-shadow: 0 4px 10px var(--shadow-color);
-    box-sizing: border-box; /* ensure padding included in width */
+    box-sizing: border-box; 
 }
 
 @keyframes fadeInScale {
@@ -67,18 +65,18 @@ body {
 
 .login-box input[type="text"],
 .login-box input[type="password"] {
-    width: 100%;          /* 100% of parent (login-box) */
-    max-width: 100%;      /* no overflow */
-    padding: 14px 16px;   /* slightly bigger padding */
+    width: 100%;         
+    max-width: 100%;      
+    padding: 14px 16px;   
     margin: 10px 0 20px;
     border: 1px solid var(--secondary-color);
     border-radius: 6px;
-    font-size: 16px;      /* slightly bigger font */
+    font-size: 16px;      
     background: var(--secondary-color);
     color: var(--accent-color);
     transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
     font-weight: 400;
-    box-sizing: border-box; /* include padding and border in width */
+    box-sizing: border-box; 
 }
 .login-box input[type="text"]::placeholder,
 .login-box input[type="password"]::placeholder {
@@ -114,6 +112,21 @@ body {
     box-shadow: 0 6px 14px var(--shadow-color);
 }
 
+.closeModalBtn {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 32px;
+    color: var(--muted-color);
+    cursor: pointer;
+    transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+
+.closeModalBtn:hover {
+    color: var(--accent-color);
+    transform: rotate(90deg);
+}
+
 .burbulu-background {
     position: absolute;
     width: 100%;
@@ -147,7 +160,7 @@ body {
     }
 }
 
-/* Optional fadeIn and fadeInUp keyframes */
+
 
 @keyframes fadeIn {
     0% {opacity: 0;}
@@ -167,7 +180,7 @@ body {
 
 .error-message {
     margin-top: 12px;
-    color: #ff4d4d; /* red-ish */
+    color: #ff4d4d;
     font-weight: 600;
     font-size: 14px;
 }
