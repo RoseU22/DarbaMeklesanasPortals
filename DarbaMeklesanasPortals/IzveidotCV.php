@@ -11,7 +11,7 @@ if ($_SESSION['userType'] !== 'klients') {
     exit;
 }
 
-if (isset($_SESSION['isAdmin'])) {
+if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true) {
     header("Location: index.php");
     exit();
 }

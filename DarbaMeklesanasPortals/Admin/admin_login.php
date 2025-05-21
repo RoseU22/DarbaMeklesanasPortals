@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div class="burbulu-background"></div>
 
   <div class="login-box">
-    <a href="index.php">
+    <a href="../index.php">
         <span class="closeModalBtn">&times;</span>
     </a>
     <h2>Admina Pieteikšanās</h2>

@@ -82,7 +82,7 @@ session_start();
         <div class="konteiners">
             <div class="header-left">
 
-                <a href="index.php">
+                <a href="../index.php">
 
                     <img src="../Bildes/Favicon.png" alt="Logo" class="header-logo">
                     <h1>Darba Meklēšanas Portāls</h1>

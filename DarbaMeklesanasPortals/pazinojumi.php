@@ -6,7 +6,7 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['userType'])) {
     exit();
 }
 
-if (isset($_SESSION['isAdmin'])) {
+if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true) {
     header("Location: index.php");
     exit();
 }

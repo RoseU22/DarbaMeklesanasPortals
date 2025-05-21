@@ -11,7 +11,7 @@ body {
 
 .statistics-container {
     display: flex;
-    max-width: 900px;
+    max-width: 1200px;
     margin: 40px auto;
     background-color: var(--primary-color);
     border-radius: 10px;
