@@ -246,3 +246,71 @@ body {
   color: var(--primary-color);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
+
+#adminlog-section {
+  background: var(--secondary-color);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 1000px;
+  margin: 20px auto;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  color: var(--text-color);
+}
+
+.admin-log-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: var(--accent-color);
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+.admin-log-container p{
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.admin-log-entry {
+  display: flex;
+  align-items: center;
+  background: var(--primary-color);
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 1px 4px var(--shadow-color);
+  transition: background-color var(--transition-speed) ease;
+}
+
+.admin-log-entry:hover {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+}
+
+.admin-log-entry img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+  border: 2px solid;
+}
+
+.admin-log-entry img:hover {
+  border: 2px solid var(--primary-color);
+}
+
+.log-details strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+
+.log-details p {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+}
+
+.log-details small {
+  font-size: 0.85rem;
+}
+

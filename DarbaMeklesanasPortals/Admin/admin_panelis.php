@@ -64,6 +64,31 @@ session_start();
         }
     }
 
+    $logs = [];
+
+    $sql = "
+        SELECT 
+            al.admin_id,
+            al.apraksts AS action_text,
+            al.laiks AS action_time,
+            dp.lietotajvards AS admin_username,
+            dp.profila_bilde
+        FROM 
+            DMPortals_AdminLog al
+        JOIN 
+            DMPortals dp ON al.admin_id = dp.lietotajsID
+        ORDER BY 
+            al.laiks DESC
+    ";
+
+    $result = $savienojums->query($sql);
+
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $logs[] = $row;
+        }
+    }
+
     $savienojums->close();
 
 ?>
@@ -203,7 +228,7 @@ session_start();
                         </div>
                         <div class="sent-status">
                             <?php if (empty($klients['statuss'])): ?>
-                                <!-- Deaktivēt -->
+                                <!-- Deaktivizēt -->
                                 <form action="../PHPFiles/deaktivizet_lietotaju.php" method="POST">
                                     <input type="hidden" name="lietotajsID" value="<?= $klients['lietotajsID'] ?>">
                                     <button type="submit" title="Deaktivēt klientu" class="delete-btn">
@@ -289,8 +314,25 @@ session_start();
     </div>
 
     <div id="adminlog-section" class="section" style="display:none;">
-        <!--Admina žurnāls-->
+        <div class="admin-log-container">
+            <h2>Administratora darbības žurnāls</h2>
+            <?php if (!empty($logs)): ?>
+                <?php foreach ($logs as $log): ?>
+                    <div class="admin-log-entry">
+                        <img src="../bilde.php?id=<?= htmlspecialchars($log['admin_id']) ?>&type=klients" alt="Admin bilde">
+                        <div class="log-details">
+                            <strong><?= htmlspecialchars($log['admin_username']) ?></strong>
+                            <p><?= htmlspecialchars($log['action_text']) ?></p>
+                            <small><?= date("Y-m-d H:i:s", strtotime($log['action_time'])) ?></small>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Nav veiktu darbību.</p>
+            <?php endif; ?>
+        </div>
     </div>
+
     
 </body>
 
