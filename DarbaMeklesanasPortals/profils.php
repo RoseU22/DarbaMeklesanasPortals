@@ -265,6 +265,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <button type="submit">Saglabāt izmaiņas</button>
 
+                <script>
+                    if ( window.history.replaceState ) {
+                        window.history.replaceState( null, null, window.location.href );}
+                </script>
+
                 <button type="button" class="delete-account-btn">Dzēst profilu</button>
 
                 <div class="modal-overlay">

@@ -4,7 +4,7 @@ nav{
 
 body {
     margin: 0;
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     color: var(--text-color);
     font-family: 'Poppins', sans-serif;
 }
@@ -95,4 +95,140 @@ body {
     font-weight: 700;
     color: var(--primary-color);
     text-align: center; 
+}
+
+
+.sent-status form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.open-password-modal-btn{
+  height: 34px;
+  margin-top: 4px;
+  transition: background-color 0.3s ease, transform 0.2s ease !important;
+}
+
+.open-password-modal-btn:hover{
+  transform: scale(1.1) !important;
+}
+
+.password-modal {
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: none;
+  animation: fadeIn 0.35s ease forwards;
+}
+
+.password-modal.show {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.password-modal-content {
+  background-color: var(--secondary-color);
+  margin: 8% auto;
+  padding: 35px 30px;
+  border-radius: 16px;
+  width: 380px;
+  max-width: 90%;
+  position: relative;
+  box-shadow: 0 12px 30px var(--shadow-color);
+  color: var(--text-color);
+  font-family: 'Poppins', sans-serif;
+  transform: scale(0.9);
+  opacity: 0;
+  animation: scaleIn 0.35s ease forwards;
+  animation-delay: 0.1s;
+  box-sizing: border-box;
+}
+
+@keyframes scaleIn {
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.password-modal-content h2 {
+  margin-top: 0;
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: var(--accent-color);
+  margin-bottom: 24px;
+  text-align: center;
+  letter-spacing: 1.2px;
+}
+
+.password-modal-content label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: var(--muted-color);
+  font-size: 0.95rem;
+}
+
+.password-modal-content input[type="password"] {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1.5px solid var(--muted-color);
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+  box-sizing: border-box;
+  margin-bottom: 24px;
+}
+
+.password-modal-content input[type="password"]:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 10px var(--accent-color);
+}
+
+.password-modal .close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--muted-color);
+  cursor: pointer;
+  transition: color var(--transition-speed), transform var(--transition-speed);
+}
+
+.password-modal .close:hover {
+  color: var(--accent-color);
+  transform: rotate(90deg);
+}
+
+.password-modal-content button.accept-btn {
+  display: block;
+  width: 100%;
+  padding: 14px 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  user-select: none;
+}
+
+.password-modal-content button.accept-btn:hover {
+  background-color: var(--hover-color);
+  color: var(--primary-color);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }

@@ -31,22 +31,30 @@ session_start();
     exit;
     }
 
-    // Fetch counts from database
-    // Klients count
     $result = $savienojums->query("SELECT COUNT(*) as count FROM DMPortals");
     $klientsCount = $result ? (int)$result->fetch_assoc()['count'] : 0;
 
-    // Uznemums count
     $result = $savienojums->query("SELECT COUNT(*) as count FROM DMPortals_Uznemums");
     $uznemumsCount = $result ? (int)$result->fetch_assoc()['count'] : 0;
 
-    // Vakances count
     $result = $savienojums->query("SELECT COUNT(*) as count FROM DMPortals_Vakances");
     $vakancesCount = $result ? (int)$result->fetch_assoc()['count'] : 0;
 
-    // CV count
     $result = $savienojums->query("SELECT COUNT(*) as count FROM DMPortals_CV");
     $cvCount = $result ? (int)$result->fetch_assoc()['count'] : 0;
+
+    //Dabūd klientus
+    $klientiData = [];
+    $sql = "SELECT lietotajsID, lietotajvards FROM DMPortals WHERE loma = '' OR loma IS NULL";
+    $result = $savienojums->query($sql);
+
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $klientiData[] = $row;
+        }
+    }
+
+    $savienojums->close();
 
 ?>
 
@@ -66,11 +74,14 @@ session_start();
     <title>Admin Panelis</title>
 
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../pazinojumi.css">
     <link rel="stylesheet" href="admin_panelis.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     
     <script src="../autorizacija.js"></script>
     <script src="../gaismasRezims.js"></script>
     <script src="adminStatistika.js"></script>
+    <script src="adminKlienti.js"></script>
     <script src="sekcijasMaina.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -169,8 +180,52 @@ session_start();
     
     
     <div id="klienti-section" class="section" style="display:none;">
-        <!--Klienti-->
+        <div class="notification-container">
+            <?php if (!empty($klientiData)): ?>
+                <?php foreach ($klientiData as $klients): ?>
+                    <div class="notification">
+                        <div class="info">
+                            <img src="../bilde.php?id=<?= htmlspecialchars($klients['lietotajsID']) ?>&type=klients" alt="Klienta bilde">
+                            <div class="text">
+                                <p><?= htmlspecialchars($klients['lietotajvards']) ?></p>
+                            </div>
+                        </div>
+                        <div class="sent-status">
+                            <!--Deaktivizēt-->
+                            <form action="deaktivet_klientu.php" method="POST">
+                                <input type="hidden" name="lietotajsID" value="<?= $klients['lietotajsID'] ?>">
+                                <button type="submit" title="Deaktivēt klientu" class="delete-btn">
+                                    🔒
+                                </button>
+                            </form>
+
+                            <!-- Apskatīt CV -->
+                            <button class="open-password-modal-btn" data-userid="<?= $klients['lietotajsID'] ?>">
+                                <i class="fa-solid fa-user"></i>
+                            </button>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="no-notifications">Nav reģistrētu klientu</div>
+            <?php endif; ?>
+        </div>
+
     </div>
+
+    <div id="passwordModal" class="password-modal">
+        <div class="password-modal-content">
+            <span id="closePasswordModal" class="close">&times;</span>
+            <h2>Izveido paroli</h2>
+            <form id="passwordForm" method="POST" action="../PHPFiles/izveidot_admin.php">
+            <input type="hidden" name="userId" id="userId" value="">
+            <label for="password">Parole:</label>
+            <input type="password" id="password" name="password" required />
+            <button type="submit" class="accept-btn">Saglabāt</button>
+            </form>
+        </div>
+    </div>
+
 
     <div id="uznemumi-section" class="section" style="display:none;">
         <!--Uzņēmumi-->
