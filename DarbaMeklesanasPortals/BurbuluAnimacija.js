@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         bubble.style.left = `${Math.random() * 100}%`;
 
         
-        const duration = Math.random() * 5 + 3;
+        const duration = Math.random() * 5 + 16;
         bubble.style.animationDuration = `${duration}s`;
 
         bubbleContainer.appendChild(bubble);

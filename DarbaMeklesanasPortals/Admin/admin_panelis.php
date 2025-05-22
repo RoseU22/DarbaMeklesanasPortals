@@ -54,6 +54,16 @@ session_start();
         }
     }
 
+    $uznemumiData = [];
+    $sql = "SELECT uznemumsID, uznemuma_nosaukums, statuss FROM DMPortals_Uznemums";
+    $result = $savienojums->query($sql);
+
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $uznemumiData[] = $row;
+        }
+    }
+
     $savienojums->close();
 
 ?>
@@ -210,7 +220,7 @@ session_start();
                                 </form>
                             <?php endif; ?>
 
-                            <!-- Apskatīt CV / Make Admin -->
+                            <!-- Uztaisīt par Admin -->
                             <button class="open-password-modal-btn" data-userid="<?= $klients['lietotajsID'] ?>">
                                 <i class="fa-solid fa-user"></i>
                             </button>
@@ -221,7 +231,6 @@ session_start();
                 <div class="no-notifications">Nav reģistrētu klientu</div>
             <?php endif; ?>
         </div>
-
     </div>
 
     <div id="passwordModal" class="password-modal">
@@ -240,6 +249,43 @@ session_start();
 
     <div id="uznemumi-section" class="section" style="display:none;">
         <!--Uzņēmumi-->
+        <div class="notification-container">
+            <?php if (!empty($uznemumiData)): ?>
+                <?php foreach ($uznemumiData as $uznemums): ?>
+                    <div class="notification">
+                        <div class="info">
+                            <img src="../bilde.php?id=<?= htmlspecialchars($uznemums['uznemumsID']) ?>&type=uznemums" alt="Uzņēmuma bilde">
+                            <div class="text">
+                                <p><?= htmlspecialchars($uznemums['uznemuma_nosaukums']) ?></p>
+                            </div>
+                        </div>
+                        <div class="sent-status">
+                            <?php if (empty($uznemums['statuss'])): ?>
+                                <!-- Deaktivēt -->
+                                <form action="../PHPFiles/deaktivizet_lietotaju.php" method="POST">
+                                    <input type="hidden" name="uznemumsID" value="<?= $uznemums['uznemumsID'] ?>">
+                                    <input type="hidden" name="type" value="uznemums">
+                                    <button type="submit" title="Deaktivēt uzņēmumu" class="delete-btn">
+                                        🔒
+                                    </button>
+                                </form>
+                            <?php elseif ($uznemums['statuss'] === 'deaktivizets'): ?>
+                                <!-- Aktivizēt -->
+                                <form action="../PHPFiles/aktivizet_lietotaju.php" method="POST">
+                                    <input type="hidden" name="uznemumsID" value="<?= $uznemums['uznemumsID'] ?>">
+                                    <input type="hidden" name="type" value="uznemums">
+                                    <button type="submit" title="Aktivizēt uzņēmumu" class="activate-btn">
+                                        🔓
+                                    </button>
+                                </form>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="no-notifications">Nav reģistrētu uzņēmumu</div>
+            <?php endif; ?>
+        </div>
     </div>
 
     <div id="adminlog-section" class="section" style="display:none;">

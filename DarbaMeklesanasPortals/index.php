@@ -42,7 +42,21 @@
         }
     } else {
         $_SESSION['isAdmin'] = false;
-        $_SESSION['statuss'] = $row['statuss'] ?? null;
+        
+        if (isset($_SESSION["username"]) && $_SESSION["userType"] === "uznemums") {
+            $username = $savienojums->real_escape_string($_SESSION["username"]);
+            $uznemums_query = "SELECT statuss FROM DMPortals_Uznemums WHERE uznemuma_nosaukums = '$username' LIMIT 1";
+            $uznemums_result = $savienojums->query($uznemums_query);
+
+            if ($uznemums_result && $uznemums_result->num_rows > 0) {
+                $row = $uznemums_result->fetch_assoc();
+                $_SESSION['statuss'] = $row['statuss'] ?? null;
+            } else {
+                $_SESSION['statuss'] = null;
+            }
+        } else {
+            $_SESSION['statuss'] = null;
+        }
     }
 
 ?>
