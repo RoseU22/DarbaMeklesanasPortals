@@ -255,6 +255,17 @@ body {
   margin: 20px auto;
   box-shadow: 0 4px 12px var(--shadow-color);
   color: var(--text-color);
+  opacity: 0;
+  transform: scale(0.95);
+  animation: fadeScaleIn 0.6s ease forwards;
+  animation-delay: 0.1s; /* optional slight delay */
+}
+
+@keyframes fadeScaleIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .admin-log-container h2 {
@@ -313,4 +324,56 @@ body {
 .log-details small {
   font-size: 0.85rem;
 }
+
+#admin-log-content {
+  opacity: 0;
+  transform: scale(0.95);
+  animation: fadeScaleIn 0.6s ease forwards;
+}
+
+.pagination {
+    margin-top: 16px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    transform: scale(0.95);
+    animation: fadeScaleIn 0.6s ease forwards;
+    animation-delay: 0.1s;
+}
+
+@keyframes fadeScaleIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.pagination-btn {
+    padding: 8px 14px;
+    cursor: pointer;
+    border: 1.5px solid var(--muted-color);
+    border-radius: 6px;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    font-weight: 600;
+    transition: background-color var(--transition-speed), border-color var(--transition-speed), color var(--transition-speed);
+    user-select: none;
+}
+
+.pagination-btn:hover:not(.active) {
+    background-color: var(--hover-color);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.pagination-btn.active {
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    border-color: var(--primary-color);
+    cursor: default;
+    box-shadow: 0 0 8px var(--shadow-color);
+}
+
 
