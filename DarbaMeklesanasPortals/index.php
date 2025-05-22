@@ -23,7 +23,7 @@
     $isAdmin = false;
     if (isset($_SESSION["username"]) && $_SESSION["userType"] === "klients") {
         $username = $savienojums->real_escape_string($_SESSION["username"]);
-        $admin_query = "SELECT loma FROM DMPortals WHERE lietotajvards = '$username' LIMIT 1";
+        $admin_query = "SELECT loma, statuss FROM DMPortals WHERE lietotajvards = '$username' LIMIT 1";
         $admin_result = $savienojums->query($admin_query);
         
         if ($admin_result && $admin_result->num_rows > 0) {
@@ -34,11 +34,15 @@
             } else {
                 $_SESSION['isAdmin'] = false; 
             }
+
+            $_SESSION['statuss'] = $row['statuss'] ?? null;
         } else {
             $_SESSION['isAdmin'] = false;
+            $_SESSION['statuss'] = $row['statuss'] ?? null;
         }
     } else {
         $_SESSION['isAdmin'] = false;
+        $_SESSION['statuss'] = $row['statuss'] ?? null;
     }
 
 ?>
@@ -116,11 +120,12 @@
                             <?php else: ?>
                                 <p class="dropdown-option"><a href="pazinojumi.php">Paziņojumi</a></p>
 
-                                <?php if ($_SESSION["userType"] === "klients"): ?>
+                                <?php if ($_SESSION["userType"] === "klients" && $_SESSION["statuss"] !== "deaktivizets"): ?>
                                     <p class="dropdown-option"><a href="IzveidotCV.php">Uztaisīt CV</a></p>
-                                <?php elseif ($_SESSION["userType"] === "uznemums"): ?>
+                                <?php elseif ($_SESSION["userType"] === "uznemums" && $_SESSION["statuss"] !== "deaktivizets"): ?>
                                     <p class="dropdown-option"><a href="IzveidotVakanci.php">Uztaisīt vakanci</a></p>
                                 <?php endif; ?>
+
                             <?php endif; ?>
                         </div>
                     </div>

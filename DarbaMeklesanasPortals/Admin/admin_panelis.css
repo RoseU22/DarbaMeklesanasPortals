@@ -114,6 +114,20 @@ body {
   transform: scale(1.1) !important;
 }
 
+.activate-btn {
+    background-color: #218838 !important;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-right: 5px;
+    scale: 0.8;
+    transition: background-color 0.3s ease, transform 0.2s ease !important;
+}
+
+.activate-btn:hover{
+  transform: scale(1.1) !important;
+  background-color: #115820 !important;
+}
+
 .password-modal {
   position: fixed;
   z-index: 9999;

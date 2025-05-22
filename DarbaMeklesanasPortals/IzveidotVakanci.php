@@ -16,6 +16,11 @@ if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true) {
     exit();
 }
 
+if (isset($_SESSION['statuss']) && $_SESSION['statuss'] === 'deaktivizets') {
+    header("Location: index.php");
+    exit();
+}
+
 require 'PHPFiles/con_db.php';
 
 $username = $_SESSION['username'];
@@ -116,11 +121,12 @@ if ($stmt->execute()) {
                             <?php else: ?>
                                 <p class="dropdown-option"><a href="pazinojumi.php">Paziņojumi</a></p>
 
-                                <?php if ($_SESSION["userType"] === "klients"): ?>
+                                <?php if ($_SESSION["userType"] === "klients" && $_SESSION["statuss"] !== "deaktivizets"): ?>
                                     <p class="dropdown-option"><a href="IzveidotCV.php">Uztaisīt CV</a></p>
-                                <?php elseif ($_SESSION["userType"] === "uznemums"): ?>
+                                <?php elseif ($_SESSION["userType"] === "uznemums" && $_SESSION["statuss"] !== "deaktivizets"): ?>
                                     <p class="dropdown-option"><a href="IzveidotVakanci.php">Uztaisīt vakanci</a></p>
                                 <?php endif; ?>
+
                             <?php endif; ?>
                         </div>
                     </div>

@@ -45,7 +45,7 @@ session_start();
 
     //Dabūd klientus
     $klientiData = [];
-    $sql = "SELECT lietotajsID, lietotajvards FROM DMPortals WHERE loma = '' OR loma IS NULL";
+    $sql = "SELECT lietotajsID, statuss, lietotajvards FROM DMPortals WHERE loma = '' OR loma IS NULL";
     $result = $savienojums->query($sql);
 
     if ($result && $result->num_rows > 0) {
@@ -106,6 +106,7 @@ session_start();
                     <li><a href="#" data-target="statistics-container">Statistika</a></li>
                     <li><a href="#" data-target="klienti-section">Klienti</a></li>
                     <li><a href="#" data-target="uznemumi-section">Uzņēmumi</a></li>
+                    <li><a href="#" data-target="adminlog-section">Žurnāls</a></li>
                 </ul>
             </nav>
 
@@ -191,15 +192,25 @@ session_start();
                             </div>
                         </div>
                         <div class="sent-status">
-                            <!--Deaktivizēt-->
-                            <form action="deaktivet_klientu.php" method="POST">
-                                <input type="hidden" name="lietotajsID" value="<?= $klients['lietotajsID'] ?>">
-                                <button type="submit" title="Deaktivēt klientu" class="delete-btn">
-                                    🔒
-                                </button>
-                            </form>
+                            <?php if (empty($klients['statuss'])): ?>
+                                <!-- Deaktivēt -->
+                                <form action="../PHPFiles/deaktivizet_lietotaju.php" method="POST">
+                                    <input type="hidden" name="lietotajsID" value="<?= $klients['lietotajsID'] ?>">
+                                    <button type="submit" title="Deaktivēt klientu" class="delete-btn">
+                                        🔒
+                                    </button>
+                                </form>
+                            <?php elseif ($klients['statuss'] === 'deaktivizets'): ?>
+                                <!-- Aktivizēt -->
+                                <form action="../PHPFiles/aktivizet_lietotaju.php" method="POST">
+                                    <input type="hidden" name="lietotajsID" value="<?= $klients['lietotajsID'] ?>">
+                                    <button type="submit" title="Aktivizēt klientu" class="activate-btn">
+                                        🔓
+                                    </button>
+                                </form>
+                            <?php endif; ?>
 
-                            <!-- Apskatīt CV -->
+                            <!-- Apskatīt CV / Make Admin -->
                             <button class="open-password-modal-btn" data-userid="<?= $klients['lietotajsID'] ?>">
                                 <i class="fa-solid fa-user"></i>
                             </button>
@@ -229,6 +240,10 @@ session_start();
 
     <div id="uznemumi-section" class="section" style="display:none;">
         <!--Uzņēmumi-->
+    </div>
+
+    <div id="adminlog-section" class="section" style="display:none;">
+        <!--Admina žurnāls-->
     </div>
     
 </body>

@@ -111,11 +111,12 @@ if ($userType === 'uznemums') {
                             <?php else: ?>
                                 <p class="dropdown-option"><a href="pazinojumi.php">Paziņojumi</a></p>
 
-                                <?php if ($_SESSION["userType"] === "klients"): ?>
+                                <?php if ($_SESSION["userType"] === "klients" && $_SESSION["statuss"] !== "deaktivizets"): ?>
                                     <p class="dropdown-option"><a href="IzveidotCV.php">Uztaisīt CV</a></p>
-                                <?php elseif ($_SESSION["userType"] === "uznemums"): ?>
+                                <?php elseif ($_SESSION["userType"] === "uznemums" && $_SESSION["statuss"] !== "deaktivizets"): ?>
                                     <p class="dropdown-option"><a href="IzveidotVakanci.php">Uztaisīt vakanci</a></p>
                                 <?php endif; ?>
+
                             <?php endif; ?>
                         </div>
                     </div>
@@ -135,48 +136,53 @@ if ($userType === 'uznemums') {
     <h1 class="notification-header">Paziņojumi</h1>
 
     <div class="notification-container">
-        <?php if (empty($notifications)): ?>
-            <p class="no-notifications">Nav paziņojuma</p>
+
+        <?php if (isset($_SESSION['statuss']) && $_SESSION['statuss'] === 'deaktivizets'): ?>
+            <p class="disabled-notifications">Jūsu konts tika deaktivizēts</p>
         <?php else: ?>
-            <?php foreach ($notifications as $note): ?>
-                <script>console.log('Showing notification: ID <?php echo $note['pazinojumi_id']; ?>');</script>
-                <div class="notification">
-                    <div class="info">
+            <?php if (empty($notifications)): ?>
+                <p class="no-notifications">Nav paziņojuma</p>
+            <?php else: ?>
+                <?php foreach ($notifications as $note): ?>
+                    <script>console.log('Showing notification: ID <?php echo $note['pazinojumi_id']; ?>');</script>
+                    <div class="notification">
+                        <div class="info">
+                            <?php if ($userType === 'uznemums'): ?>
+                                <img src="bilde.php?id=<?php echo $note['klients_id']; ?>&type=klients" alt="Klienta bilde">
+                                <div class="nosaukumuSakartojums">
+                                    <strong><?php echo htmlspecialchars($note['lietotajvards']); ?></strong>
+                                    <span><?php echo htmlspecialchars($note['vakances_nosaukums']); ?></span>
+                                </div>
+                            <?php else: ?>
+                                <img src="bilde.php?id=<?php echo htmlspecialchars($note['uznemumsID']); ?>&type=uznemums" alt="Uzņēmuma bilde">
+                                <div class="nosaukumuSakartojums">
+                                    <strong><?php echo htmlspecialchars($note['uznemuma_nosaukums']); ?></strong>
+                                    <span><?php echo htmlspecialchars($note['vakances_nosaukums']); ?></span>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+
                         <?php if ($userType === 'uznemums'): ?>
-                            <img src="bilde.php?id=<?php echo $note['klients_id']; ?>&type=klients" alt="Klienta bilde">
-                            <div class="nosaukumuSakartojums">
-                                <strong><?php echo htmlspecialchars($note['lietotajvards']); ?></strong>
-                                <span><?php echo htmlspecialchars($note['vakances_nosaukums']); ?></span>
-                            </div>
+
+                            <input type="hidden" name="pazinojumi_id" value="<?php echo $note['pazinojumi_id']; ?>">
+
+                            <?php if ($note['statuss'] !== 'Akceptēts'): ?>
+                                <button class="accept-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Akceptēt pieprasījumu">✅</button>
+                                <button class="delete-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Dzēst paziņojumu">🗑️</button>
+                                <button class="apskatit-btn" data-cv-id="<?php echo $note['cv_id']; ?>">Apskatīt</button>
+                            <?php else: ?>
+                                <span class="status"><?php echo htmlspecialchars($note['statuss']);?></span>
+                                <button class="apskatit-btn" data-cv-id="<?php echo $note['cv_id']; ?>">Apskatīt</button>
+                            <?php endif; ?>
                         <?php else: ?>
-                            <img src="bilde.php?id=<?php echo htmlspecialchars($note['uznemumsID']); ?>&type=uznemums" alt="Uzņēmuma bilde">
-                            <div class="nosaukumuSakartojums">
-                                <strong><?php echo htmlspecialchars($note['uznemuma_nosaukums']); ?></strong>
-                                <span><?php echo htmlspecialchars($note['vakances_nosaukums']); ?></span>
-                            </div>
+                            <span class="sent-status">
+                                <span class="status"><?php echo htmlspecialchars($note['statuss'] ?? 'Aizsūtīts');?></span>
+                                <button class="delete-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Dzēst paziņojumu">🗑️</button>
+                            </span>
                         <?php endif; ?>
                     </div>
-
-                    <?php if ($userType === 'uznemums'): ?>
-
-                        <input type="hidden" name="pazinojumi_id" value="<?php echo $note['pazinojumi_id']; ?>">
-
-                        <?php if ($note['statuss'] !== 'Akceptēts'): ?>
-                            <button class="accept-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Akceptēt pieprasījumu">✅</button>
-                            <button class="delete-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Dzēst paziņojumu">🗑️</button>
-                            <button class="apskatit-btn" data-cv-id="<?php echo $note['cv_id']; ?>">Apskatīt</button>
-                        <?php else: ?>
-                            <span class="status"><?php echo htmlspecialchars($note['statuss']);?></span>
-                            <button class="apskatit-btn" data-cv-id="<?php echo $note['cv_id']; ?>">Apskatīt</button>
-                        <?php endif; ?>
-                    <?php else: ?>
-                        <span class="sent-status">
-                            <span class="status"><?php echo htmlspecialchars($note['statuss'] ?? 'Aizsūtīts');?></span>
-                            <button class="delete-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Dzēst paziņojumu">🗑️</button>
-                        </span>
-                    <?php endif; ?>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
         <?php endif; ?>
     </div>
 

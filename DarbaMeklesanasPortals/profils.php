@@ -191,11 +191,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <?php else: ?>
                                 <p class="dropdown-option"><a href="pazinojumi.php">Paziņojumi</a></p>
 
-                                <?php if ($_SESSION["userType"] === "klients"): ?>
+                                <?php if ($_SESSION["userType"] === "klients" && $_SESSION["statuss"] !== "deaktivizets"): ?>
                                     <p class="dropdown-option"><a href="IzveidotCV.php">Uztaisīt CV</a></p>
-                                <?php elseif ($_SESSION["userType"] === "uznemums"): ?>
+                                <?php elseif ($_SESSION["userType"] === "uznemums" && $_SESSION["statuss"] !== "deaktivizets"): ?>
                                     <p class="dropdown-option"><a href="IzveidotVakanci.php">Uztaisīt vakanci</a></p>
                                 <?php endif; ?>
+
                             <?php endif; ?>
                         </div>
                     </div>
