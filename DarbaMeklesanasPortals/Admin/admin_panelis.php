@@ -64,31 +64,6 @@ session_start();
         }
     }
 
-    // $logs = [];
-
-    // $sql = "
-    //     SELECT 
-    //         al.admin_id,
-    //         al.apraksts AS action_text,
-    //         al.laiks AS action_time,
-    //         dp.lietotajvards AS admin_username,
-    //         dp.profila_bilde
-    //     FROM 
-    //         DMPortals_AdminLog al
-    //     JOIN 
-    //         DMPortals dp ON al.admin_id = dp.lietotajsID
-    //     ORDER BY 
-    //         al.laiks DESC
-    // ";
-
-    // $result = $savienojums->query($sql);
-
-    // if ($result && $result->num_rows > 0) {
-    //     while ($row = $result->fetch_assoc()) {
-    //         $logs[] = $row;
-    //     }
-    // }
-
     $savienojums->close();
 
 ?>
