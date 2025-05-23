@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (data.success) {
                 alert("Vakance veiksmīgi saglabāta!"); // ja veiksmīgi, ziņo lietotājam
                 vacancyModal.classList.remove("show"); // aizver modālu
+                location.reload();
             } else {
                 alert("Saglabājot vakanci, radās kļūda"); // kļūdas gadījumā paziņo
             }
@@ -108,6 +109,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 .then(data => {
                     if (data.success) {
                         box.remove(); // ja veiksmīgi, noņem vakances elementu no lapas
+                        location.reload();
                     } else {
                         alert("Neizdevās dzēst vakanci."); // kļūdas gadījumā paziņo
                     }

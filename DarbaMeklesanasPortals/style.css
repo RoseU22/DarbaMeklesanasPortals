@@ -583,6 +583,10 @@ h2 {
     animation: fadeInUp 1s ease-out;
 }
 
+#Pieteikties .konteiners{
+    min-height: 1000px;
+}
+
 .btn {
     display: inline-block;
     background: var(--accent-color);
@@ -994,6 +998,9 @@ h2 {
 
 #availableCvs {
     margin-top: 20px;
+    max-height: 200px; 
+    overflow-y: auto;
+    padding-right: 5px; 
 }
 
 .cv-item {

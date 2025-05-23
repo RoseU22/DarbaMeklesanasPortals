@@ -27,6 +27,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const registerLink = loginModal?.querySelector(".register");
     const closeRegisterBtn = registerModal?.querySelector(".close");
 
+    const openRegister = document.getElementById("openLogin2");
+
     if (loginForm) {
         const userTypeInput = document.createElement("input");
         userTypeInput.type = "hidden";
@@ -39,6 +41,13 @@ document.addEventListener("DOMContentLoaded", function () {
         registerLink.addEventListener("click", function () {
             loginModal.classList.remove("show");
             registerModal.classList.add("show");
+        });
+    }
+
+    if (registerLink && loginModal && registerModal) {
+        openRegister.addEventListener("click", function () {
+            loginModal.classList.add("show");
+            registerModal.classList.remove("show");
         });
     }
 

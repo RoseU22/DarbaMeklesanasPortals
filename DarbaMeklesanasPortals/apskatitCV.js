@@ -171,6 +171,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     deleteButtons.forEach(button => {
         button.addEventListener('click', function () {
+
+            const confirmDelete = confirm("Vai esi pārliecināts ka gribi dzēst?");
+            if (!confirmDelete) return;
+
             const pazinojumiId = this.getAttribute('data-paz-id');
             const notificationDiv = this.closest('.notification');
 
@@ -185,6 +189,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(data => {
                 if (data.trim() === 'success') {
                     notificationDiv.remove();
+                    location.reload();
                 } else {
                     alert('Neizdevās dzēst paziņojumu.');
                 }
