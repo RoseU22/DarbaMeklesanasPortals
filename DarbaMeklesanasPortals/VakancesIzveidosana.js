@@ -203,41 +203,41 @@ document.addEventListener("DOMContentLoaded", function() {
         button.addEventListener('click', () => {
             const vacancyId = button.getAttribute('data-vacancy-id');
 
-            statsModalContent.textContent = "Ielādē statistiku..."; // loading text
-            statsChartCanvas.style.display = "none";               // hide canvas until ready
-            statsModal.style.display = "block";                     // show modal
+            statsModalContent.textContent = "Ielādē statistiku..."; 
+            statsChartCanvas.style.display = "none";             
+            statsModal.style.display = "block";                  
 
             fetch(`PHPFiles/dabut_vakances_statistiku.php?vacancy_id=${vacancyId}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Show total applicants text with singular/plural
+                        // Rādīt kopējo pieteikumu skaitu
                         if (data.count === 1) {
                             statsModalContent.textContent = `Pieteikušies: ${data.count} lietotājs`;
                         } else {
                             statsModalContent.textContent = `Pieteikušies: ${data.count} lietotāji`;
                         }
 
-                        // Generate last 7 days labels as 'DD.MM' format (for better UX)
+                        // Ģenerē pēdējo 7 dienu datumus
                         const labels = [];
+                        const values = [];
+                        const dailyCounts = data.dailyCounts;
+
                         for (let i = 6; i >= 0; i--) {
                             const d = new Date();
                             d.setDate(d.getDate() - i);
-                            labels.push(`${d.getDate()}.${d.getMonth() + 1}`); // e.g. 14.5
+                            const key = d.toISOString().split('T')[0]; // YYYY-MM-DD
+                            labels.push(`${d.getDate()}.${d.getMonth() + 1}`); // DD.MM
+                            values.push(dailyCounts[key] || 0);
                         }
 
-                        // Create values array: all zeroes except last day is total count
-                        const values = new Array(6).fill(0);
-                        values.push(data.count);
-
-                        // Show chart canvas and hide text
                         statsModalContent.textContent = '';
                         statsChartCanvas.style.display = "block";
 
-                        // Destroy old chart if exists
+                        // Iznīcini veco diagrammu, ja tāda pastāv
                         if (myChart) myChart.destroy();
 
-                        // Create new line chart
+                        // Izveidot jaunu līniju diagrammu
                         myChart = new Chart(statsChartCanvas.getContext('2d'), {
                             type: 'line',
                             data: {
@@ -246,8 +246,8 @@ document.addEventListener("DOMContentLoaded", function() {
                                     label: 'Pieteikumu skaits',
                                     data: values,
                                     fill: false,
-                                    borderColor: 'var(--text-color)',        // line color (white)
-                                    backgroundColor: 'var(--text-color)',    // point fill
+                                    borderColor: 'var(--text-color)',     
+                                    backgroundColor: 'var(--text-color)',    
                                     tension: 0.3,
                                     pointBackgroundColor: 'var(--text-color)', 
                                     pointRadius: 5,
@@ -258,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             },
                             options: {
                                 responsive: true,
-                                maintainAspectRatio: false,  // allow canvas height control
+                                maintainAspectRatio: false,  
                                 layout: {
                                     padding: {
                                         top: 50,
@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 plugins: {
                                     datalabels: {
                                         display: true,
-                                        color: 'var(--text-color)',         // labels color
+                                        color: 'var(--text-color)',        
                                         align: 'top',
                                         font: { weight: 'bold', size: 12 }
                                     },
@@ -282,11 +282,12 @@ document.addEventListener("DOMContentLoaded", function() {
                                         beginAtZero: true,
                                         precision: 0,
                                         ticks: {
-                                            color: 'var(--text-color)',     // Y axis labels color
+                                            stepSize: 1,
+                                            color: 'var(--text-color)',   
                                             font: { size: 14 }
                                         },
                                         grid: {
-                                            color: 'var(--shadow-color)'   // subtle grid lines
+                                            color: 'var(--shadow-color)'   
                                         },
                                         title: {
                                             display: true,
@@ -297,9 +298,9 @@ document.addEventListener("DOMContentLoaded", function() {
                                     },
                                     x: {
                                         ticks: {
-                                            color: 'var(--text-color)',     // X axis labels color
+                                            color: 'var(--text-color)',    
                                             font: { size: 14 },
-                                            maxRotation: 45,                // rotate labels to avoid overlap
+                                            maxRotation: 45,                
                                             minRotation: 30,
                                             autoSkip: true,
                                             maxTicksLimit: 7
@@ -334,7 +335,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     closeStatsModal.addEventListener('click', () => {
         statsModal.style.display = "none";
-        // Optional: destroy chart when closing modal to free memory
+        // Iznīcina diagrammu, aizverot modālu, lai atbrīvotu atmiņu
         if (myChart) {
             myChart.destroy();
             myChart = null;
