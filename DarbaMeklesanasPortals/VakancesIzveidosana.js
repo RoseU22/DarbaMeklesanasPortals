@@ -1,42 +1,47 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const vacancyButton = document.getElementById("vacancyButton"); // Saņem pogu, kas atver vakances modālu
+const vacancyButton = document.getElementById("vacancyButton"); // Saņem pogu, kas atver vakances modālu
     const vacancyModal = document.getElementById("vacancyModal"); // Saņem vakances modāla elementu
     const closeVacancyModal = document.getElementById("closeVacancyModal"); // Saņem pogu, kas aizver vakances modālu
     const saveVacancyButton = document.getElementById("saveVacancy"); // Saņem pogu, kas saglabā vakances datus
-    const vacancyNameInput = document.getElementById("vacancyName");
-    // Saņem ievades laukus vakances datiem
-    const vacancyDescriptionInput = document.getElementById("vacancyDescription");
-    const vacancyLocationInput = document.getElementById("vacancyLocation");
-    const vacancySkillsInput = document.getElementById("vacancySkills");
-    const vacancySalaryInput = document.getElementById("vacancySalary");
+    const vacancyNameInput = document.getElementById("vacancyName"); // Saņem vakances nosaukuma lauku
+    const vacancyDescriptionInput = document.getElementById("vacancyDescription"); // Saņem vakances apraksta lauku
+    const vacancySkillsInput = document.getElementById("vacancySkills"); // Saņem prasmes lauku
+    const vacancySalaryInput = document.getElementById("vacancySalary"); // Saņem algas lauku
+    const vacancyCountryInput = document.getElementById("vacancyCountry"); // Saņem valsts lauku
+    const vacancyCityInput = document.getElementById("vacancyCity"); // Saņem pilsētas lauku
+    const vacancyStreetInput = document.getElementById("vacancyStreet"); // Saņem ielas lauku
 
     const vacancyName = document.getElementById("vacancyName");
     const vacancyDescription = document.getElementById("vacancyDescription");
-    const vacancyLocation = document.getElementById("vacancyLocation");
     const vacancySkills = document.getElementById("vacancySkills");
     const vacancySalary = document.getElementById("vacancySalary");
+    const vacancyCountry = document.getElementById("vacancyCountry");
+    const vacancyCity = document.getElementById("vacancyCity");
+    const vacancyStreet = document.getElementById("vacancyStreet");
 
     let selectedVacancyId = null; // Mainīgais izvēlētās vakances ID glabāšanai
 
     // Atver vakances modālu
-    vacancyButton.addEventListener("click", function() {
+    vacancyButton.addEventListener("click", function () {
         resetVacancyForm(); // pataisa formu tukšu
         vacancyModal.classList.add("show"); // parāda modālu
     });
 
     // Aizver vakances modālu
-    closeVacancyModal.addEventListener("click", function() {
+    closeVacancyModal.addEventListener("click", function () {
         vacancyModal.classList.remove("show"); // paslēpj modālu
     });
 
     // Saglabā vakances datus
-    saveVacancyButton.addEventListener("click", function() {
+    saveVacancyButton.addEventListener("click", function () {
         // Sagatavo datus no formas laukiem, ieskaitot izvēlēto vakances ID
         const vacancyData = {
             id: selectedVacancyId,
             name: vacancyNameInput.value,
             description: vacancyDescriptionInput.value,
-            location: vacancyLocationInput.value,
+            country: vacancyCountryInput.value,
+            city: vacancyCityInput.value,
+            street: vacancyStreetInput.value,
             skills: vacancySkillsInput.value,
             salary: parseFloat(vacancySalaryInput.value) // pārveido algu par skaitli
         };
@@ -49,26 +54,32 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             body: JSON.stringify(vacancyData) // pārvērš datus par JSON tekstu
         })
-        .then(response => response.json()) // atbildi pārvērš JSON objektā
-        .then(data => {
-            if (data.success) {
-                alert("Vakance veiksmīgi saglabāta!"); // ja veiksmīgi, ziņo lietotājam
-                vacancyModal.classList.remove("show"); // aizver modālu
-                location.reload();
-            } else {
-                alert("Saglabājot vakanci, radās kļūda"); // kļūdas gadījumā paziņo
-            }
-        })
-        .catch(error => {
-            console.error('Kļūda:', error); // izvada kļūdu konsolē
-            alert("Saglabājot vakanci, radās kļūda"); // paziņo par kļūdu
-        });
+            .then(response => response.json()) // atbildi pārvērš JSON objektā
+            .then(data => {
+                if (data.success) {
+                    alert("Vakance veiksmīgi saglabāta!"); // ja veiksmīgi, ziņo lietotājam
+                    vacancyModal.classList.remove("show"); // aizver modālu
+                    location.reload();
+                } else {
+                    alert("Saglabājot vakanci, radās kļūda"); // kļūdas gadījumā paziņo
+                }
+            })
+            .catch(error => {
+                console.error('Kļūda:', error); // izvada kļūdu konsolē
+                alert("Saglabājot vakanci, radās kļūda"); // paziņo par kļūdu
+            });
     });
 
     // Funkcija, kas pārbauda, vai visi formas lauki ir aizpildīti
     function checkVacancyFormCompletion() {
         if (
-            vacancyNameInput.value.trim() && vacancyDescriptionInput.value.trim() && vacancyLocationInput.value.trim() && vacancySkillsInput.value.trim() && vacancySalaryInput.value.trim()
+            vacancyNameInput.value.trim() &&
+            vacancyDescriptionInput.value.trim() &&
+            vacancyCountryInput.value.trim() &&
+            vacancyCityInput.value.trim() &&
+            vacancyStreetInput.value.trim() &&
+            vacancySkillsInput.value.trim() &&
+            vacancySalaryInput.value.trim()
         ) {
             saveVacancyButton.disabled = false; // ja visi aizpildīti, poga aktivizēta
         } else {
@@ -77,12 +88,20 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Pievieno klausītājus, lai pārbaudītu formas laukus, kad lietotājs raksta
-    [vacancyNameInput, vacancyDescriptionInput, vacancyLocationInput, vacancySkillsInput, vacancySalaryInput].forEach(input => {
+    [
+        vacancyNameInput,
+        vacancyDescriptionInput,
+        vacancyCountryInput,
+        vacancyCityInput,
+        vacancyStreetInput,
+        vacancySkillsInput,
+        vacancySalaryInput
+    ].forEach(input => {
         input.addEventListener("input", checkVacancyFormCompletion);
     });
 
     // Noklausās klikšķi uz vakances kastes, lai parādītu ID konsolē (testēšanai)
-    document.querySelector('.vacancy-box').addEventListener('click', function(event) {
+    document.querySelector('.vacancy-box').addEventListener('click', function (event) {
         const vacancyId = event.currentTarget.getAttribute('data-vacancy-id');
         console.log(vacancyId); // Pārbauda, vai izvada pareizo ID
     });
@@ -90,30 +109,26 @@ document.addEventListener("DOMContentLoaded", function() {
     // Pievieno dzēšanas pogai klikšķa notikumu katrā vakances kastē
     document.querySelectorAll(".delete-vacancy-btn").forEach(button => {
         button.addEventListener("click", function () {
-            // Atrod tuvāko vakances kasti (vecākelements)
             const box = this.closest(".vacancy-box");
-            // Paņem vakances ID no datu atribūta
             const vacancyId = box.getAttribute("data-vacancy-id");
 
-            // Apstiprinājuma logs lietotājam par dzēšanu
             if (confirm("Vai tiešām vēlaties dzēst šo vakanci?")) {
-                // Nosūta POST pieprasījumu uz PHP failu dzēšanai
                 fetch("PHPFiles/izdzest_vakanci.php", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded"
                     },
-                    body: "vakancesID=" + encodeURIComponent(vacancyId) // sūta vakances ID
+                    body: "vakancesID=" + encodeURIComponent(vacancyId)
                 })
-                .then(response => response.json()) // pārvērš atbildi JSON
-                .then(data => {
-                    if (data.success) {
-                        box.remove(); // ja veiksmīgi, noņem vakances elementu no lapas
-                        location.reload();
-                    } else {
-                        alert("Neizdevās dzēst vakanci."); // kļūdas gadījumā paziņo
-                    }
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            box.remove();
+                            location.reload();
+                        } else {
+                            alert("Neizdevās dzēst vakanci.");
+                        }
+                    });
             }
         });
     });
@@ -122,76 +137,62 @@ document.addEventListener("DOMContentLoaded", function() {
     const vacancyGrid = document.getElementById("vacancyGrid");
 
     // Klausās klikšķus uz vakances kastēm
-    vacancyGrid.addEventListener("click", function(event) {
-
-        // Ignorē abas pogas
+    vacancyGrid.addEventListener("click", function (event) {
         if (
-            event.target.closest(".delete-btn") || 
+            event.target.closest(".delete-btn") ||
             event.target.closest(".view-stats-btn")
         ) {
             return;
         }
 
-        // Atrod tuvāko vakances kasti no klikšķa mērķa
         const box = event.target.closest(".vacancy-box");
         if (box) {
-            // Iegūst vakances ID no datu atribūta
             selectedVacancyId = event.target.closest(".vacancy-box").dataset.vacancyId;
-            // Dabūd vakances datus modāla aizpildīšanai
             fetchVacancyData(selectedVacancyId);
-            // Maina modāla virsrakstu uz "Rediģēt Vakanci"
             document.querySelector("#vacancyModal h2").textContent = "Rediģēt Vakanci";
         }
     });
-    
+
     // Funkcija, kas dabūd vakances datus no servera pēc ID
     function fetchVacancyData(selectedVacancyId) {
         fetch(`PHPFiles/dabut_vakanci.php?id=${selectedVacancyId}`)
-            .then(response => response.json()) // pārvērš atbildi JSON
+            .then(response => response.json())
             .then(data => {
-
-                console.log(data); // izvada datus konsolē testēšanai
+                console.log(data);
 
                 if (data.success) {
                     const vakance = data.vakance;
-    
-                    // Aizpildiet modālos laukus ar saņemtajiem datiem
+
                     vacancyName.value = vakance.vakances_nosaukums;
                     vacancyDescription.value = vakance.vakances_apraksts;
-                    vacancyLocation.value = vakance.atrasanas_vieta;
+                    vacancyCountry.value = vakance.valsts;
+                    vacancyCity.value = vakance.pilseta;
+                    vacancyStreet.value = vakance.iela;
                     vacancySkills.value = vakance.nepieciesamas_prasmes;
                     vacancySalary.value = vakance.maksa;
-    
-                    vacancyModal.classList.add("show"); // parāda modālu
+
+                    vacancyModal.classList.add("show");
                 } else {
-                    alert("Vakance nav atrasta."); // paziņo, ja vakance nav atrasta
+                    alert("Vakance nav atrasta.");
                 }
             })
             .catch(error => {
-                console.error('Kļūda ielādējot vakances datus:', error); // kļūdas ziņa konsolē
-                alert("Neizdevās iegūt vakances datus."); // paziņojums lietotājam
+                console.error('Kļūda ielādējot vakances datus:', error);
+                alert("Neizdevās iegūt vakances datus.");
             });
     }
 
-
     // Restartē vakances formu
     function resetVacancyForm() {
-        document.querySelector("#vacancyModal h2").textContent = "Izveidot vakanci"; // maina virsrakstu
-        selectedVacancyId = null; // null - nav izvēlēta neviena vakance
-        vacancyNameInput.value = ""; // notīra vakances nosaukumu
-        vacancyDescriptionInput.value = ""; // notīra aprakstu
-        vacancyLocationInput.value = ""; // notīra atrašanās vietu
-        vacancySkillsInput.value = ""; // notīra prasmes
-        vacancySalaryInput.value = ""; // notīra algu
-    }
-
-    // Pārbaude vakances formas aizpildi pirms atļauj saglabāt
-    function checkVacancyFormCompletion() {
-        if (vacancyNameInput.value && vacancyDescriptionInput.value && vacancyLocationInput.value && vacancySkillsInput.value && vacancySalaryInput.value) {
-            saveVacancyButton.disabled = false; // ja aizpildīts - aktivizē pogu
-        } else {
-            saveVacancyButton.disabled = true; // ja ne - izslēdz pogu
-        }
+        document.querySelector("#vacancyModal h2").textContent = "Izveidot vakanci";
+        selectedVacancyId = null;
+        vacancyNameInput.value = "";
+        vacancyDescriptionInput.value = "";
+        vacancyCountryInput.value = "";
+        vacancyCityInput.value = "";
+        vacancyStreetInput.value = "";
+        vacancySkillsInput.value = "";
+        vacancySalaryInput.value = "";
     }
 
     const statsModal = document.getElementById("statsModal");
@@ -348,7 +349,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // Pievieno notikumus formu laukiem, lai pārbaudītu aizpildījumu reāllaikā
     vacancyNameInput.addEventListener("input", checkVacancyFormCompletion);
     vacancyDescriptionInput.addEventListener("input", checkVacancyFormCompletion);
-    vacancyLocationInput.addEventListener("input", checkVacancyFormCompletion);
+    vacancyCountryInput.addEventListener("input", checkVacancyFormCompletion);
+    vacancyCityInput.addEventListener("input", checkVacancyFormCompletion);
+    vacancyStreetInput.addEventListener("input", checkVacancyFormCompletion);
     vacancySkillsInput.addEventListener("input", checkVacancyFormCompletion);
     vacancySalaryInput.addEventListener("input", checkVacancyFormCompletion);
 });

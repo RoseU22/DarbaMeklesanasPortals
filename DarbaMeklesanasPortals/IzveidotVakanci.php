@@ -193,13 +193,15 @@ if ($stmt->execute()) {
                 <textarea id="vacancyDescription" placeholder="Ievadiet vakances aprakstu"></textarea>
 
                 <label for="vacancyLocation">Atrašanās vieta:</label>
-                <input type="text" id="vacancyLocation" placeholder="Ievadiet atrašanās vieta">
+                <input type="text" id="vacancyCountry" placeholder="Valsts">
+                <input type="text" id="vacancyCity" placeholder="Pilsēta">
+                <input type="text" id="vacancyStreet" placeholder="Iela">
 
                 <label for="vacancySkills">Nepieciešamās prasmes:</label>
                 <textarea id="vacancySkills" placeholder="Ievadiet nepieciešamās prasmes"></textarea>
 
                 <label for="vacancySalary">Maksa:</label>
-                <input type="number" id="vacancySalary" step="0.01" placeholder="Ievadiet Maksu">
+                <input type="number" id="vacancySalary" placeholder="Ievadiet Maksu">
 
                 <button id="saveVacancy" disabled>Saglabāt vakanci</button>
             </div>
