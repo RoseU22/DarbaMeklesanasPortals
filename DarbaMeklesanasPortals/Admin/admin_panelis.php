@@ -55,7 +55,7 @@ session_start();
     }
 
     $uznemumiData = [];
-    $sql = "SELECT uznemumsID, uznemuma_nosaukums, statuss FROM DMPortals_Uznemums";
+    $sql = "SELECT uznemumsID, uznemuma_nosaukums, statuss, apstiprinats FROM DMPortals_Uznemums";
     $result = $savienojums->query($sql);
 
     if ($result && $result->num_rows > 0) {
@@ -261,24 +261,34 @@ session_start();
                             </div>
                         </div>
                         <div class="sent-status">
-                            <?php if (empty($uznemums['statuss'])): ?>
-                                <!-- Deaktivēt -->
-                                <form action="../PHPFiles/deaktivizet_lietotaju.php" method="POST">
+                            <?php if (empty($uznemums['apstiprinats'])): ?>
+                                <!-- Apstiprināt lietotāju -->
+                                <form action="../PHPFiles/apstiprinat_lietotaju.php" method="POST" style="display:inline;">
                                     <input type="hidden" name="uznemumsID" value="<?= $uznemums['uznemumsID'] ?>">
-                                    <input type="hidden" name="type" value="uznemums">
-                                    <button type="submit" title="Deaktivēt uzņēmumu" class="delete-btn">
-                                        🔒
+                                    <button type="submit" title="Apstiprināt uzņēmumu" class="approve-btn">
+                                        <i class="fa-solid fa-check"></i>
                                     </button>
                                 </form>
-                            <?php elseif ($uznemums['statuss'] === 'deaktivizets'): ?>
-                                <!-- Aktivizēt -->
-                                <form action="../PHPFiles/aktivizet_lietotaju.php" method="POST">
-                                    <input type="hidden" name="uznemumsID" value="<?= $uznemums['uznemumsID'] ?>">
-                                    <input type="hidden" name="type" value="uznemums">
-                                    <button type="submit" title="Aktivizēt uzņēmumu" class="activate-btn">
-                                        🔓
-                                    </button>
-                                </form>
+                            <?php else: ?>
+                                <?php if ($uznemums['statuss'] !== 'deaktivizets'): ?>
+                                    <!-- Deaktivēt -->
+                                    <form action="../PHPFiles/deaktivizet_lietotaju.php" method="POST">
+                                        <input type="hidden" name="uznemumsID" value="<?= $uznemums['uznemumsID'] ?>">
+                                        <input type="hidden" name="type" value="uznemums">
+                                        <button type="submit" title="Deaktivēt uzņēmumu" class="delete-btn">
+                                            🔒
+                                        </button>
+                                    </form>
+                                <?php elseif ($uznemums['statuss'] === 'deaktivizets'): ?>
+                                    <!-- Aktivizēt -->
+                                    <form action="../PHPFiles/aktivizet_lietotaju.php" method="POST">
+                                        <input type="hidden" name="uznemumsID" value="<?= $uznemums['uznemumsID'] ?>">
+                                        <input type="hidden" name="type" value="uznemums">
+                                        <button type="submit" title="Aktivizēt uzņēmumu" class="activate-btn">
+                                            🔓
+                                        </button>
+                                    </form>
+                                <?php endif; ?>
                             <?php endif; ?>
                         </div>
                     </div>

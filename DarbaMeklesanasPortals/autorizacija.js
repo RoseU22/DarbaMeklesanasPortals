@@ -238,7 +238,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (data.success) {
                         location.reload();
                     } else {
-                        alert("Nepareizs lietotājvārds vai parole!");
+                        alert("Nepareizs lietotājvārds vai parole! Vai arī konts nav apstiprināts");
                     }
                 });
         });

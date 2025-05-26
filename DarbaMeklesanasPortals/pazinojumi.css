@@ -134,6 +134,23 @@
     transform: scale(1.1);
 }
 
+.notification .approve-btn{
+    background-color: #28a745;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    width: 65px;
+    cursor: pointer;
+    margin-right: 5px;
+    scale: 0.8;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.notification .approve-btn:hover {
+    background-color: #218838;
+    transform: scale(1.1);
+    color: var(--primary-color);
+}
+
 .notification button {
     background-color: var(--accent-color);
     color: var(--primary-color);

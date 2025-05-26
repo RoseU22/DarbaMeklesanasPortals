@@ -75,9 +75,9 @@ if ($userType === "uznemums") {
             exit;
         }
     }
-    
 
-    $stmt = $savienojums->prepare("SELECT uznemuma_parole FROM DMPortals_Uznemums WHERE uznemuma_nosaukums = ?");
+    // Get password and status from database
+    $stmt = $savienojums->prepare("SELECT uznemuma_parole, statuss, apstiprinats FROM DMPortals_Uznemums WHERE uznemuma_nosaukums = ?");
     if (!$stmt) {
         echo json_encode(["success" => false, "error" => "Datu bāzes vaicājums neizdevās"]);
         exit;
@@ -88,8 +88,14 @@ if ($userType === "uznemums") {
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($hashed_password);
+        $stmt->bind_result($hashed_password, $status, $apstiprinats);
         $stmt->fetch();
+
+        if ($apstiprinats !== "apstiprinats") {
+            echo json_encode(["success" => false, "error" => "Uzņēmuma konts nav apstiprināts"]);
+            $stmt->close();
+            exit;
+        }
 
         if (password_verify($company_password, $hashed_password)) {
             $_SESSION["username"] = $company_name;

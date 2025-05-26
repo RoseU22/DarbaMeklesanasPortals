@@ -26,9 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const matchesSalary = isNaN(minSalary) || salary >= minSalary;
 
             if (matchesTitle && matchesCountry && matchesCity && matchesStreet && matchesSalary) {
-                vacancy.style.display = 'block';
+                vacancy.classList.remove('hidden');
             } else {
-                vacancy.style.display = 'none';
+                vacancy.classList.add('hidden');
             }
         });
     }

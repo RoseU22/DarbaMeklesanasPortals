@@ -808,6 +808,7 @@ h2 {
 .search-bar {
     width: 100%;
     max-width: 500px;
+    position: relative;
     padding: 0.7rem 1rem;
     margin: 1.5rem auto 2rem auto;
     display: block;
@@ -817,6 +818,7 @@ h2 {
     background-color: var(--secondary-color);
     color: var(--text-color);
     box-shadow: 0 2px 6px var(--shadow-color);
+    z-index: 2;
 }
 
 .filters {
@@ -875,6 +877,9 @@ h2 {
     color: var(--accent-color);
 }
 
+.hidden {
+    display: none !important;
+}
 
 /*___________Pieteikšanās modālais logs______________*/
 
