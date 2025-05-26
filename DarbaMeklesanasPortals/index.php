@@ -302,6 +302,45 @@
             <!-- Meklēšanas funkcija -->
             <input type="text" id="searchInput" placeholder="Meklēt vakanci pēc nosaukuma..." class="search-bar">
 
+            <div class="filters">
+
+                <button id="resetFilters" class="reset-button"><i class="fa fa-refresh"></i></button>
+
+                <select id="countryFilter">
+
+                    <option value="" disabled selected hidden>Valsts</option>
+                    <?php 
+                        $valstis = array_unique(array_column($vakances, 'valsts'));
+                        foreach ($valstis as $valsts) {
+                            echo '<option value="' . htmlspecialchars($valsts) . '">' . htmlspecialchars($valsts) . '</option>';
+                        }
+                    ?>
+                </select>
+
+                <select id="cityFilter">
+                    <option value="" disabled selected hidden>Pilsēta</option>
+                    <?php 
+                        $pilsetas = array_unique(array_column($vakances, 'pilseta'));
+                        foreach ($pilsetas as $pilseta) {
+                            echo '<option value="' . htmlspecialchars($pilseta) . '">' . htmlspecialchars($pilseta) . '</option>';
+                        }
+                    ?>
+                </select>
+
+                <select id="streetFilter">
+                    <option value="" disabled selected hidden>Iela</option>
+                    <?php 
+                        $ielas = array_unique(array_column($vakances, 'iela'));
+                        foreach ($ielas as $iela) {
+                            echo '<option value="' . htmlspecialchars($iela) . '">' . htmlspecialchars($iela) . '</option>';
+                        }
+                    ?>
+                </select>
+
+                <input type="number" id="salaryFilter" placeholder="Minimālā alga (€)">
+
+            </div>
+
             <div class="vakances-konteiners">
                 <?php foreach ($vakances as $vakance): ?>
                     <div class="vacancy-box" data-vacancy-id="<?php echo $vakance['vakancesID']; ?>">
