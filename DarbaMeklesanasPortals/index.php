@@ -307,12 +307,20 @@
                     <div class="vacancy-box" data-vacancy-id="<?php echo $vakance['vakancesID']; ?>">
                         <p class="vacancy-title"><?php echo htmlspecialchars($vakance['vakances_nosaukums']); ?></p>
                         <img src="Bildes/Vakance.png" alt="Vakance Image" class="vakance-image">
-                        <p class="vacancy-location"><?php echo htmlspecialchars($vakance['atrasanas_vieta']); ?></p>
+                       <p class="vacancy-location">
+                            <?php 
+                                echo htmlspecialchars($vakance['valsts']) . ', ' . 
+                                    htmlspecialchars($vakance['pilseta']) . ', ' . 
+                                    htmlspecialchars($vakance['iela']); 
+                            ?>
+                        </p>
                         <button class="openModalBtn"
                                 data-id="<?php echo $vakance['vakancesID']; ?>"
                                 data-title="<?php echo htmlspecialchars($vakance['vakances_nosaukums']); ?>"
                                 data-description="<?php echo htmlspecialchars($vakance['vakances_apraksts']); ?>"
-                                data-location="<?php echo htmlspecialchars($vakance['atrasanas_vieta']); ?>"
+                                data-location="<?php echo htmlspecialchars($vakance['valsts']) . ', ' . 
+                                                    htmlspecialchars($vakance['pilseta']) . ', ' . 
+                                                    htmlspecialchars($vakance['iela']);  ?>"
                                 data-skills="<?php echo htmlspecialchars($vakance['nepieciesamas_prasmes']); ?>"
                                 data-salary="<?php echo htmlspecialchars($vakance['maksa']); ?>">
                             Apskatīt

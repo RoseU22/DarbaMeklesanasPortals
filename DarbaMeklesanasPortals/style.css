@@ -898,6 +898,8 @@ h2 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    max-height: 620px;
+    overflow-y: auto;
 }
 
 .PieteiksanasModal .modal-right h2 {
