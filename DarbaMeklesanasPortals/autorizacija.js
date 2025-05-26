@@ -29,6 +29,63 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const openRegister = document.getElementById("openLogin2");
 
+    const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+    const forgotPasswordModal = document.getElementById("forgotPasswordModal");
+    const closeButtons = forgotPasswordModal?.querySelectorAll(".close");
+    const userTypeInput = document.getElementById("userTypeInput"); // hidden input inside forgot password form
+
+    if (forgotPasswordLink && forgotPasswordModal && userTypeInput) {
+    forgotPasswordLink.addEventListener("click", function (e) {
+        e.preventDefault();
+        userTypeInput.value = selectedUserType;
+        forgotPasswordModal.classList.add("show");
+    });
+
+    closeButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            forgotPasswordModal.classList.remove("show");
+
+            // Restartē formu
+            const form = document.getElementById("forgotPasswordForm");
+            form.reset();
+
+            const messageDiv = document.getElementById("forgotPasswordMessage");
+            messageDiv.textContent = "";
+
+            userTypeInput.value = "";
+        });
+    });
+
+    document.getElementById('forgotPasswordForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const formData = new FormData(form);
+        formData.set("userType", selectedUserType);
+
+        const messageDiv = document.getElementById('forgotPasswordMessage');
+
+        fetch('PHPFiles/nomainit_paroli.php', {
+            method: 'POST',
+            body: formData
+            })
+                .then(res => res.text())
+                    .then(response => {
+                    messageDiv.textContent = response;
+                    if (response.includes("veiksmīgi")) {
+                        messageDiv.style.color = "green";
+                        form.reset();
+                    } else {
+                        messageDiv.style.color = "#f44336";
+                    }
+                })
+                .catch(err => {
+                messageDiv.textContent = "Kļūda sūtot pieprasījumu.";
+                messageDiv.style.color = "#f44336";
+            });
+    });
+    }
+
     if (loginForm) {
         const userTypeInput = document.createElement("input");
         userTypeInput.type = "hidden";
