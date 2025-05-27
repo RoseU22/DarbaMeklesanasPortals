@@ -3,12 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
         button.addEventListener('click', () => {
             const filter = button.getAttribute('data-filter');
 
-            // Remove 'active' class from all buttons
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            // Add 'active' class to clicked button
             button.classList.add('active');
 
-            // Filter notifications
             document.querySelectorAll('.notification').forEach(note => {
                 if (filter === 'all') {
                     note.style.display = 'flex';

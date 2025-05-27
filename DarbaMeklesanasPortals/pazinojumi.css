@@ -175,6 +175,7 @@
 
 .new-vacancy img{
     border: 2px solid #ffffff;
+    background-color: var(--muted-color);
 }
 
 .notification .delete-btn {
@@ -237,6 +238,21 @@
     font-weight: 600;
 }
 
+.disabled-message {
+  display: none;      
+  font-size: 0.9rem;     
+  color: #000000;       
+  background-color: #f9f9f9; 
+  border-left: 4px solid #ffb300;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin: 12px 0;
+  max-width: 320px;
+  box-shadow: 0 8px 20px var(--shadow-color);
+  user-select: none;
+  scale: 1.1;
+}
+
 .disabled-notifications {
     font-size: 1.5rem;
     color: var(--primary-color);
@@ -249,7 +265,95 @@
     font-weight: 600;
 }
 
-/* === Notification Entry Animation === */
+.settings-btn {
+    background-color: var(--secondary-color);
+    border: none;
+    color: var(--accent-color);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--shadow-color);
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
+    position: fixed;
+    bottom: 20px;
+    left: 20px;  
+    z-index: 1000;
+}
+
+.settings-btn:hover {
+    background-color: var(--hover-color);
+    color: var(--primary-color);
+    transform: rotate(10deg);
+}
+
+.settings-modal {
+    position: fixed;
+    bottom: 70px;
+    left: 20px;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: 1px solid var(--shadow-color);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px var(--shadow-color);
+    z-index: 1000;
+    min-width: 220px;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: opacity var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.settings-modal.animate {
+    animation: fadeInUp 0.3s ease;
+}
+
+
+.settings-modal h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: var(--accent-color);
+}
+
+.settings-modal:not(.hidden) {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.settings-modal label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.settings-modal input[type="checkbox"] {
+    accent-color: var(--accent-color);
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.settings-modal:not(.hidden) {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
 @keyframes fadeSlideIn {
     0% {
         opacity: 0;
@@ -261,7 +365,6 @@
     }
 }
 
-/* Optional Exit Animation (use with JS to remove after) */
 @keyframes fadeShrinkOut {
     0% {
         opacity: 1;
@@ -273,7 +376,6 @@
     }
 }
 
-/* === Notification Pulse Hover === */
 @keyframes pulse {
     0% {
         transform: scale(1);
@@ -286,7 +388,6 @@
     }
 }
 
-/* === Image Pop Hover === */
 @keyframes imageBounce {
     0% {
         transform: scale(1);

@@ -90,10 +90,13 @@ if ($userType === 'uznemums') {
     <link rel="stylesheet" href="pazinojumi.css">
     <link rel="stylesheet" href="izveidotCV.css">
     <link rel="shortcut icon" href="Bildes/Favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
     <script src="autorizacija.js"></script>
     <script src="apskatitCV.js"></script>
     <script src="gaismasRezims.js"></script>
     <script src="pazinojumu_filtrs.js"></script>
+    <script src="iestatijumi.js"></script>
 </head>
 <body>
 
@@ -175,6 +178,7 @@ if ($userType === 'uznemums') {
             <?php if (empty($notifications)): ?>
                 <p class="no-notifications">Nav paziņojuma</p>
             <?php else: ?>
+                <p class="no-notifications disabled-message">Šī iespēja ir atspējota</p>
                 <?php foreach ($notifications as $note): ?>
                     <?php
                         $isNewVacancy = isset($note['jauna_vakance']);
@@ -210,7 +214,7 @@ if ($userType === 'uznemums') {
                             <?php endif; ?>
                         <?php else: ?>
                             <?php if ($isNewVacancy): ?>
-                                <span class="status">Jauna izveidota vakance</span>
+                                <span class="status">Ielikt pogu Apskatīt</span>
                             <?php else: ?>
                                 <span class="sent-status">
                                     <span class="status"><?php echo htmlspecialchars($note['statuss'] ?? 'Aizsūtīts'); ?></span>
@@ -272,5 +276,17 @@ if ($userType === 'uznemums') {
                     
         </div>
     </div>
+
+    <button id="settingsButton" class="settings-btn">
+        <i class="fa fa-gear fa-spin" style="font-size:24px"></i>
+    </button>
+
+    <div id="settingsModal" class="settings-modal hidden">
+        <h4>Iestatījumi</h4>
+        <label>
+            <input type="checkbox" id="toggleNewVacancies" checked>Rādīt jaunās vakances
+        </label>
+    </div>
+
 </body>
 </html>
