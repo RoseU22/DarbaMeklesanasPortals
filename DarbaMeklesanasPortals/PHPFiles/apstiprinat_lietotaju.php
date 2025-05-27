@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $stmt->fetch();
             $stmt->close();
 
-            $apraksts = "Apstiprināja lietotāju '$companyName'.";
+            $apraksts = "Apstiprināja uzņēmumu '$companyName'.";
             logAdminAction($savienojums, $admin_id, $admin_lietotajvards, $apraksts);
             header("Location: ../Admin/admin_panelis.php");
             exit;

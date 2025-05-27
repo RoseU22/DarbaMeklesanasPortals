@@ -30,6 +30,7 @@ if ($userType === 'uznemums') {
     $result = $stmt->get_result();
     $notifications = $result->fetch_all(MYSQLI_ASSOC);
 } elseif ($userType === 'klients') {
+    // Existing notifications (sent CVs)
     $sql = "SELECT 
                 p.pazinojumi_id,
                 v.vakances_nosaukums,
@@ -44,16 +45,39 @@ if ($userType === 'uznemums') {
                 SELECT lietotajsID FROM DMPortals WHERE lietotajvards = ?
             )";
     $stmt = $savienojums->prepare($sql);
-    if (!$stmt) {
-        die("SQL prepare error: " . $savienojums->error);
-    }
-
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
     $notifications = $result->fetch_all(MYSQLI_ASSOC);
-}
 
+    // Dabūd vakances kuras tika izveidotas šodien
+    $sqlNewVacancies = "
+        SELECT 
+            v.vakancesID,
+            v.vakances_nosaukums,
+            u.uznemuma_nosaukums,
+            u.profila_bilde,
+            u.uznemumsID,
+            v.izveidots_laiks
+        FROM DMPortals_Vakances v
+        JOIN DMPortals_Uznemums u ON v.uznemuma_nosaukums = u.uznemuma_nosaukums
+        WHERE v.izveidots_laiks >= NOW() - INTERVAL 1 DAY
+        AND v.vakancesID NOT IN (
+            SELECT vakance_id FROM DMPortals_Pazinojumi 
+            WHERE klients_id = (SELECT lietotajsID FROM DMPortals WHERE lietotajvards = ?)
+        )
+    ";
+    $stmtNew = $savienojums->prepare($sqlNewVacancies);
+    $stmtNew->bind_param("s", $username);
+    $stmtNew->execute();
+    $resultNew = $stmtNew->get_result();
+    $newVacancies = $resultNew->fetch_all(MYSQLI_ASSOC);
+
+    // Merge notifications and new vacancies with a flag
+    foreach ($newVacancies as $new) {
+        $notifications[] = array_merge($new, ['jauna_vakance' => true]);
+    }
+}
 
 ?>
 
@@ -69,6 +93,7 @@ if ($userType === 'uznemums') {
     <script src="autorizacija.js"></script>
     <script src="apskatitCV.js"></script>
     <script src="gaismasRezims.js"></script>
+    <script src="pazinojumu_filtrs.js"></script>
 </head>
 <body>
 
@@ -135,8 +160,15 @@ if ($userType === 'uznemums') {
 
     <h1 class="notification-header">Paziņojumi</h1>
 
-    <div class="notification-container">
+    <?php if ($_SESSION["userType"] === "klients" && $_SESSION["statuss"] !== "deaktivizets"): ?>
+        <div class="notification-filters">
+            <button class="filter-btn active" data-filter="all">Visi</button>
+            <button class="filter-btn" data-filter="new-vacancy">Jaunas vakances</button>
+            <button class="filter-btn" data-filter="normal">Pieteikumi</button>
+        </div>
+    <?php endif; ?>
 
+    <div class="notification-container">
         <?php if (isset($_SESSION['statuss']) && $_SESSION['statuss'] === 'deaktivizets'): ?>
             <p class="disabled-notifications">Jūsu konts tika deaktivizēts</p>
         <?php else: ?>
@@ -144,10 +176,13 @@ if ($userType === 'uznemums') {
                 <p class="no-notifications">Nav paziņojuma</p>
             <?php else: ?>
                 <?php foreach ($notifications as $note): ?>
-                    <script>console.log('Showing notification: ID <?php echo $note['pazinojumi_id']; ?>');</script>
-                    <div class="notification">
+                    <?php
+                        $isNewVacancy = isset($note['jauna_vakance']);
+                        $isUznemums = ($_SESSION['userType'] ?? '') === 'uznemums';
+                    ?>
+                    <div class="notification <?php echo $isNewVacancy ? 'new-vacancy' : 'normal'; ?>" data-type="<?php echo $isNewVacancy ? 'new-vacancy' : 'normal'; ?>">
                         <div class="info">
-                            <?php if ($userType === 'uznemums'): ?>
+                            <?php if ($isUznemums): ?>
                                 <img src="bilde.php?id=<?php echo $note['klients_id']; ?>&type=klients" alt="Klienta bilde">
                                 <div class="nosaukumuSakartojums">
                                     <strong><?php echo htmlspecialchars($note['lietotajvards']); ?></strong>
@@ -162,8 +197,7 @@ if ($userType === 'uznemums') {
                             <?php endif; ?>
                         </div>
 
-                        <?php if ($userType === 'uznemums'): ?>
-
+                        <?php if ($isUznemums): ?>
                             <input type="hidden" name="pazinojumi_id" value="<?php echo $note['pazinojumi_id']; ?>">
 
                             <?php if ($note['statuss'] !== 'Akceptēts'): ?>
@@ -171,21 +205,24 @@ if ($userType === 'uznemums') {
                                 <button class="delete-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Dzēst paziņojumu">🗑️</button>
                                 <button class="apskatit-btn" data-cv-id="<?php echo $note['cv_id']; ?>">Apskatīt</button>
                             <?php else: ?>
-                                <span class="status"><?php echo htmlspecialchars($note['statuss']);?></span>
+                                <span class="status"><?php echo htmlspecialchars($note['statuss']); ?></span>
                                 <button class="apskatit-btn" data-cv-id="<?php echo $note['cv_id']; ?>">Apskatīt</button>
                             <?php endif; ?>
                         <?php else: ?>
-                            <span class="sent-status">
-                                <span class="status"><?php echo htmlspecialchars($note['statuss'] ?? 'Aizsūtīts');?></span>
-                                <button class="delete-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Dzēst paziņojumu">🗑️</button>
-                            </span>
+                            <?php if ($isNewVacancy): ?>
+                                <span class="status">Jauna izveidota vakance</span>
+                            <?php else: ?>
+                                <span class="sent-status">
+                                    <span class="status"><?php echo htmlspecialchars($note['statuss'] ?? 'Aizsūtīts'); ?></span>
+                                    <button class="delete-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Dzēst paziņojumu">🗑️</button>
+                                </span>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
         <?php endif; ?>
     </div>
-
 
     <!-- CV modālais logs -->
     <div id="cvModal" class="modal">
