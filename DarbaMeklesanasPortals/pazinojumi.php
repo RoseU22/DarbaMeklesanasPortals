@@ -277,16 +277,18 @@ if ($userType === 'uznemums') {
         </div>
     </div>
 
-    <button id="settingsButton" class="settings-btn">
-        <i class="fa fa-gear fa-spin" style="font-size:24px"></i>
-    </button>
+    <?php if ($_SESSION["userType"] === "klients" && $_SESSION["statuss"] !== "deaktivizets"): ?>
+        <button id="settingsButton" class="settings-btn">
+            <i class="fa fa-gear fa-spin" style="font-size:24px"></i>
+        </button>
 
-    <div id="settingsModal" class="settings-modal hidden">
-        <h4>Iestatījumi</h4>
-        <label>
-            <input type="checkbox" id="toggleNewVacancies" checked>Rādīt jaunās vakances
-        </label>
-    </div>
+        <div id="settingsModal" class="settings-modal hidden">
+            <h4>Iestatījumi</h4>
+            <label>
+                <input type="checkbox" id="toggleNewVacancies" checked>Rādīt jaunās vakances
+            </label>
+        </div>
+    <?php endif; ?>
 
 </body>
 </html>
