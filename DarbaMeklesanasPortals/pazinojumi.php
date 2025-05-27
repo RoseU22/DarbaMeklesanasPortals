@@ -23,14 +23,14 @@ if ($userType === 'uznemums') {
             FROM DMPortals_Pazinojumi p
             JOIN DMPortals_Vakances v ON p.vakance_id = v.vakancesID
             JOIN DMPortals k ON p.klients_id = k.lietotajsID
-            WHERE v.uznemuma_nosaukums = ? AND p.uznemums_izdzesa = 0";
+            WHERE v.uznemuma_nosaukums = ? AND p.uznemums_izdzesa = 0
+            ORDER BY p.pazinojumi_id DESC";
     $stmt = $savienojums->prepare($sql);
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
     $notifications = $result->fetch_all(MYSQLI_ASSOC);
 } elseif ($userType === 'klients') {
-    // Existing notifications (sent CVs)
     $sql = "SELECT 
                 p.pazinojumi_id,
                 v.vakances_nosaukums,
@@ -43,7 +43,8 @@ if ($userType === 'uznemums') {
             JOIN DMPortals_Uznemums u ON v.uznemuma_nosaukums = u.uznemuma_nosaukums
             WHERE p.klients_izdzesa = 0 AND p.klients_id = (
                 SELECT lietotajsID FROM DMPortals WHERE lietotajvards = ?
-            )";
+            )
+            ORDER BY p.pazinojumi_id DESC";
     $stmt = $savienojums->prepare($sql);
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -73,7 +74,6 @@ if ($userType === 'uznemums') {
     $resultNew = $stmtNew->get_result();
     $newVacancies = $resultNew->fetch_all(MYSQLI_ASSOC);
 
-    // Merge notifications and new vacancies with a flag
     foreach ($newVacancies as $new) {
         $notifications[] = array_merge($new, ['jauna_vakance' => true]);
     }
@@ -272,6 +272,5 @@ if ($userType === 'uznemums') {
                     
         </div>
     </div>
-
 </body>
 </html>

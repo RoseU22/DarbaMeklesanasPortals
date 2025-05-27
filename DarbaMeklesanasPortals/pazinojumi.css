@@ -10,6 +10,8 @@
     gap: 1.5rem;
     padding: 2rem;
     background-color: var(--background-color);
+    max-height: 64vh;
+    overflow-y: auto;
 }
 
 .notification-filters {
@@ -20,7 +22,7 @@
     padding: 10px;
 }
 
-.notification-filters .filter-btn {
+.notification-filters .filter-btn { 
     background-color: var(--primary-color);
     color: var(--text-color);
     border: 1px solid var(--muted-color);

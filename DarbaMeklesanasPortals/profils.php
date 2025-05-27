@@ -289,5 +289,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
 </div>
 
+    <footer>
+
+        <div class="konteiners">
+            <p>&copy; 2025 Darba Meklēšanas Portāls. Visas tiesības aizsargātas.</p>
+        </div>
+
+    </footer>
+
 </body>
 </html>
