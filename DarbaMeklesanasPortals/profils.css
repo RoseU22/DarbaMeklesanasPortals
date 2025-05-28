@@ -253,14 +253,14 @@
 
 #passwordError {
     margin-top: 1rem;
-    color: red; /* Optional override */
+    color: red; 
     font-size: 0.95rem;
     font-weight: 500;
     animation: slideDown 0.3s ease-out;
     transition: all var(--transition-speed);
 }
 
-/* Slide in from top when shown */
+
 @keyframes slideDown {
     from {
         opacity: 0;
@@ -272,7 +272,6 @@
     }
 }
 
-/* Animations */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }

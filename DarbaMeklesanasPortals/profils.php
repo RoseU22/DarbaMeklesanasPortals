@@ -281,7 +281,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <button type="submit">Saglabāt izmaiņas</button>
 
-                <!-- Password Confirmation Modal -->
+                <!-- Paroles verifikācija -->
                 <div id="passwordConfirmModal" class="confirm-password-modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>

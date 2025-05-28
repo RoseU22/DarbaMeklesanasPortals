@@ -41,49 +41,49 @@ document.addEventListener("DOMContentLoaded", function () {
         forgotPasswordModal.classList.add("show");
     });
 
-    closeButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            forgotPasswordModal.classList.remove("show");
+        closeButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                forgotPasswordModal.classList.remove("show");
 
-            // Restartē formu
-            const form = document.getElementById("forgotPasswordForm");
-            form.reset();
+                // Restartē formu
+                const form = document.getElementById("forgotPasswordForm");
+                form.reset();
 
-            const messageDiv = document.getElementById("forgotPasswordMessage");
-            messageDiv.textContent = "";
+                const messageDiv = document.getElementById("forgotPasswordMessage");
+                messageDiv.textContent = "";
 
-            userTypeInput.value = "";
+                userTypeInput.value = "";
+            });
         });
-    });
 
-    document.getElementById('forgotPasswordForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+        document.getElementById('forgotPasswordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-        const form = e.target;
-        const formData = new FormData(form);
-        formData.set("userType", selectedUserType);
+            const form = e.target;
+            const formData = new FormData(form);
+            formData.set("userType", selectedUserType);
 
-        const messageDiv = document.getElementById('forgotPasswordMessage');
+            const messageDiv = document.getElementById('forgotPasswordMessage');
 
-        fetch('PHPFiles/nomainit_paroli.php', {
-            method: 'POST',
-            body: formData
+            fetch('PHPFiles/paroles_nomaina.php', {
+                method: 'POST',
+                body: formData
             })
-                .then(res => res.text())
-                    .then(response => {
-                    messageDiv.textContent = response;
-                    if (response.includes("veiksmīgi")) {
-                        messageDiv.style.color = "green";
-                        form.reset();
-                    } else {
-                        messageDiv.style.color = "#f44336";
-                    }
-                })
-                .catch(err => {
+            .then(res => res.text())
+            .then(response => {
+                messageDiv.textContent = response;
+                if (response.toLowerCase().includes("veiksmīgi")) {
+                    messageDiv.style.color = "green";
+                    form.reset();
+                } else {
+                    messageDiv.style.color = "#f44336";
+                }
+            })
+            .catch(err => {
                 messageDiv.textContent = "Kļūda sūtot pieprasījumu.";
                 messageDiv.style.color = "#f44336";
             });
-    });
+        });
     }
 
     if (loginForm) {

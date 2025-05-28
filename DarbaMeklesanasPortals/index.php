@@ -198,19 +198,16 @@
         <div id="forgotPasswordModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <h2>Mainīt paroli</h2>
+                <h2>Aizmirsāt paroli</h2>
                 <form id="forgotPasswordForm">
                     <input type="hidden" id="userTypeInput" name="userType" value="">
+                    <input type="text" name="accountName" placeholder="Lietotājvārds" required>
                     <input type="email" name="email" placeholder="E-pasts" required>
-                    <input type="password" name="oldPassword" placeholder="Vecā parole" required>
-                    <input type="password" name="newPassword" placeholder="Jaunā parole" required>
-                    <input type="password" name="confirmNewPassword" placeholder="Apstipriniet jauno paroli" required>
                     <div id="forgotPasswordMessage"></div>
-                    <button type="submit" class="btn">Mainīt paroli</button>
+                    <button type="submit" class="btn">Sūtīt</button>
                 </form>
             </div>
         </div>
-
 
         <!-- Modālais logs (Reģistrācija) -->
         <?php if (!isset($_SESSION["username"])): ?>

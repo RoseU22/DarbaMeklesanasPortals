@@ -3,16 +3,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const settingsModal = document.getElementById("settingsModal");
     const toggleNewVacancies = document.getElementById("toggleNewVacancies");
 
-    let showNewVacancies = true;
+    let showNewVacancies = true;  // Default true
 
-    // Ielādē saglabāto iestatījumu
+    // Load saved setting from localStorage
     const savedSetting = localStorage.getItem("showNewVacancies");
-    if (savedSetting !== null) {
+
+    if (savedSetting === null) {
+        toggleNewVacancies.checked = true;
+        showNewVacancies = true;
+        localStorage.setItem("showNewVacancies", "true");
+    } else {
         showNewVacancies = savedSetting === "true";
         toggleNewVacancies.checked = showNewVacancies;
     }
 
-    // Modālā loga redzamība
+    // Modal toggle
     settingsButton.addEventListener("click", () => {
         settingsModal.classList.toggle("hidden");
 
@@ -21,29 +26,27 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => settingsModal.classList.remove("animate"), 300);
         }
     });
-    
 
-    // Checkbox nomaiņa
+    // Checkbox change event
     toggleNewVacancies.addEventListener("change", () => {
         showNewVacancies = toggleNewVacancies.checked;
         localStorage.setItem("showNewVacancies", showNewVacancies);
-        applyFilters(currentFilter); // Kad nomainās iestatījumi tad atkārtoti pieliek filtrus
+        applyFilters(currentFilter);
     });
 
-   // Aizvera iestatījumu modālu
+    // Close modal when clicking outside
     document.addEventListener("click", (event) => {
         if (!settingsModal.contains(event.target) && !settingsButton.contains(event.target)) {
             settingsModal.classList.add("hidden");
         }
     });
 
-    let currentFilter = "all"; // Izsekot aktīvo filtru
+    let currentFilter = "all";
 
     document.querySelectorAll('.filter-btn').forEach(button => {
         button.addEventListener('click', () => {
             currentFilter = button.getAttribute('data-filter');
 
-            // Atjaunina aktīvo stāvokli
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
 
