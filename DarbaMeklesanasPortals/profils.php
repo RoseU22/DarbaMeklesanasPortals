@@ -33,7 +33,22 @@ if (!$user) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    
+    header('Content-Type: application/json');
+
+    $confirm_password = $_POST['confirm_password'] ?? '';
+
+    if (empty($confirm_password)) {
+        echo json_encode(['success' => false, 'message' => 'Jums jāapstiprina parole!']);
+        exit();
+    }
+
+    $db_password = $user_type === 'klients' ? $user['parole'] : $user['uznemuma_parole'];
+
+    if (!password_verify($confirm_password, $db_password)) {
+        echo json_encode(['success' => false, 'message' => 'Nepareiza parole. Izmaiņas netika saglabātas.']);
+        exit();
+    }
+
     // Saglabā bildi uz datubāzi (LONGBLOB)
     if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] == UPLOAD_ERR_OK) {
         $image_data = file_get_contents($_FILES['profile_image']['tmp_name']);
@@ -265,6 +280,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <?php endif; ?>
 
                 <button type="submit">Saglabāt izmaiņas</button>
+
+                <!-- Password Confirmation Modal -->
+                <div id="passwordConfirmModal" class="confirm-password-modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2>Lūdzu, ievadi savu paroli</h2>
+                        <input type="password" id="confirmPasswordInput" placeholder="Parole">
+                        <button id="confirmPasswordBtn">Apstiprināt</button>
+                        <p id="passwordError" style="color: red; margin-top: 10px;"></p>
+                    </div>
+                </div>
 
                 <script>
                     if ( window.history.replaceState ) {

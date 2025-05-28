@@ -172,7 +172,123 @@
     display: block;
 }
 
-/* deleteProfile.css */
+#passwordConfirmModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 1rem;
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn var(--transition-speed) ease-in-out;
+}
+
+#passwordConfirmModal .modal-content {
+    background: var(--secondary-color);
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    width: 350px;
+    box-shadow: 0 0 20px var(--shadow-color);
+    animation: scaleUp 0.4s ease-in-out;
+    color: var(--text-color);
+    position: relative;
+    transition: all var(--transition-speed);
+}
+
+#passwordConfirmModal .modal-content input {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 1rem 0;
+    border: 1px solid var(--muted-color);
+    border-radius: 0.5rem;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    transition: border var(--transition-speed), background-color var(--transition-speed);
+}
+
+#passwordConfirmModal .modal-content input:focus {
+    border-color: var(--accent-color);
+    outline: none;
+    background-color: var(--secondary-color);
+}
+
+#passwordConfirmModal .modal-content button {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
+    position: relative;
+    bottom: 15px;
+}
+
+#passwordConfirmModal .modal-content button:hover {
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+#passwordConfirmModal .close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+    transform: rotate(90deg);
+}
+
+#passwordConfirmModal .close:hover {
+    color: var(--accent-color);
+    transform: scale(1.2);
+}
+
+#passwordError {
+    margin-top: 1rem;
+    color: red; /* Optional override */
+    font-size: 0.95rem;
+    font-weight: 500;
+    animation: slideDown 0.3s ease-out;
+    transition: all var(--transition-speed);
+}
+
+/* Slide in from top when shown */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
 .delete-account-btn {
     background-color: #ff4d4f !important;
     color: var(--primary-color);
