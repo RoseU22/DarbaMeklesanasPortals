@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function() {
         ];
 
         inputs.forEach(input => {
-            input.removeEventListener("input", checkForChanges); // avoid double listeners
+            input.removeEventListener("input", checkForChanges); 
             input.addEventListener("input", checkForChanges);
         });
     }

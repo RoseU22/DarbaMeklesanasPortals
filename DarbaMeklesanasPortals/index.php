@@ -11,7 +11,17 @@
     require 'PHPFiles/con_db.php';
 
     $vakances = [];
-    $vakances_query = "SELECT * FROM DMPortals_Vakances ORDER BY vakancesID DESC";
+    $vakances_query = "
+        SELECT 
+            v.*, 
+            u.profila_bilde AS uznemuma_profila_bilde, 
+            u.uznemuma_nosaukums, 
+            u.uznemumsID
+        FROM DMPortals_Vakances v 
+        JOIN DMPortals_Uznemums u ON v.uznemuma_nosaukums = u.uznemuma_nosaukums
+        ORDER BY v.vakancesID DESC
+    ";
+
     $result = $savienojums->query($vakances_query);
 
     if ($result && $result->num_rows > 0) {
@@ -353,6 +363,10 @@
                 <?php foreach ($vakances as $vakance): ?>
                     <div class="vacancy-box" data-vacancy-id="<?php echo $vakance['vakancesID']; ?>">
                         <p class="vacancy-title"><?php echo htmlspecialchars($vakance['vakances_nosaukums']); ?></p>
+                        <div class="company-info">
+                            <img class="company-profile" src="bilde.php?id=<?php echo $vakance['uznemumsID']; ?>&type=uznemums" alt="Uzņēmuma profils">
+                            <p><?php echo htmlspecialchars($vakance['uznemuma_nosaukums']); ?></p>
+                        </div>
                         <img src="Bildes/Vakance.png" alt="Vakance Image" class="vakance-image">
                        <p class="vacancy-location">
                             <?php 

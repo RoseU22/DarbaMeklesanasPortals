@@ -185,7 +185,7 @@ const vacancyButton = document.getElementById("vacancyButton"); // Saņem pogu, 
                         salary: vacancySalary.value
                     };
 
-                    checkVacancyFormChanges(); // Call this here to disable the save button initially
+                    checkVacancyFormChanges();
 
                     vacancyModal.classList.add("show");
                 } else {
@@ -211,7 +211,7 @@ const vacancyButton = document.getElementById("vacancyButton"); // Saņem pogu, 
         vacancySkillsInput.value = "";
         vacancySalaryInput.value = "";
 
-        originalVacancyValues = {}; // Clear
+        originalVacancyValues = {};
         checkVacancyFormChanges();
     }
 
