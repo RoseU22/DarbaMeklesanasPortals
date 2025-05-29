@@ -167,7 +167,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     const deleteButtons = document.querySelectorAll('.delete-btn');
-    const acceptButtons = document.querySelectorAll('.accept-btn');
 
     deleteButtons.forEach(button => {
         button.addEventListener('click', function () {
@@ -200,26 +199,46 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    acceptButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const pazinojumiId = button.getAttribute('data-paz-id');
+    const acceptButtons = document.querySelectorAll('.accept-btn');
+    const acceptModal = document.getElementById("acceptModal");
+    const closeAcceptModal = document.querySelector(".close-modal");
+    const modalPazinojumiID = document.getElementById("modalPazinojumiID");
+    const form = document.getElementById("acceptForm");
 
-            fetch('PHPFiles/akceptet_pazinojumu.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `pazinojumi_id=${pazinojumiId}`
-            })
-            .then(response => response.text())
-            .then(result => {
-                if (result === 'success') {
-                    location.reload();
-                } else {
-                    alert('Kļūda apstiprināšanā!');
-                }
-            })
-            .catch(() => alert('Servera kļūda.'));
+    // Add event listeners to all accept buttons
+    acceptButtons.forEach(button => {
+        button.addEventListener("click", function() {
+            const pazinojumiID = button.getAttribute("data-paz-id");
+            modalPazinojumiID.value = pazinojumiID;
+            acceptModal.classList.add("show");
+        });
+    });
+
+    // Close modal when clicking the close button
+    if (closeAcceptModal) {
+        closeAcceptModal.addEventListener("click", function() {
+            acceptModal.classList.remove("show");
+        });
+    }
+
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+
+        fetch('PHPFiles/akceptet_pazinojumu.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.text())
+        .then(data => {
+            alert("Ziņa nosūtīta!");
+            closeAcceptModal.style.display = "none";
+            window.location.href = "pazinojumi.php";
+        })
+        .catch(err => {
+            console.error("Kļūda:", err);
+            alert("Neizdevās nosūtīt ziņu.");
         });
     });
 

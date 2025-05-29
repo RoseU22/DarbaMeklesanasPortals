@@ -207,7 +207,7 @@ if ($userType === 'uznemums') {
                             <?php if ($note['statuss'] !== 'Akceptēts'): ?>
                                 <button class="accept-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Akceptēt pieprasījumu">✅</button>
                                 <button class="delete-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Dzēst paziņojumu">🗑️</button>
-                                <button class="apskatit-btn" data-cv-id="<?php echo $note['cv_id']; ?>">Apskatīt</button>
+                                <button class="apskatit-btn" data-cv-id="<?php echo $note['cv_id']; ?>">Apskatīt</button>                                
                             <?php else: ?>
                                 <span class="status"><?php echo htmlspecialchars($note['statuss']); ?></span>
                                 <button class="apskatit-btn" data-cv-id="<?php echo $note['cv_id']; ?>">Apskatīt</button>
@@ -228,6 +228,19 @@ if ($userType === 'uznemums') {
         <?php endif; ?>
     </div>
 
+    <!-- Modal for Akceptēt pieprasījumu -->
+    <div id="acceptModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Nosūtīt ziņu klientam</h2>
+            <form id="acceptForm">
+                <input type="hidden" name="pazinojumi_id" id="modalPazinojumiID">
+                <textarea name="zina" id="zina" placeholder="Ziņa klientam..." required></textarea>
+                <button type="submit">Nosūtīt</button>
+            </form>
+        </div>
+    </div>
+    
     <!-- CV modālais logs -->
     <div id="cvModal" class="modal">
         <div class="modal-content">
