@@ -198,6 +198,22 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
     });
+    
+    const zinaModal = document.getElementById('zinaModal');
+    const modalContent = document.getElementById('zinaModalContent');
+    const closeModalBtn = document.getElementById('closeZinaModal');
+
+    document.querySelectorAll('.openZinaBtn').forEach(button => {
+        button.addEventListener('click', function () {
+            const message = this.getAttribute('data-message');
+            modalContent.textContent = message;
+            zinaModal.classList.add("show");
+        });
+    });
+
+    closeModalBtn.addEventListener('click', function () {
+        zinaModal.classList.remove("show");
+    });
 
     const acceptButtons = document.querySelectorAll('.accept-btn');
     const acceptModal = document.getElementById("acceptModal");
@@ -205,7 +221,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const modalPazinojumiID = document.getElementById("modalPazinojumiID");
     const form = document.getElementById("acceptForm");
 
-    // Add event listeners to all accept buttons
     acceptButtons.forEach(button => {
         button.addEventListener("click", function() {
             const pazinojumiID = button.getAttribute("data-paz-id");
@@ -214,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // Close modal when clicking the close button
+    // Aizvēr modālu, kad uzklikšķina uz x
     if (closeAcceptModal) {
         closeAcceptModal.addEventListener("click", function() {
             acceptModal.classList.remove("show");

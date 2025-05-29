@@ -37,7 +37,8 @@ if ($userType === 'uznemums') {
                 u.uznemuma_nosaukums,
                 u.profila_bilde,
                 u.uznemumsID,
-                p.statuss
+                p.statuss,
+                p.zina
             FROM DMPortals_Pazinojumi p
             JOIN DMPortals_Vakances v ON p.vakance_id = v.vakancesID
             JOIN DMPortals_Uznemums u ON v.uznemuma_nosaukums = u.uznemuma_nosaukums
@@ -45,6 +46,7 @@ if ($userType === 'uznemums') {
                 SELECT lietotajsID FROM DMPortals WHERE lietotajvards = ?
             )
             ORDER BY p.pazinojumi_id DESC";
+
     $stmt = $savienojums->prepare($sql);
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -216,16 +218,30 @@ if ($userType === 'uznemums') {
                             <?php if ($isNewVacancy): ?>
                                 <span class="status">Ielikt pogu Apskatīt</span>
                             <?php else: ?>
-                                <span class="sent-status">
-                                    <span class="status"><?php echo htmlspecialchars($note['statuss'] ?? 'Aizsūtīts'); ?></span>
-                                    <button class="delete-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Dzēst paziņojumu">🗑️</button>
-                                </span>
+                                <div class="sent-status">
+                                    <?php if ($note['statuss'] === 'Akceptēts'): ?>
+                                        <button class="openZinaBtn" data-message="<?= htmlspecialchars($note['zina']) ?>">Apskatīt</button>
+                                    <?php else: ?>
+                                        <span class="status"><?php echo htmlspecialchars($note['statuss'] ?? 'Aizsūtīts'); ?></span>
+                                        <button class="delete-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Dzēst paziņojumu">🗑️</button>
+                                    <?php endif; ?>
+                                </div>
                             <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
         <?php endif; ?>
+    </div>
+
+    <div id="zinaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeZinaModal">&times;</span>
+            <h2>Saņemtā ziņa</h2>
+            <form>
+                <textarea id="zinaModalContent" readonly></textarea>
+            </form>
+        </div>
     </div>
 
     <!-- Modal for Akceptēt pieprasījumu -->

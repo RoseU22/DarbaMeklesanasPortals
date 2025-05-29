@@ -155,7 +155,7 @@
 }
 
 
-#acceptModal {
+#acceptModal, #zinaModal {
     display: none; /* Hidden by default */
     position: fixed;
     z-index: 1000;
@@ -169,11 +169,12 @@
     animation: fadeIn var(--transition-speed) ease-in;
 }
 
-#acceptModal.show {
+#acceptModal.show, #zinaModal.show {
     display: flex;
 }
 
-#acceptModal .modal-content {
+#acceptModal .modal-content,
+#zinaModal .modal-content {
     background-color: var(--secondary-color);
     width: 90%;
     max-width: 700px;
@@ -186,7 +187,8 @@
 }
 
 /* Close button */
-#acceptModal .close-modal {
+#acceptModal .close-modal,
+#zinaModal .close-modal {
     position: absolute;
     top: 15px;
     right: 20px;
@@ -196,20 +198,23 @@
     transition: transform var(--transition-speed), color var(--transition-speed);
 }
 
-#acceptModal .close-modal:hover {
+#acceptModal .close-modal:hover,
+#zinaModal .close-modal:hover {
     transform: rotate(90deg);
     color: var(--hover-color);
 }
 
 /* Headline */
-#acceptModal h2 {
+#acceptModal h2,
+#zinaModal h2 {
     margin-bottom: 20px;
     font-size: 1.6rem;
     text-align: center;
 }
 
 /* Textarea styling */
-#acceptModal textarea {
+#acceptModal textarea,
+#zinaModal textarea {
     width: 100%;
     height: 200px;
     resize: none;
@@ -222,13 +227,15 @@
     transition: border-color var(--transition-speed), background-color var(--transition-speed);
 }
 
-#acceptModal textarea:focus {
+#acceptModal textarea:focus,
+#zinaModal textarea:focus {
     border-color: var(--accent-color);
     outline: none;
 }
 
 /* Button styling */
-#acceptModal button {
+#acceptModal button,
+#zinaModal button {
     background-color: var(--primary-color);
     color: var(--accent-color);
     border: 1px solid var(--accent-color);
@@ -245,7 +252,8 @@
     margin-right: auto;
 }
 
-#acceptModal button:hover {
+#acceptModal button:hover,
+#zinaModal button:hover {
     background-color: var(--hover-color);
     color: var(--primary-color);
     transform: scale(1.05);
