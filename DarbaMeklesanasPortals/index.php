@@ -391,7 +391,7 @@
                 <p><strong>Atrašanās vieta:</strong> <span id="modalVacancyLocation"></span></p>
                 <p><strong>Nepieciešamās prasmes:</strong> <span id="modalVacancySkills"></span></p>
                 <p><strong>Alga:</strong> <span id="modalVacancySalary"></span></p>
-                <?php if ($_SESSION["userType"] === "klients" && isset($_SESSION["username"])): ?>
+                <?php if ($_SESSION["userType"] === "klients" && isset($_SESSION["username"]) && $_SESSION['isAdmin'] === false): ?>
                     <button class="applyBtn" data-vacancy-id="">
                         Pieteikties
                     </button>

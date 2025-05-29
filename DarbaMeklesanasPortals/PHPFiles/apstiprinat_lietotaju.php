@@ -34,6 +34,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if ($stmt->execute()) {
 
+            $stmt = $savienojums->prepare("UPDATE DMPortals_Uznemums SET dokuments = NULL, dokumenta_nosaukums = NULL, mime_tips = NULL WHERE uznemumsID = ?");
+            $stmt->bind_param("i", $uznemumsID);
+            $stmt->execute();
+            $stmt->close();
+
             $stmt = $savienojums->prepare("SELECT uznemuma_nosaukums FROM DMPortals_Uznemums WHERE uznemumsID = ?");
             $stmt->bind_param("i", $uznemumsID);
             $stmt->execute();
