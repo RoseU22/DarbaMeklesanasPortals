@@ -20,6 +20,7 @@ const vacancyButton = document.getElementById("vacancyButton"); // Saņem pogu, 
     const vacancyStreet = document.getElementById("vacancyStreet");
 
     let selectedVacancyId = null; // Mainīgais izvēlētās vakances ID glabāšanai
+    let originalVacancyValues = {};
 
     // Atver vakances modālu
     vacancyButton.addEventListener("click", function () {
@@ -71,21 +72,24 @@ const vacancyButton = document.getElementById("vacancyButton"); // Saņem pogu, 
     });
 
     // Funkcija, kas pārbauda, vai visi formas lauki ir aizpildīti
-    function checkVacancyFormCompletion() {
-        if (
-            vacancyNameInput.value.trim() &&
-            vacancyDescriptionInput.value.trim() &&
-            vacancyCountryInput.value.trim() &&
-            vacancyCityInput.value.trim() &&
-            vacancyStreetInput.value.trim() &&
-            vacancySkillsInput.value.trim() &&
-            vacancySalaryInput.value.trim()
-        ) {
-            saveVacancyButton.disabled = false; // ja visi aizpildīti, poga aktivizēta
-        } else {
-            saveVacancyButton.disabled = true; // ja kaut kas nav, poga izslēgta
-        }
+    function checkVacancyFormChanges() {
+        const currentValues = {
+            name: vacancyNameInput.value.trim(),
+            description: vacancyDescriptionInput.value.trim(),
+            country: vacancyCountryInput.value.trim(),
+            city: vacancyCityInput.value.trim(),
+            street: vacancyStreetInput.value.trim(),
+            skills: vacancySkillsInput.value.trim(),
+            salary: vacancySalaryInput.value.trim()
+        };
+
+        const allFilled = Object.values(currentValues).every(val => val !== "");
+
+        const isChanged = Object.keys(currentValues).some(key => currentValues[key] !== originalVacancyValues[key]);
+
+        saveVacancyButton.disabled = !(allFilled && isChanged);
     }
+
 
     // Pievieno klausītājus, lai pārbaudītu formas laukus, kad lietotājs raksta
     [
@@ -97,7 +101,7 @@ const vacancyButton = document.getElementById("vacancyButton"); // Saņem pogu, 
         vacancySkillsInput,
         vacancySalaryInput
     ].forEach(input => {
-        input.addEventListener("input", checkVacancyFormCompletion);
+        input.addEventListener("input", checkVacancyFormChanges);
     });
 
     // Noklausās klikšķi uz vakances kastes, lai parādītu ID konsolē (testēšanai)
@@ -171,6 +175,18 @@ const vacancyButton = document.getElementById("vacancyButton"); // Saņem pogu, 
                     vacancySkills.value = vakance.nepieciesamas_prasmes;
                     vacancySalary.value = vakance.maksa;
 
+                    originalVacancyValues = {
+                        name: vacancyName.value,
+                        description: vacancyDescription.value,
+                        country: vacancyCountry.value,
+                        city: vacancyCity.value,
+                        street: vacancyStreet.value,
+                        skills: vacancySkills.value,
+                        salary: vacancySalary.value
+                    };
+
+                    checkVacancyFormChanges(); // Call this here to disable the save button initially
+
                     vacancyModal.classList.add("show");
                 } else {
                     alert("Vakance nav atrasta.");
@@ -186,6 +202,7 @@ const vacancyButton = document.getElementById("vacancyButton"); // Saņem pogu, 
     function resetVacancyForm() {
         document.querySelector("#vacancyModal h2").textContent = "Izveidot vakanci";
         selectedVacancyId = null;
+
         vacancyNameInput.value = "";
         vacancyDescriptionInput.value = "";
         vacancyCountryInput.value = "";
@@ -193,6 +210,9 @@ const vacancyButton = document.getElementById("vacancyButton"); // Saņem pogu, 
         vacancyStreetInput.value = "";
         vacancySkillsInput.value = "";
         vacancySalaryInput.value = "";
+
+        originalVacancyValues = {}; // Clear
+        checkVacancyFormChanges();
     }
 
     const statsModal = document.getElementById("statsModal");
@@ -344,14 +364,4 @@ const vacancyButton = document.getElementById("vacancyButton"); // Saņem pogu, 
             myChart = null;
         }
     });
-
-
-    // Pievieno notikumus formu laukiem, lai pārbaudītu aizpildījumu reāllaikā
-    vacancyNameInput.addEventListener("input", checkVacancyFormCompletion);
-    vacancyDescriptionInput.addEventListener("input", checkVacancyFormCompletion);
-    vacancyCountryInput.addEventListener("input", checkVacancyFormCompletion);
-    vacancyCityInput.addEventListener("input", checkVacancyFormCompletion);
-    vacancyStreetInput.addEventListener("input", checkVacancyFormCompletion);
-    vacancySkillsInput.addEventListener("input", checkVacancyFormCompletion);
-    vacancySalaryInput.addEventListener("input", checkVacancyFormCompletion);
 });

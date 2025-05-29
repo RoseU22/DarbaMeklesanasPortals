@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const additionalInfoInput = document.getElementById("additionalInfo");
 
     let selectedCVId = null;    
+    let originalValues = {};
+
 
     const translations = {
         lv: {
@@ -149,7 +151,22 @@ document.addEventListener("DOMContentLoaded", function() {
                     skillsInput.value = cv.prasmes;
                     languagesInput.value = cv.valodas;
                     additionalInfoInput.value = cv.papildus_info;
-    
+
+                    originalValues = {
+                        name: cv.vards,
+                        email: cv.epasts,
+                        phone: cv.talrunis,
+                        address: cv.adresse,
+                        dob: cv.gads,
+                        education: cv.izglitiba,
+                        workExperience: cv.darba_pieredze,
+                        skills: cv.prasmes,
+                        languages: cv.valodas,
+                        additionalInfo: cv.papildus_info
+                    };
+                    checkForChanges(); 
+                    attachChangeListeners(); 
+
                     cvModal.classList.add("show");
                 } else {
                     alert("Ienesot CV datus, radās kļūda.");
@@ -160,6 +177,36 @@ document.addEventListener("DOMContentLoaded", function() {
                 alert("Ienesot CV datus, radās kļūda.");
             });
     }
+
+    function checkForChanges() {
+        const hasChanged =
+            nameInput.value !== originalValues.name ||
+            emailInput.value !== originalValues.email ||
+            phoneInput.value !== originalValues.phone ||
+            addressInput.value !== originalValues.address ||
+            dobInput.value !== originalValues.dob ||
+            educationInput.value !== originalValues.education ||
+            workExperienceInput.value !== originalValues.workExperience ||
+            skillsInput.value !== originalValues.skills ||
+            languagesInput.value !== originalValues.languages ||
+            additionalInfoInput.value !== originalValues.additionalInfo;
+
+        saveCVButton.disabled = !hasChanged;
+    }
+
+    function attachChangeListeners() {
+        const inputs = [
+            nameInput, emailInput, phoneInput, addressInput,
+            dobInput, educationInput, workExperienceInput,
+            skillsInput, languagesInput, additionalInfoInput
+        ];
+
+        inputs.forEach(input => {
+            input.removeEventListener("input", checkForChanges); // avoid double listeners
+            input.addEventListener("input", checkForChanges);
+        });
+    }
+
     
     function updateLanguage(language) {
         console.log('Updating language to:', language);  // redz kura valoda tiek izmantota
@@ -194,6 +241,7 @@ document.addEventListener("DOMContentLoaded", function() {
     //Iztīr CV formu
     function resetCVForm() {
         selectedCVId = null;
+
         nameInput.value = "";
         emailInput.value = "";
         phoneInput.value = "";
@@ -204,6 +252,15 @@ document.addEventListener("DOMContentLoaded", function() {
         skillsInput.value = "";
         languagesInput.value = "";
         additionalInfoInput.value = "";
+
+        originalValues = {
+            name: "", email: "", phone: "", address: "", dob: "",
+            education: "", workExperience: "", skills: "",
+            languages: "", additionalInfo: ""
+        };
+
+        saveCVButton.disabled = true; // atspējot, līdz visi lauki ir aizpildīti
+        attachChangeListeners();
     }
 
     confirmLanguage.addEventListener("click", function() {
