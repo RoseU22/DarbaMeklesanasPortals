@@ -415,7 +415,7 @@ nav ul li a:hover {
     background: var(--primary-color); /* #000000 */
     padding: 24px 28px;
     border-radius: 12px;
-    width: 320px;
+    width: 350px;
     max-width: 90%;
     text-align: center;
     position: relative;
@@ -461,6 +461,7 @@ nav ul li a:hover {
 
 /*_______________Input Fields_______________*/
 
+
 .modal-content input {
     width: 100%;
     padding: 12px 14px;
@@ -482,6 +483,40 @@ nav ul li a:hover {
     border-color: var(--hover-color); /* #e6e6e6 */
     outline: none;
     box-shadow: 0 0 8px 2px var(--hover-color);
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+    font-weight: bold;
+    font-size: 14px;
+    border: 2px solid var(--accent-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color var(--transition-speed), color var(--transition-speed), transform var(--transition-speed);
+    box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+.custom-file-upload:hover {
+    background-color: var(--hover-color);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+#file-name {
+    display: inline-block;
+    color: var(--muted-color);
+    max-width: 210px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+input[type="file"] {
+    display: none;
 }
 
 /*_______________Buttons_______________*/
@@ -631,7 +666,7 @@ h2 {
 .burbulu-background {
     position: absolute;
     width: 100%;
-    height: 166%; 
+    height: 176%; 
     pointer-events: none;
     overflow: hidden;
     z-index: 1;

@@ -216,7 +216,7 @@
                     <span class="close">&times;</span>
                     <h2>Reģistrēties</h2>
 
-                    <form id="registerForm" method="POST" action="PHPFiles/register.php">
+                    <form id="registerForm" method="POST" action="PHPFiles/register.php" enctype="multipart/form-data">
                         <input type="hidden" name="userType" id="registerUserType" value="<?php echo $userType; ?>">
 
                         <div id="clientFields" <?php echo $userType === "klients" ? '' : 'style="display:none;"'; ?>>
@@ -234,6 +234,11 @@
                             <input type="text" name="phone" placeholder="Telefona numurs" required>
                             <input type="text" name="vatNumber" placeholder="PVN numurs" required>
                             <input type="password" name="companyPassword" placeholder="Parole" required>
+                            <label class="custom-file-upload">
+                                <input type="file" name="companyDocument" id="companyDocument" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" required>
+                                Augšupielādēt dokumentu
+                                <span id="file-name">Dokuments nav izvēlēts</span>
+                            </label>
                         </div>
 
                         <button type="submit" class="btn">Reģistrēties</button>

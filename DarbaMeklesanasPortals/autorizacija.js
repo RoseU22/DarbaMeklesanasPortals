@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const forgotPasswordLink = document.getElementById("forgotPasswordLink");
     const forgotPasswordModal = document.getElementById("forgotPasswordModal");
     const closeButtons = forgotPasswordModal?.querySelectorAll(".close");
-    const userTypeInput = document.getElementById("userTypeInput"); // hidden input inside forgot password form
+    const userTypeInput = document.getElementById("userTypeInput");
 
     if (forgotPasswordLink && forgotPasswordModal && userTypeInput) {
     forgotPasswordLink.addEventListener("click", function (e) {
@@ -120,8 +120,23 @@ document.addEventListener("DOMContentLoaded", function () {
             registerModal.classList.remove("show");
             registerForm.reset();
             loginForm.reset();
+
+            // Manuāli restartē faila ievadi
+            const fileInput = document.getElementById("companyDocument");
+            if (fileInput) {
+                fileInput.value = ""; // Notīra faila ievadi
+                const fileNameSpan = document.getElementById("file-name");
+                if (fileNameSpan) {
+                    fileNameSpan.textContent = "Dokuments nav izvēlēts";
+                }
+            }
         });
     }
+
+    document.getElementById('companyDocument').addEventListener('change', function() {
+        const fileName = this.files[0] ? this.files[0].name : 'Dokuments nav izvēlēts';
+        document.getElementById('file-name').textContent = fileName;
+    });
 
     registerModal?.querySelector(".modal-content")?.addEventListener("click", function (event) {
         event.stopPropagation();

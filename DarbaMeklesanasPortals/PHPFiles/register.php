@@ -63,6 +63,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $vatNumber = trim($_POST["vatNumber"]);
         $companyPassword = trim($_POST["companyPassword"]);
 
+        // Validate file upload
+        if (!isset($_FILES["companyDocument"]) || $_FILES["companyDocument"]["error"] !== UPLOAD_ERR_OK) {
+            echo json_encode(["success" => false, "error" => "Faila augšupielāde neizdevās"]);
+            exit;
+        }
+
+        $fileContent = file_get_contents($_FILES["companyDocument"]["tmp_name"]);
+
         if (empty($companyName) || empty($regNumber) || empty($companyEmail) || empty($phone) || empty($vatNumber) || empty($companyPassword)) {
             echo json_encode(["success" => false, "error" => "Visi lauki ir jāaizpilda"]);
             exit;
@@ -70,8 +78,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $hashed_password = password_hash($companyPassword, PASSWORD_DEFAULT);
 
-        $stmt = $savienojums->prepare("INSERT INTO DMPortals_Uznemums (uznemuma_nosaukums, registracijas_numurs, uznemuma_epasts, uznemuma_TelNr, PVN_numurs, uznemuma_parole) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssss", $companyName, $regNumber, $companyEmail, $phone, $vatNumber, $hashed_password);
+        $stmt = $savienojums->prepare("INSERT INTO DMPortals_Uznemums (uznemuma_nosaukums, registracijas_numurs, uznemuma_epasts, uznemuma_TelNr, PVN_numurs, uznemuma_parole, dokuments) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssb", $companyName, $regNumber, $companyEmail, $phone, $vatNumber, $hashed_password, $fileContent);
+
+        $stmt->send_long_data(6, $fileContent);
 
         if ($stmt->execute()) {
             echo json_encode(["success" => true]);

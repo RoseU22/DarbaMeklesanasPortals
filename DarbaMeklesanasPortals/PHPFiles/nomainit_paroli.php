@@ -19,10 +19,10 @@ if ($newPassword !== $confirmNewPassword) {
     exit();
 }
 
-// Check if this is a reset (token given), else normal change
+
 $isReset = !empty($token);
 
-// If reset, verify token is valid and get user info from token table
+// ja atjauno, pārbauda, vai token ir derīgs, un iegūsta lietotāja informāciju no datubāzes
 if ($isReset) {
     $stmt = $savienojums->prepare("SELECT konta_tips, epasts FROM DMPortals_parolesAtjaunosana WHERE tokens = ? AND derigs_lidz > NOW()");
     $stmt->bind_param("s", $token);
@@ -33,11 +33,9 @@ if ($isReset) {
         exit();
     }
     $row = $result->fetch_assoc();
-    // Override userType and email with DB values to avoid spoofing
     $userType = $row['konta_tips'];
     $email = $row['epasts'];
 
-    // Now fetch the stored password hash from the appropriate user table:
     if ($userType === "klients") {
         $query = "SELECT parole FROM DMPortals WHERE epasts = ?";
     } elseif ($userType === "uznemums") {
@@ -67,7 +65,6 @@ if ($isReset) {
 }
 
 if (!$isReset) {
-    // Normal password change - verify old password
     if (!isset($_POST['oldPassword']) || empty($oldPassword)) {
         echo "Lūdzu, ievadiet veco paroli!";
         exit();
@@ -108,7 +105,6 @@ if (!$isReset) {
     }
 
 } else {
-    // For reset, set update query based on userType
     if ($userType === "klients") {
         $update = "UPDATE DMPortals SET parole = ? WHERE epasts = ?";
     } elseif ($userType === "uznemums") {
@@ -119,14 +115,13 @@ if (!$isReset) {
     }
 }
 
-// Now update the password
 $newHashed = password_hash($newPassword, PASSWORD_DEFAULT);
 $stmt = $savienojums->prepare($update);
 $stmt->bind_param("ss", $newHashed, $email);
 
 if ($stmt->execute()) {
     if ($isReset) {
-        // Delete used token
+        // Izdzēš izmantoto token
         $delStmt = $savienojums->prepare("DELETE FROM DMPortals_parolesAtjaunosana WHERE tokens = ?");
         $delStmt->bind_param("s", $token);
         $delStmt->execute();

@@ -3,9 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const settingsModal = document.getElementById("settingsModal");
     const toggleNewVacancies = document.getElementById("toggleNewVacancies");
 
-    let showNewVacancies = true;  // Default true
+    let showNewVacancies = true;  
 
-    // Load saved setting from localStorage
+  // Ielādē saglabāto iestatījumu no local storage
     const savedSetting = localStorage.getItem("showNewVacancies");
 
     if (savedSetting === null) {
@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
         toggleNewVacancies.checked = showNewVacancies;
     }
 
-    // Modal toggle
     settingsButton.addEventListener("click", () => {
         settingsModal.classList.toggle("hidden");
 
@@ -27,14 +26,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Checkbox change event
+    // Izvēles rūtiņas maiņa
     toggleNewVacancies.addEventListener("change", () => {
         showNewVacancies = toggleNewVacancies.checked;
         localStorage.setItem("showNewVacancies", showNewVacancies);
         applyFilters(currentFilter);
     });
 
-    // Close modal when clicking outside
     document.addEventListener("click", (event) => {
         if (!settingsModal.contains(event.target) && !settingsButton.contains(event.target)) {
             settingsModal.classList.add("hidden");
