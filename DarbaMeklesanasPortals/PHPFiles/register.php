@@ -78,8 +78,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $hashed_password = password_hash($companyPassword, PASSWORD_DEFAULT);
 
-        $stmt = $savienojums->prepare("INSERT INTO DMPortals_Uznemums (uznemuma_nosaukums, registracijas_numurs, uznemuma_epasts, uznemuma_TelNr, PVN_numurs, uznemuma_parole, dokuments) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssssb", $companyName, $regNumber, $companyEmail, $phone, $vatNumber, $hashed_password, $fileContent);
+        $filename = $_FILES["companyDocument"]["name"];
+        $mime = $_FILES["companyDocument"]["type"];
+
+        $stmt = $savienojums->prepare("INSERT INTO DMPortals_Uznemums (
+                                    uznemuma_nosaukums, registracijas_numurs, uznemuma_epasts, uznemuma_TelNr, PVN_numurs, uznemuma_parole,
+                                    dokuments, dokumenta_nosaukums, mime_tips
+                                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssbss", $companyName, $regNumber, $companyEmail, $phone, $vatNumber, $hashed_password, $fileContent, $filename, $mime);
 
         $stmt->send_long_data(6, $fileContent);
 

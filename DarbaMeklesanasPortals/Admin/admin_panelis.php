@@ -269,6 +269,11 @@ session_start();
                                         <i class="fa-solid fa-check"></i>
                                     </button>
                                 </form>
+
+                                <!-- Apskatīt dokumentu poga -->
+                                <a href="lejupieladet_dokumentu.php?uznemumsID=<?= urlencode($uznemums['uznemumsID']) ?>" class="download-btn" target="_blank" title="Apskatīt dokumentu">
+                                    Apskatīt
+                                </a>
                             <?php else: ?>
                                 <?php if ($uznemums['statuss'] !== 'deaktivizets'): ?>
                                     <!-- Deaktivēt -->

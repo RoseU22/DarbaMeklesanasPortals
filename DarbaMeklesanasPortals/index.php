@@ -239,6 +239,12 @@
                                 Augšupielādēt dokumentu
                                 <span id="file-name">Dokuments nav izvēlēts</span>
                             </label>
+                            <script>
+                                document.getElementById('companyDocument').addEventListener('change', function() {
+                                    const fileName = this.files[0] ? this.files[0].name : 'Dokuments nav izvēlēts';
+                                    document.getElementById('file-name').textContent = fileName;
+                                });
+                            </script>
                         </div>
 
                         <button type="submit" class="btn">Reģistrēties</button>
