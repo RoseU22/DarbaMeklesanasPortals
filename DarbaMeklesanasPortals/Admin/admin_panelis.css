@@ -415,3 +415,104 @@ body {
 }
 
 
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+
+@media screen and (max-width: 940px) {
+  .konteiners {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .password-modal {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .password-modal-content {
+    position: relative;
+    top: 13rem;
+  }
+
+  .menu-toggle{
+    margin-bottom: 10px;
+  }
+
+  .header-controls {
+    width: 100%;
+    justify-content: center; 
+    padding-top: 10px;
+    gap: 10px;
+  }
+
+  .header-controls > * {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .statistics-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .text p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90px;
+  }
+
+  .chart-wrapper,
+  .stats-wrapper {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .chart-wrapper {
+    height: 400px; 
+    flex: none;
+  }
+
+  .stat-item h3 {
+    font-size: 0.95rem;
+  }
+
+  .stat-item p {
+    font-size: 1.1rem;
+  }
+
+  .notification .sent-status {
+    align-items: center;
+  }
+
+  .notification button, .accept-btn {
+      padding: 0.5rem 1.2rem;
+      font-size: 0.95rem;
+  }
+
+  .activate-btn, .delete-btn{
+    margin-top: 3px;
+  }
+
+  .notification .approve-btn{
+    position: relative;
+    left: 1rem;
+  }
+
+  .notification .download-btn{
+    scale: 0.7;
+  }
+
+}
+
+@media screen and (max-width: 500px) {
+  .admin-log-container p{
+    text-align: left;
+  }
+}

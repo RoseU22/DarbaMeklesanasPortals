@@ -121,57 +121,61 @@ session_start();
                 </ul>
             </nav>
 
-            <button id="themeToggle" class="theme-toggle">🌙</button>
+            <div class="header-controls">
 
-            <div>
-                <?php if (isset($_SESSION["username"])): ?>
-                    <!-- Ielogojies lietotājs -->
-                    <div class="profile-container">
-                        <p class="profile-btn" id="profileDropdownBtn">
-                            <img src="../bilde.php" alt=""> <?php echo htmlspecialchars($_SESSION["username"]); ?>
-                        </p>
-                        <div class="profile-dropdown" id="profileDropdown">
-                            <p class="dropdown-option"><a href="../PHPFiles/logout.php">Izlogoties</a></p>
-                            <p class="dropdown-option"><a href="../profils.php">Profils</a></p>
+                <button id="themeToggle" class="theme-toggle">🌙</button>
 
-                            <?php if (!empty($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true): ?>
-                                <p id="admin" class="dropdown-option"><a href="admin_panelis.php">Admin panelis</a></p>
-                            <?php else: ?>
-                                <p class="dropdown-option"><a href="pazinojumi.php">Paziņojumi</a></p>
+                <div>
+                    <?php if (isset($_SESSION["username"])): ?>
+                        <!-- Ielogojies lietotājs -->
+                        <div class="profile-container">
+                            <p class="profile-btn" id="profileDropdownBtn">
+                                <img src="../bilde.php" alt=""> <?php echo htmlspecialchars($_SESSION["username"]); ?>
+                            </p>
+                            <div class="profile-dropdown" id="profileDropdown">
+                                <p class="dropdown-option"><a href="../PHPFiles/logout.php">Izlogoties</a></p>
+                                <p class="dropdown-option"><a href="../profils.php">Profils</a></p>
 
-                                <?php if ($_SESSION["userType"] === "klients"): ?>
-                                    <p class="dropdown-option"><a href="../IzveidotCV.php">Uztaisīt CV</a></p>
-                                <?php elseif ($_SESSION["userType"] === "uznemums"): ?>
-                                    <p class="dropdown-option"><a href="../IzveidotVakanci.php">Uztaisīt vakanci</a></p>
+                                <?php if (!empty($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true): ?>
+                                    <p id="admin" class="dropdown-option"><a href="admin_panelis.php">Admin panelis</a></p>
+                                <?php else: ?>
+                                    <p class="dropdown-option"><a href="pazinojumi.php">Paziņojumi</a></p>
+
+                                    <?php if ($_SESSION["userType"] === "klients"): ?>
+                                        <p class="dropdown-option"><a href="../IzveidotCV.php">Uztaisīt CV</a></p>
+                                    <?php elseif ($_SESSION["userType"] === "uznemums"): ?>
+                                        <p class="dropdown-option"><a href="../IzveidotVakanci.php">Uztaisīt vakanci</a></p>
+                                    <?php endif; ?>
                                 <?php endif; ?>
-                            <?php endif; ?>
+                            </div>
                         </div>
-                    </div>
 
-                <?php else: ?>
-                    <!-- Izrakstījies lietotājs -->
-                    <div class="login-container">
-                        <p class="login-btn" id="openLoginDropdown"><i class="fa-solid fa-right-to-bracket"></i> Ienākt</p>
-                        <div class="login-dropdown" id="loginDropdown">
-                            <p class="dropdown-option" data-user-type="klients">Klients</p>
-                            <p class="dropdown-option" data-user-type="uznemums">Uzņēmums</p>
+                    <?php else: ?>
+                        <!-- Izrakstījies lietotājs -->
+                        <div class="login-container">
+                            <p class="login-btn" id="openLoginDropdown"><i class="fa-solid fa-right-to-bracket"></i> Ienākt</p>
+                            <div class="login-dropdown" id="loginDropdown">
+                                <p class="dropdown-option" data-user-type="klients">Klients</p>
+                                <p class="dropdown-option" data-user-type="uznemums">Uzņēmums</p>
+                            </div>
                         </div>
-                    </div>
-                <?php endif; ?>
+                    <?php endif; ?>
+                </div>
+
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    &#9776;
+                </button>
+
+                <script>
+                    const menuToggle = document.querySelector(".menu-toggle");
+                    const navMenu = document.querySelector("nav ul");
+
+                    menuToggle.addEventListener("click", () => {
+                        navMenu.classList.toggle("show");
+                    });
+                </script>
+
             </div>
-
-            <button class="menu-toggle" aria-label="Toggle menu">
-                &#9776;
-            </button>
-
-            <script>
-                const menuToggle = document.querySelector(".menu-toggle");
-                const navMenu = document.querySelector("nav ul");
-
-                menuToggle.addEventListener("click", () => {
-                    navMenu.classList.toggle("show");
-                });
-            </script>
         </div>
     </header>
 
