@@ -360,6 +360,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (data.success) {
                     alert("CV veiksmīgi saglabāts!");
                     cvModal.classList.remove("show");
+                    location.reload();
                 } else {
                     alert("Saglabājot CV, radās kļūda");
                 }

@@ -180,7 +180,7 @@ if ($stmt->execute()) {
 
             <!-- CV izveideidošana -->
         <div id="cvModal" class="modal">
-            <div class="modal-content">
+            <div class="modal-content scroll-container">
                 <h2>Create Your CV</h2>
                 <div id="cvFields">
                     <!-- Personiskā informācija -->

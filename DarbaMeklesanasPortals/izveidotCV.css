@@ -264,7 +264,6 @@ main .container {
 
 @media (max-width: 768px) {
     .modal-content {
-        width: 90%;
         padding: 20px;
     }
 
@@ -359,5 +358,22 @@ main .container {
     100% {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+@media screen and (max-width: 748px) {
+
+    #cvModal .modal-content{
+        width: 90% !important;
+    }
+
+    .scroll-container {
+        overflow-y: scroll;        /* or 'auto' if needed */
+        scrollbar-width: none;     /* Firefox */
+        -ms-overflow-style: none;  /* Internet Explorer/Edge Legacy */
+    }
+
+    .scroll-container::-webkit-scrollbar {
+        display: none;             /* Chrome, Safari, Opera */
     }
 }
