@@ -191,7 +191,9 @@ if ($stmt->execute()) {
                 <span id="closeStatsModal" class="close stats-modal-close">&times;</span>
                 <h2>Vakances statistika</h2>
                 <p id="statsModalContent" class="stats-modal-text">Ielādē statistiku...</p>
-                <canvas id="statsChart" style="max-width: 100%; display: none;"></canvas>
+                <div class="chart-wrapper">
+                    <canvas id="statsChart" style="display: none;"></canvas>
+                </div>
             </div>
         </div>
 
