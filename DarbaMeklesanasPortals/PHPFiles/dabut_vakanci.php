@@ -12,6 +12,9 @@ if (isset($_GET['id'])) {
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
             $vakance = $result->fetch_assoc();
+
+            unset($vakance['bilde']);
+
             echo json_encode(['success' => true, 'vakance' => $vakance]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Vakance nav atrasta.']);

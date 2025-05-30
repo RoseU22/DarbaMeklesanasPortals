@@ -20,17 +20,54 @@ const vacancyButton = document.getElementById("vacancyButton"); // Saņem pogu, 
     const vacancyStreet = document.getElementById("vacancyStreet");
 
     let selectedVacancyId = null; // Mainīgais izvēlētās vakances ID glabāšanai
+    let imageChanged = false;
     let originalVacancyValues = {};
 
     // Atver vakances modālu
     vacancyButton.addEventListener("click", function () {
         resetVacancyForm(); // pataisa formu tukšu
+        document.getElementById("vacancyImageContainer").style.display='none';
         vacancyModal.classList.add("show"); // parāda modālu
     });
 
     // Aizver vakances modālu
     closeVacancyModal.addEventListener("click", function () {
         vacancyModal.classList.remove("show"); // paslēpj modālu
+    });
+
+    document.getElementById("vacancyImageContainer").addEventListener("click", () => {
+        document.getElementById("vacancyImageInput").click();
+    });
+
+    // Priekšskata atlasīto attēlu
+    document.getElementById("vacancyImageInput").addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            document.getElementById("previewImage").src = URL.createObjectURL(file);
+            imageChanged = true; // Mark image as changed
+            checkVacancyFormChanges(); // Re-check to enable save button if needed
+        }
+    });
+
+    // Apstrādā veidlapas iesniegšanu
+    document.getElementById("saveVacancy").addEventListener("click", (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(document.getElementById("vacancyForm"));
+
+        formData.set("vakancesID", selectedVacancyId);
+
+        fetch('PHPFiles/saglabat_vakances_attelu.php', {
+            method: 'POST',
+            body: formData
+        }).then(response => response.text())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            alert("Kļūda saglabājot vakanci.");
+            console.error(error);
+        });
     });
 
     // Saglabā vakances datus
@@ -87,8 +124,10 @@ const vacancyButton = document.getElementById("vacancyButton"); // Saņem pogu, 
 
         const isChanged = Object.keys(currentValues).some(key => currentValues[key] !== originalVacancyValues[key]);
 
-        saveVacancyButton.disabled = !(allFilled && isChanged);
+        // Enable save button if all fields are filled AND either something changed OR image changed
+        saveVacancyButton.disabled = !(allFilled && (isChanged || imageChanged));
     }
+
 
 
     // Pievieno klausītājus, lai pārbaudītu formas laukus, kad lietotājs raksta
@@ -142,6 +181,9 @@ const vacancyButton = document.getElementById("vacancyButton"); // Saņem pogu, 
 
     // Klausās klikšķus uz vakances kastēm
     vacancyGrid.addEventListener("click", function (event) {
+
+        document.getElementById("vacancyImageContainer").style.display='flex';
+
         if (
             event.target.closest(".delete-btn") ||
             event.target.closest(".view-stats-btn")
@@ -152,6 +194,12 @@ const vacancyButton = document.getElementById("vacancyButton"); // Saņem pogu, 
         const box = event.target.closest(".vacancy-box");
         if (box) {
             selectedVacancyId = event.target.closest(".vacancy-box").dataset.vacancyId;
+
+            const previewImage = document.getElementById("previewImage");
+            const imageUrl = `bilde_vakance.php?id=${selectedVacancyId}`;
+            console.log("Setting preview image src to:", imageUrl);
+            previewImage.src = imageUrl;
+
             fetchVacancyData(selectedVacancyId);
             document.querySelector("#vacancyModal h2").textContent = "Rediģēt Vakanci";
         }
@@ -175,6 +223,8 @@ const vacancyButton = document.getElementById("vacancyButton"); // Saņem pogu, 
                     vacancySkills.value = vakance.nepieciesamas_prasmes;
                     vacancySalary.value = vakance.maksa;
 
+                    document.getElementById('previewImage').src = `bilde_vakance.php?id=${selectedVacancyId}`;
+
                     originalVacancyValues = {
                         name: vacancyName.value,
                         description: vacancyDescription.value,
@@ -184,6 +234,8 @@ const vacancyButton = document.getElementById("vacancyButton"); // Saņem pogu, 
                         skills: vacancySkills.value,
                         salary: vacancySalary.value
                     };
+
+                    imageChanged = false;
 
                     checkVacancyFormChanges();
 
@@ -210,6 +262,8 @@ const vacancyButton = document.getElementById("vacancyButton"); // Saņem pogu, 
         vacancyStreetInput.value = "";
         vacancySkillsInput.value = "";
         vacancySalaryInput.value = "";
+
+        imageChanged = false;
 
         originalVacancyValues = {};
         checkVacancyFormChanges();

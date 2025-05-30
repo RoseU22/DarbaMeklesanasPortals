@@ -43,10 +43,11 @@
 
 .vakance-image {
     width: 100%;
-    height: auto;
+    height: 220px;
     border-radius: 10px;
     margin-bottom: 12px;
     transition: transform 0.3s ease;
+    object-fit: cover; 
 }
 
 .vakance-image:hover {
@@ -243,6 +244,46 @@
     border: 1px solid var(--muted-color);
     animation: zoomIn 0.3s ease;
     scale: 0.8;
+}
+
+.modal-flex-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vacancy-image-container {
+    flex: 1 1 300px;
+    cursor: pointer;
+    border: 2px solid var(--secondary-color);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+    border-radius: 8px;
+    background-color: var(--primary-color);
+    position: relative;
+    left: 50px;
+}
+
+#vacancyImage {
+    width: 100%;
+    height: auto;
+    outline: 2px solid var(--primary-color);
+    border-radius: 6px;
+    object-fit: contain;
+}
+
+#vacancyImageInput {
+    display: none;
+}
+
+.vacancy-image-container small {
+    color: var(--muted-color);
+    margin-top: 10px;
+    text-align: center;
+    font-size: 0.9rem;
 }
 
 #vacancyModal h2 {

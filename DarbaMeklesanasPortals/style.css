@@ -666,11 +666,18 @@ h2 {
 .burbulu-background {
     position: absolute;
     width: 100%;
-    height: 176%; 
+    height: 160%; 
     pointer-events: none;
     overflow: hidden;
     z-index: 1;
     background: transparent;
+}
+
+
+@media (max-width: 1669px) {
+    .burbulu-background {
+        height: 190%;
+    }
 }
 
 .burbulis {
@@ -1054,7 +1061,12 @@ h2 {
     font-size: 16px;
     line-height: 1.5;
     color: var(--accent-color);
+    max-width: 100%;
+    word-wrap: break-word;     
+    overflow-wrap: break-word;  
+    white-space: normal; 
 }
+
 
 .PieteiksanasModal .modal-right strong {
     color: var(--accent-color);

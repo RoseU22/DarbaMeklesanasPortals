@@ -367,7 +367,7 @@
                             <img class="company-profile" src="bilde.php?id=<?php echo $vakance['uznemumsID']; ?>&type=uznemums" alt="Uzņēmuma profils">
                             <p><?php echo htmlspecialchars($vakance['uznemuma_nosaukums']); ?></p>
                         </div>
-                        <img src="Bildes/Vakance.png" alt="Vakance Image" class="vakance-image">
+                        <img src="bilde_vakance.php?id=<?php echo $vakance['vakancesID']; ?>" alt="Vakance Image" class="vakance-image">
                        <p class="vacancy-location">
                             <?php 
                                 echo htmlspecialchars($vakance['valsts']) . ', ' . 
@@ -397,7 +397,7 @@
         <div class="modal-content">
             <span class="closeModalBtn">&times;</span>
             <div class="modal-left">
-                <img src="Bildes/Vakance.png" alt="Vakance">
+                <img src="" alt="Vakance Image" class="vakance-image" id="previewImage">
             </div>
             <div class="modal-right">
                 <h2 id="modalVacancyTitle"></h2>

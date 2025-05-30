@@ -159,7 +159,7 @@ if ($stmt->execute()) {
                 <?php foreach ($vacancies as $vacancy): ?>
                     <div class="vacancy-box" data-vacancy-id="<?php echo $vacancy['vakancesID']; ?>">
                         <p class="vacancy-title"><?php echo htmlspecialchars($vacancy['vakances_nosaukums']); ?></p>
-                        <img src="Bildes/Vakance.png" alt="Vakance Image" class="vakance-image">
+                        <img src="bilde_vakance.php?id=<?php echo $vacancy['vakancesID']; ?>" alt="Vakance Image" class="vakance-image">
                         <p class="vacancy-location"><?php echo htmlspecialchars($vacancy['atrasanas_vieta']); ?></p>
                         <button class="delete-vacancy-btn">Dzēst vakanci</button>
                         <button class="view-stats-btn" data-vacancy-id="<?php echo $vacancy['vakancesID']; ?>">Skatīt statistiku</button>
@@ -183,28 +183,39 @@ if ($stmt->execute()) {
 
         <!-- Vakances modāls -->
         <div id="vacancyModal" class="modal">
-            <div class="modal-content">
-                <span id="closeVacancyModal" class="close">&times;</span>
-                <h2>Izveidot vakanci</h2>
-                <label for="vacancyName">Vakances nosaukums:</label>
-                <input type="text" id="vacancyName" placeholder="Ievadiet vakances nosaukumu">
+            <form id="vacancyForm" enctype="multipart/form-data">
+                <div class="modal-flex-wrapper">
+                    
+                    <div class="vacancy-image-container" id="vacancyImageContainer">
+                        <img src="Bildes/Vakance.png" alt="Vakance Image" class="vakance-image" id="previewImage">
+                        <input type="file" id="vacancyImageInput" name="vacancyImage" accept="image/*">
+                        <small>Klikšķiniet, lai mainītu attēlu</small>
+                    </div>
 
-                <label for="vacancyDescription">Apraksts:</label>
-                <textarea id="vacancyDescription" placeholder="Ievadiet vakances aprakstu"></textarea>
+                    <div class="modal-content">
+                        <span id="closeVacancyModal" class="close">&times;</span>
+                        <h2>Izveidot vakanci</h2>
+                        <label for="vacancyName">Vakances nosaukums:</label>
+                        <input type="text" id="vacancyName" placeholder="Ievadiet vakances nosaukumu">
 
-                <label for="vacancyLocation">Atrašanās vieta:</label>
-                <input type="text" id="vacancyCountry" placeholder="Valsts">
-                <input type="text" id="vacancyCity" placeholder="Pilsēta">
-                <input type="text" id="vacancyStreet" placeholder="Iela">
+                        <label for="vacancyDescription">Apraksts:</label>
+                        <textarea id="vacancyDescription" placeholder="Ievadiet vakances aprakstu"></textarea>
 
-                <label for="vacancySkills">Nepieciešamās prasmes:</label>
-                <textarea id="vacancySkills" placeholder="Ievadiet nepieciešamās prasmes"></textarea>
+                        <label for="vacancyLocation">Atrašanās vieta:</label>
+                        <input type="text" id="vacancyCountry" placeholder="Valsts">
+                        <input type="text" id="vacancyCity" placeholder="Pilsēta">
+                        <input type="text" id="vacancyStreet" placeholder="Iela">
 
-                <label for="vacancySalary">Maksa:</label>
-                <input type="number" id="vacancySalary" placeholder="Ievadiet Maksu">
+                        <label for="vacancySkills">Nepieciešamās prasmes:</label>
+                        <textarea id="vacancySkills" placeholder="Ievadiet nepieciešamās prasmes"></textarea>
 
-                <button id="saveVacancy" disabled>Saglabāt vakanci</button>
-            </div>
+                        <label for="vacancySalary">Maksa:</label>
+                        <input type="number" id="vacancySalary" placeholder="Ievadiet Maksu">
+
+                        <button id="saveVacancy" disabled>Saglabāt vakanci</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 

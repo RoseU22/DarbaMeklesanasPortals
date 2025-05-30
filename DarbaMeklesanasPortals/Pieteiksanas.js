@@ -83,12 +83,36 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".openModalBtn").forEach(button => {
         button.addEventListener("click", function () {
             const vacancyId = this.getAttribute("data-id");
+            const previewImage = document.getElementById("previewImage");
+            const imageUrl = `bilde_vakance.php?id=${vacancyId}`;
+            const modal = document.getElementById("vacancyApplyModal"); // replace with your modal id
 
-            // Set vacancy ID on apply button
+            // Hide modal initially
+            modal.style.display = "none";
+
+            // Record time to enforce minimum delay
+            const startTime = Date.now();
+
+            // Preload image
+            const tempImg = new Image();
+            tempImg.onload = () => {
+                // Calculate elapsed time
+                const elapsed = Date.now() - startTime;
+                const delay = Math.max(0, 500 - elapsed); // minimum 500ms delay total
+
+                setTimeout(() => {
+                    previewImage.src = imageUrl;
+                    modal.style.display = "flex";
+                }, delay);
+            };
+            tempImg.src = imageUrl;
+
+            // Set vacancy ID
             applyBtn.setAttribute("data-vacancy-id", vacancyId);
         });
     });
-    
+
+
 
     function resetCvModal() {
         // Reset the drop box text
