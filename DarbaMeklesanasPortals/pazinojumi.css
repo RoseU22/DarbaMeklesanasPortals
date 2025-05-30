@@ -140,6 +140,8 @@
 .accept-btn {
     background-color: #28a745 !important; 
     color: white;
+    position: relative;
+    bottom: 2px;
     border: none;
     padding: 6px 10px;
     border-radius: 4px;
@@ -519,16 +521,25 @@
 
 /*____________________________________________________________RESPONSIVITĀTE_______________________________________________________________________________*/
 
-@media (max-width: 768px) {
+@media (max-width: 778px) {
     .notification-filters {
         align-items: center;
         gap: 8px;
         margin-top: 20px;
     }
 
+    .scroll-container {
+        overflow-y: scroll;      
+        scrollbar-width: none;     
+        -ms-overflow-style: none;  
+    }
+
+    .scroll-container::-webkit-scrollbar {
+        display: none;            
+    }
+
     .notification {
         align-items: center;
-        gap: 1rem;
         padding: 1rem;
     }
 
@@ -538,6 +549,10 @@
         gap: 0.5rem;
         text-align: left;
         align-items: flex-start;
+    }
+
+    .notification .accept-btn{
+        bottom: 1px;
     }
 
     .notification .sent-status {
@@ -585,6 +600,20 @@
 @media (max-width: 480px) {
     .notification {
         padding: 0.8rem;
+    }
+
+    .notification .status{
+        margin-right: 1px;
+        font-size: 13px;
+    }
+
+    .pazinojumuButtons{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .accept-btn{
+        bottom: 1px;
     }
 
     .notification .info {

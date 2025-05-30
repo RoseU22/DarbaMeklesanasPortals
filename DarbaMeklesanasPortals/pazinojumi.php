@@ -221,8 +221,10 @@ if ($userType === 'uznemums') {
                             <input type="hidden" name="pazinojumi_id" value="<?php echo $note['pazinojumi_id']; ?>">
 
                             <?php if ($note['statuss'] !== 'Akceptēts'): ?>
-                                <button class="accept-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Akceptēt pieprasījumu">✅</button>
-                                <button class="delete-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Dzēst paziņojumu">🗑️</button>
+                                <div class="pazinojumuButtons">
+                                    <button class="accept-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Akceptēt pieprasījumu">✅</button>
+                                    <button class="delete-btn" data-paz-id="<?php echo $note['pazinojumi_id']; ?>" title="Dzēst paziņojumu">🗑️</button>
+                                </div>
                                 <button class="apskatit-btn" data-cv-id="<?php echo $note['cv_id']; ?>">Apskatīt</button>                                
                             <?php else: ?>
                                 <span class="status"><?php echo htmlspecialchars($note['statuss']); ?></span>
@@ -261,7 +263,7 @@ if ($userType === 'uznemums') {
     <!-- Modal for Akceptēt pieprasījumu -->
     <div id="acceptModal" class="modal">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
+            <span class="close-modal" id="closeAcceptModal">&times;</span>
             <h2>Nosūtīt ziņu klientam</h2>
             <form id="acceptForm">
                 <input type="hidden" name="pazinojumi_id" id="modalPazinojumiID">
@@ -273,7 +275,7 @@ if ($userType === 'uznemums') {
     
     <!-- CV modālais logs -->
     <div id="cvModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content scroll-container">
             <div id="cvFields">
                 <!-- Personiskā informācija -->
                 <label id="nameLabel" for="name">Name:</label>

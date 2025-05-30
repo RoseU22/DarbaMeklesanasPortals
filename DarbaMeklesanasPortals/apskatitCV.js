@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const acceptButtons = document.querySelectorAll('.accept-btn');
     const acceptModal = document.getElementById("acceptModal");
-    const closeAcceptModal = document.querySelector(".close-modal");
+    const closeAcceptModal = document.getElementById("closeAcceptModal");
     const modalPazinojumiID = document.getElementById("modalPazinojumiID");
     const form = document.getElementById("acceptForm");
 
