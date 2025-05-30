@@ -179,6 +179,14 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function checkForChanges() {
+        const inputs = [
+            nameInput, emailInput, phoneInput, addressInput,
+            dobInput, educationInput, workExperienceInput,
+            skillsInput, languagesInput, additionalInfoInput
+        ];
+
+        const allFilled = inputs.every(input => input.value.trim() !== "");
+        
         const hasChanged =
             nameInput.value !== originalValues.name ||
             emailInput.value !== originalValues.email ||
@@ -191,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function() {
             languagesInput.value !== originalValues.languages ||
             additionalInfoInput.value !== originalValues.additionalInfo;
 
-        saveCVButton.disabled = !hasChanged;
+        saveCVButton.disabled = !(hasChanged && allFilled);
     }
 
     function attachChangeListeners() {

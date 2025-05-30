@@ -408,10 +408,8 @@
 
 /*___________________________________________________________________RESPONSIVITĀTE________________________________________________________________________________*/
 
-/* Existing CSS stays the same */
 
-/* --- Responsive Design --- */
-@media (max-width: 768px) {
+@media (max-width: 1038px) {
   .accountprofile-container {
     max-width: 90%;
     margin: 30px auto;
@@ -440,8 +438,8 @@
   }
 
   #passwordConfirmModal .modal-content {
-    width: 90%;
     padding: 1.5rem;
+    scale: 1.1;
   }
 
   .modal-delete-profile {
@@ -487,6 +485,11 @@
 
   #passwordConfirmModal .modal-content {
     padding: 1rem;
+  }
+
+  .modal-content h2{
+    font-size: 16px !important;
+    margin-top: 7px;
   }
 
   .modal-delete-profile {
