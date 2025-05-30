@@ -87,6 +87,7 @@ if ($userType === 'uznemums') {
 <html lang="lv">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paziņojumi</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="pazinojumi.css">
@@ -160,6 +161,19 @@ if ($userType === 'uznemums') {
                     </div>
                 <?php endif; ?>
             </div>
+
+            <button class="menu-toggle" aria-label="Toggle menu">
+                &#9776;
+            </button>
+
+            <script>
+                const menuToggle = document.querySelector(".menu-toggle");
+                const navMenu = document.querySelector("nav ul");
+
+                menuToggle.addEventListener("click", () => {
+                    navMenu.classList.toggle("show");
+                });
+            </script>
         </div>
     </header>
 
@@ -216,7 +230,7 @@ if ($userType === 'uznemums') {
                             <?php endif; ?>
                         <?php else: ?>
                             <?php if ($isNewVacancy): ?>
-                                <span class="status">Ielikt pogu Apskatīt</span>
+                                <span class="status"></span>
                             <?php else: ?>
                                 <div class="sent-status">
                                     <?php if ($note['statuss'] === 'Akceptēts'): ?>

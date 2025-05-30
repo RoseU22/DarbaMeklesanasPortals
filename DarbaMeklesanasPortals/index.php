@@ -113,61 +113,70 @@
                 
             </div>
 
+                <nav>
 
-            <nav>
+                    <ul>
+                        <li><a href="#Par">Par portālu</a></li>
+                        <li><a href="#features">Funkcionalitātes</a></li>
+                        <li><a href="#Darbi">Darba piedāvājumi</a></li>
+                        <li><a href="#Pieteikties">Pieteikties</a></li>
+                        <li><a href="#Kontakti">Kontakti</a></li>
+                    </ul>
 
-                <ul>
-                    <li><a href="#Par">Par portālu</a></li>
-                    <li><a href="#features">Funkcionalitātes</a></li>
-                    <li><a href="#Darbi">Darba piedāvājumi</a></li>
-                    <li><a href="#Pieteikties">Pieteikties</a></li>
-                    <li><a href="#Kontakti">Kontakti</a></li>
-                </ul>
+                </nav>
 
-            </nav>
+                <button id="themeToggle" class="theme-toggle">🌙</button>
 
-            <button id="themeToggle" class="theme-toggle">🌙</button>
+                <div>
+                    <?php if (isset($_SESSION["username"])): ?>
+                        <!-- Ielogojies lietotājs -->
+                        <div class="profile-container">
+                            <p class="profile-btn" id="profileDropdownBtn">
+                                <img src="bilde.php" alt=""> <?php echo htmlspecialchars($_SESSION["username"]); ?>
+                            </p>
+                            <div class="profile-dropdown" id="profileDropdown">
+                                <p class="dropdown-option"><a href="PHPFiles/logout.php">Izlogoties</a></p>
+                                <p class="dropdown-option"><a href="profils.php">Profils</a></p>
 
-            <div>
-                <?php if (isset($_SESSION["username"])): ?>
-                    <!-- Ielogojies lietotājs -->
-                    <div class="profile-container">
-                        <p class="profile-btn" id="profileDropdownBtn">
-                            <img src="bilde.php" alt=""> <?php echo htmlspecialchars($_SESSION["username"]); ?>
-                        </p>
-                        <div class="profile-dropdown" id="profileDropdown">
-                            <p class="dropdown-option"><a href="PHPFiles/logout.php">Izlogoties</a></p>
-                            <p class="dropdown-option"><a href="profils.php">Profils</a></p>
+                                <?php if (!empty($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true): ?>
+                                    <p id="admin" class="dropdown-option"><a href="Admin/admin_panelis.php">Admin panelis</a></p>
+                                <?php else: ?>
+                                    <p class="dropdown-option"><a href="pazinojumi.php">Paziņojumi</a></p>
 
-                            <?php if (!empty($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true): ?>
-                                <p id="admin" class="dropdown-option"><a href="Admin/admin_panelis.php">Admin panelis</a></p>
-                            <?php else: ?>
-                                <p class="dropdown-option"><a href="pazinojumi.php">Paziņojumi</a></p>
+                                    <?php if ($_SESSION["userType"] === "klients" && $_SESSION["statuss"] !== "deaktivizets"): ?>
+                                        <p class="dropdown-option"><a href="IzveidotCV.php">Uztaisīt CV</a></p>
+                                    <?php elseif ($_SESSION["userType"] === "uznemums" && $_SESSION["statuss"] !== "deaktivizets"): ?>
+                                        <p class="dropdown-option"><a href="IzveidotVakanci.php">Uztaisīt vakanci</a></p>
+                                    <?php endif; ?>
 
-                                <?php if ($_SESSION["userType"] === "klients" && $_SESSION["statuss"] !== "deaktivizets"): ?>
-                                    <p class="dropdown-option"><a href="IzveidotCV.php">Uztaisīt CV</a></p>
-                                <?php elseif ($_SESSION["userType"] === "uznemums" && $_SESSION["statuss"] !== "deaktivizets"): ?>
-                                    <p class="dropdown-option"><a href="IzveidotVakanci.php">Uztaisīt vakanci</a></p>
                                 <?php endif; ?>
-
-                            <?php endif; ?>
+                            </div>
                         </div>
-                    </div>
 
-                <?php else: ?>
-                    <!-- Izrakstījies lietotājs -->
-                    <div class="login-container">
-                        <p class="login-btn" id="openLoginDropdown"><i class="fa-solid fa-right-to-bracket"></i> Ienākt</p>
-                        <div class="login-dropdown" id="loginDropdown">
-                            <p class="dropdown-option" data-user-type="klients">Klients</p>
-                            <p class="dropdown-option" data-user-type="uznemums">Uzņēmums</p>
+                    <?php else: ?>
+                        <!-- Izrakstījies lietotājs -->
+                        <div class="login-container">
+                            <p class="login-btn" id="openLoginDropdown"><i class="fa-solid fa-right-to-bracket"></i> Ienākt</p>
+                            <div class="login-dropdown" id="loginDropdown">
+                                <p class="dropdown-option" data-user-type="klients">Klients</p>
+                                <p class="dropdown-option" data-user-type="uznemums">Uzņēmums</p>
+                            </div>
                         </div>
-                    </div>
-                <?php endif; ?>
-            </div>
+                    <?php endif; ?>
+                </div>
 
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    &#9776;
+                </button>
 
+                <script>
+                    const menuToggle = document.querySelector(".menu-toggle");
+                    const navMenu = document.querySelector("nav ul");
 
+                    menuToggle.addEventListener("click", () => {
+                        navMenu.classList.toggle("show");
+                    });
+                </script>
         </div>
 
         <!--Modālais logs (Autorizācija)-->
@@ -399,7 +408,7 @@
             <div class="modal-left">
                 <img src="" alt="Vakance Image" class="vakance-image" id="previewImage">
             </div>
-            <div class="modal-right">
+            <div class="modal-right scroll-container">
                 <h2 id="modalVacancyTitle"></h2>
                 <p><strong>Apraksts:</strong> <span id="modalVacancyDescription"></span></p>
                 <p><strong>Atrašanās vieta:</strong> <span id="modalVacancyLocation"></span></p>

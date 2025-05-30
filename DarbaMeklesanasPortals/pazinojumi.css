@@ -516,3 +516,122 @@
         transform: scale(1);
     }
 }
+
+/*____________________________________________________________RESPONSIVITĀTE_______________________________________________________________________________*/
+
+@media (max-width: 768px) {
+    .notification-filters {
+        align-items: center;
+        gap: 8px;
+        margin-top: 20px;
+    }
+
+    .notification {
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .notification .nosaukumuSakartojums {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+        text-align: left;
+        align-items: flex-start;
+    }
+
+    .notification .sent-status {
+        align-items: flex-start;
+    }
+
+    .notification-container {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .notification img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .no-notifications {
+        font-size: 1.2rem;
+        width: 90%;
+    }
+
+    #acceptModal .modal-content,
+    #zinaModal .modal-content {
+        padding: 20px;
+    }
+
+    #acceptModal h2,
+    #zinaModal h2 {
+        font-size: 1.3rem;
+    }
+
+    .notification button,
+    .accept-btn {
+        padding: 0.4rem 0.9rem;
+        font-size: 0.95rem;
+    }
+
+    .notification .approve-btn,
+    .notification .delete-btn {
+        font-size: 1rem;
+        width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .notification {
+        padding: 0.8rem;
+    }
+
+    .notification .info {
+        flex: none;
+    }
+
+    .sent-status .status{
+        font-size: 0.8rem;
+        margin-top: 5px;
+    }
+
+    .notification .nosaukumuSakartojums {
+        width: 100%;
+        text-align: left;
+    }
+
+    .notification .nosaukumuSakartojums strong,
+    .notification .nosaukumuSakartojums span,
+    .notification .text p {
+        font-size: 0.8rem;
+    }
+
+    .notification img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .notification button,
+    .accept-btn {
+        font-size: 0.85rem;
+        padding: 0.3rem 0.8rem;
+    }
+
+    #acceptModal .modal-content,
+    #zinaModal .modal-content {
+        width: 85%;
+        padding: 16px;
+    }
+
+    #acceptModal button,
+    #zinaModal button {
+        font-size: 1rem;
+        padding: 12px 20px;
+    }
+
+    .no-notifications {
+        font-size: 1rem;
+        padding: 12px;
+    }
+}

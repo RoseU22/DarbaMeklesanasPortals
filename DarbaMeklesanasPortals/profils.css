@@ -406,3 +406,96 @@
   }
 }
 
+/*___________________________________________________________________RESPONSIVITĀTE________________________________________________________________________________*/
+
+/* Existing CSS stays the same */
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+  .accountprofile-container {
+    max-width: 90%;
+    margin: 30px auto;
+    padding: 20px;
+    scale: 1;
+  }
+
+  .profile-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .profile-image-container {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .upload-placeholder,
+  .upload-image-label {
+    width: 140px;
+    height: 140px;
+  }
+
+  .profile-form {
+    width: 100%;
+  }
+
+  #passwordConfirmModal .modal-content {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  .modal-delete-profile {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .accountprofile-container {
+    padding: 15px;
+  }
+
+  .accountprofile-container h2,
+  .profile-form h2 {
+    font-size: 20px;
+  }
+
+  .accountprofile-container input,
+  .profile-form input[type="text"],
+  .profile-form input[type="email"],
+  .profile-form input[type="password"],
+  #passwordConfirmModal .modal-content input,
+  .modal-delete-profile input {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .accountprofile-container button,
+  .profile-form button,
+  .modal-delete-profile button,
+  #passwordConfirmModal .modal-content button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .upload-placeholder,
+  .upload-image-label {
+    width: 100px;
+    height: 100px;
+    font-size: 12px;
+  }
+
+  #passwordConfirmModal .modal-content {
+    padding: 1rem;
+  }
+
+  .modal-delete-profile {
+    padding: 15px;
+  }
+
+  .delete-account-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+  }
+}

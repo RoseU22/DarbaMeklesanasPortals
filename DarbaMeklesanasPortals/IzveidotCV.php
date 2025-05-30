@@ -127,6 +127,19 @@ if ($stmt->execute()) {
                     </div>
                 <?php endif; ?>
             </div>
+
+            <button class="menu-toggle" aria-label="Toggle menu">
+                &#9776;
+            </button>
+
+            <script>
+                const menuToggle = document.querySelector(".menu-toggle");
+                const navMenu = document.querySelector("nav ul");
+
+                menuToggle.addEventListener("click", () => {
+                    navMenu.classList.toggle("show");
+                });
+            </script>
         </div>
     </header>
 
