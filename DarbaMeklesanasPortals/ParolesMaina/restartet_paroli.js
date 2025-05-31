@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (text.includes('veiksmīgi')) {
         form.reset();
         setTimeout(() => {
-          window.location.href = '../index.php';
+          window.location.reload();
         }, 3000);
       }
     })

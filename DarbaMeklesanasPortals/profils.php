@@ -86,6 +86,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
+        if ($epasts !== $user['epasts']) {
+            $check_stmt = $savienojums->prepare("SELECT epasts FROM DMPortals WHERE epasts = ? AND lietotajvards != ?");
+            $check_stmt->bind_param("ss", $epasts, $lietotajvards);
+            $check_stmt->execute();
+            $check_stmt->store_result();
+            if ($check_stmt->num_rows > 0) {
+                echo "<script>alert('Šis e-pasts jau tiek izmantots.'); window.location.href='profils.php';</script>";
+                exit();
+            }
+        }
+
         $hashed_password = !empty($parole) ? password_hash($parole, PASSWORD_DEFAULT) : $user['parole'];
 
         $changes_made = (
@@ -116,6 +127,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $check_stmt->store_result();
             if ($check_stmt->num_rows > 0) {
                 echo "<script>alert('Šis uzņēmuma nosaukums jau ir aizņemts.'); window.location.href='profils.php';</script>";
+                exit();
+            }
+        }
+
+        if ($epasts !== $user['uznemuma_epasts']) {
+            $check_stmt = $savienojums->prepare("SELECT uznemuma_epasts FROM DMPortals_Uznemums WHERE uznemuma_epasts = ? AND uznemuma_nosaukums != ?");
+            $check_stmt->bind_param("ss", $epasts, $lietotajvards);
+            $check_stmt->execute();
+            $check_stmt->store_result();
+            if ($check_stmt->num_rows > 0) {
+                echo "<script>alert('Šis uzņēmuma e-pasts jau tiek izmantots.'); window.location.href='profils.php';</script>";
                 exit();
             }
         }

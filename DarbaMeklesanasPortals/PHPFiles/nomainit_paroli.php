@@ -121,11 +121,12 @@ $stmt->bind_param("ss", $newHashed, $email);
 
 if ($stmt->execute()) {
     if ($isReset) {
-        // Izdzēš izmantoto token
-        $delStmt = $savienojums->prepare("DELETE FROM DMPortals_parolesAtjaunosana WHERE tokens = ?");
-        $delStmt->bind_param("s", $token);
-        $delStmt->execute();
+        // Izdzēš VISUS tokenus šim lietotājam, lai nepieļautu atkārtotu lietošanu
+        $deleteTokens = $savienojums->prepare("DELETE FROM DMPortals_parolesAtjaunosana WHERE epasts = ?");
+        $deleteTokens->bind_param("s", $email);
+        $deleteTokens->execute();
     }
+    
     echo "Parole veiksmīgi nomainīta!";
 } else {
     echo "Kļūda saglabājot jauno paroli.";

@@ -13,8 +13,10 @@ $stmt->bind_param("s", $token);
 $stmt->execute();
 $result = $stmt->get_result();
 
+// Check if token still exists and is valid
 if (!$result || $result->num_rows !== 1) {
-    die('Nederīgs vai beidzies paroles atiestatīšanas tokens.');
+    header("Location: ../index.php");
+    exit();
 }
 
 $row = $result->fetch_assoc();

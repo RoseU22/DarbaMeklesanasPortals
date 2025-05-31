@@ -42,6 +42,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit;
         }
 
+        $stmt = $savienojums->prepare("SELECT epasts FROM DMPortals WHERE epasts = ?");
+        $stmt->bind_param("s", $epasts);
+        $stmt->execute();
+        $stmt->store_result();
+
+        if ($stmt->num_rows > 0) {
+            echo json_encode(["success" => false, "error" => "Šis e-pasts jau tiek izmantots"]);
+            exit;
+        }
+
         $hashed_password = password_hash($parole, PASSWORD_DEFAULT);
 
         $stmt = $savienojums->prepare("INSERT INTO DMPortals (vards, uzvards, parole, epasts, lietotajvards) VALUES (?, ?, ?, ?, ?)");
@@ -73,6 +83,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (empty($companyName) || empty($regNumber) || empty($companyEmail) || empty($phone) || empty($vatNumber) || empty($companyPassword)) {
             echo json_encode(["success" => false, "error" => "Visi lauki ir jāaizpilda"]);
+            exit;
+        }
+
+        $stmt = $savienojums->prepare("SELECT uznemuma_epasts FROM DMPortals_Uznemums WHERE uznemuma_epasts = ?");
+        $stmt->bind_param("s", $companyEmail);
+        $stmt->execute();
+        $stmt->store_result();
+        
+        if ($stmt->num_rows > 0) {
+            echo json_encode(["success" => false, "error" => "Šis e-pasts jau tiek izmantots"]);
             exit;
         }
 

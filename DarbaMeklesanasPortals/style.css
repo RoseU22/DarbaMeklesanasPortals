@@ -334,7 +334,7 @@ nav ul li a:hover {
 
 .profile-btn:hover {
     background: var(--secondary-color);
-    color: #fff;
+    color: var(--accent-color);
     transform: scale(1.05);
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.25);
 }
@@ -1493,6 +1493,15 @@ footer p{
         flex-direction: column;
         padding: 10px;
     }
+
+    .username-ellipsis {
+        max-width: 170px; 
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+    }
+
 
 }
 

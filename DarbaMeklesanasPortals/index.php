@@ -131,8 +131,8 @@
                     <?php if (isset($_SESSION["username"])): ?>
                         <!-- Ielogojies lietotājs -->
                         <div class="profile-container">
-                            <p class="profile-btn" id="profileDropdownBtn">
-                                <img src="bilde.php" alt=""> <?php echo htmlspecialchars($_SESSION["username"]); ?>
+                            <p class="profile-btn username-ellipsis" id="profileDropdownBtn">
+                                <img src="bilde.php" alt=""><span class="username-ellipsis"><?php echo htmlspecialchars($_SESSION["username"]); ?></span>
                             </p>
                             <div class="profile-dropdown" id="profileDropdown">
                                 <p class="dropdown-option"><a href="PHPFiles/logout.php">Izlogoties</a></p>
@@ -281,7 +281,7 @@
             <p>Ērta un efektīva vide darba meklētājiem un darba devējiem.</p>
 
             <?php if (!isset($_SESSION["username"])): ?>
-                <p id="openLogin2" class="btn">Izveidot CV</p>
+                <p id="openLogin2" class="btn" style="display:none">Izveidot CV</p>
             <?php else: ?>
                 <a href="IzveidotCV.php" class="btn">Izveidot CV</a>
             <?php endif; ?>
