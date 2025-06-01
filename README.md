@@ -1,4 +1,5 @@
 # Darba meklēšanas portāls
+![Ekrānuzņēmums](DarbaMeklesanasPortals/Bildes/Favicon.png)
 ## Projekta apraksts
 Šis projekts ir izveidots kā darba meklēšanas portāls, kas savieno darba meklētājus ar darba devējiem. Tīmekļa vietne nodrošina ērtu un efektīvu vidi, kurā lietotāji var izveidot un pārvaldīt savus CV, pārlūkot aktuālās vakances un pieteikties tām tiešsaistē. Darba devēji var publicēt vakances, pārvaldīt pieteikumus un sazināties ar kandidātiem.
 
