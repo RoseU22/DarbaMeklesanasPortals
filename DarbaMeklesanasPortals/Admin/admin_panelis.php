@@ -325,7 +325,7 @@ session_start();
         <div class="admin-log-container">
             <h2>Administratora darbības žurnāls</h2>
             <div id="admin-log-content">
-                <!-- AJAX loaded content will appear here -->
+                <!-- AJAX ielādētais saturs -->
             </div>
         </div>
     </div>

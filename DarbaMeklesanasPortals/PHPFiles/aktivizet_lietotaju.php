@@ -9,7 +9,7 @@ function logAdminAction($savienojums, $admin_id, $admin_lietotajvards, $apraksts
     $stmt->close();
 }
 
-// Admin check and ID fetch
+
 if (!isset($_SESSION['username'])) {
     echo "Admin nav pieslēdzies.";
     exit();

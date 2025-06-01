@@ -76,7 +76,7 @@ if ($userType === "uznemums") {
         }
     }
 
-    // Get password and status from database
+    // Iegūstiet paroli un statusu no datu bāzes
     $stmt = $savienojums->prepare("SELECT uznemuma_parole, statuss, apstiprinats FROM DMPortals_Uznemums WHERE uznemuma_nosaukums = ?");
     if (!$stmt) {
         echo json_encode(["success" => false, "error" => "Datu bāzes vaicājums neizdevās"]);

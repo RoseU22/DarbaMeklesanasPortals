@@ -5,12 +5,12 @@ $logsPerPage = 5;
 $page = isset($_POST['page']) ? max(1, intval($_POST['page'])) : 1;
 $offset = ($page - 1) * $logsPerPage;
 
-// Total logs count
+// Kopējais žurnālu skaits
 $totalResult = $savienojums->query("SELECT COUNT(*) as total FROM DMPortals_AdminLog");
 $totalLogs = $totalResult->fetch_assoc()['total'];
 $totalPages = ceil($totalLogs / $logsPerPage);
 
-// Fetch logs
+
 $stmt = $savienojums->prepare("
     SELECT admin_id, admin_lietotajvards AS admin_username, apraksts AS action_text, laiks AS action_time
     FROM DMPortals_AdminLog
@@ -35,7 +35,7 @@ if (!empty($logs)):
         </div>
     <?php endforeach; ?>
 
-    <!-- Pagination -->
+    <!-- Lappuses -->
     <div class="pagination">
         <?php for ($i = 1; $i <= $totalPages; $i++): ?>
             <button class="pagination-btn <?= ($i == $page) ? 'active' : '' ?>" data-page="<?= $i ?>"><?= $i ?></button>

@@ -85,20 +85,20 @@ document.addEventListener("DOMContentLoaded", () => {
             const vacancyId = this.getAttribute("data-id");
             const previewImage = document.getElementById("previewImage");
             const imageUrl = `bilde_vakance.php?id=${vacancyId}`;
-            const modal = document.getElementById("vacancyApplyModal"); // replace with your modal id
+            const modal = document.getElementById("vacancyApplyModal"); 
 
-            // Hide modal initially
+            
             modal.style.display = "none";
 
-            // Record time to enforce minimum delay
+            
             const startTime = Date.now();
 
-            // Preload image
+            
             const tempImg = new Image();
             tempImg.onload = () => {
-                // Calculate elapsed time
+                
                 const elapsed = Date.now() - startTime;
-                const delay = Math.max(0, 500 - elapsed); // minimum 500ms delay total
+                const delay = Math.max(0, 500 - elapsed); 
 
                 setTimeout(() => {
                     previewImage.src = imageUrl;
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
             };
             tempImg.src = imageUrl;
 
-            // Set vacancy ID
+           
             applyBtn.setAttribute("data-vacancy-id", vacancyId);
         });
     });
@@ -115,13 +115,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function resetCvModal() {
-        // Reset the drop box text
+      
         cvDropBox.innerHTML = 'Ielikt CV';
-    
-        // Disable the submit button
+           
         submitBtn.disabled = true;
-    
-        // Remove any previously stored CV ID
+       
         submitBtn.removeAttribute('data-cv-id');
     }
 

@@ -411,7 +411,7 @@ background-color: var(--accent-color);
     }
 
     #statsChart {
-        min-width: 500px; /* Ensures chart is scrollable horizontally if needed */
+        min-width: 500px; 
     }
 
     .modal-flex-wrapper {

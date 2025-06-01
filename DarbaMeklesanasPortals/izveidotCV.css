@@ -368,12 +368,12 @@ main .container {
     }
 
     .scroll-container {
-        overflow-y: scroll;        /* or 'auto' if needed */
-        scrollbar-width: none;     /* Firefox */
-        -ms-overflow-style: none;  /* Internet Explorer/Edge Legacy */
+        overflow-y: scroll;        
+        scrollbar-width: none;    
+        -ms-overflow-style: none;  
     }
 
     .scroll-container::-webkit-scrollbar {
-        display: none;             /* Chrome, Safari, Opera */
+        display: none;             
     }
 }

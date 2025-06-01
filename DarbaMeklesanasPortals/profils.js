@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Prepare FormData
+        
         const formData = new FormData(form);
         formData.append("confirm_password", password);
 

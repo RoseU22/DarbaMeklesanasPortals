@@ -13,7 +13,7 @@ $stmt->bind_param("s", $token);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Check if token still exists and is valid
+// Pārbauda vai tokens joprojām pastāv un ir derīgs
 if (!$result || $result->num_rows !== 1) {
     header("Location: ../index.php");
     exit();

@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Attach filter function to all inputs
+    // Pievieno filtra funkciju visiem input laukiem
     [searchInput, countryFilter, cityFilter, streetFilter, salaryFilter].forEach(input => {
         input.addEventListener('input', filterVacancies);
     });

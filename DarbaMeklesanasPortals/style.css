@@ -1,10 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-
-/* =============================== */
-/* ==== BASE STYLES & ROOT ====== */
-/* =============================== */
-
 * {
     margin: 0;
     padding: 0;
@@ -42,9 +36,8 @@ body {
     transition: background var(--transition-speed), color var(--transition-speed);
 }
 
-/* =============================== */
-/* ==== SCROLLBAR CUSTOM STYLING */
-/* =============================== */
+
+/*________________________________________________________________RITJOSLAS STILS________________________________________________________________ */
 
 html {
     scroll-behavior: smooth;
@@ -68,9 +61,7 @@ html {
     background: var(--hover-color);
 }
 
-/* =============================== */
-/* ========== HEADER ============ */
-/* =============================== */
+/*________________________________________________________________HEADER________________________________________________________________ */
 
 header {
     background: var(--primary-color);
@@ -149,9 +140,7 @@ header h1 {
     transition: transform 0.3s ease;
 }
 
-/* =============================== */
-/* ====== NAVIGATION BAR ======== */
-/* =============================== */
+/*________________________________________________________________NAVIGĀCIJA________________________________________________________________ */
 
 nav ul {
     list-style: none;
@@ -176,9 +165,7 @@ nav ul li a:hover {
     color: var(--primary-color);
 }
 
-/* =============================== */
-/* ====== ANIMATIONS ============ */
-/* =============================== */
+/*________________________________________________________________ANIMĀCIJAS________________________________________________________________ */
 
 @keyframes slideDown {
     0% {
@@ -191,7 +178,7 @@ nav ul li a:hover {
     }
 }
 
-/*=============== Login Button ===============*/
+/*=============== Login poga ===============*/
 .login-btn a {
     text-decoration: none;
     color: #000;
@@ -225,7 +212,7 @@ nav ul li a:hover {
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.25);
 }
 
-/*=============== Dropdown: Before Login ===============*/
+/*=============== Dropdown: Pirms Login ===============*/
 .login-container {
     position: relative;
     display: inline-block;
@@ -278,7 +265,7 @@ nav ul li a:hover {
    text-decoration: none;
 }
 
-/*=============== Profile Button: After Login ===============*/
+/*=============== Profile Poga: Pēc Login ===============*/
 .profile-container {
     position: relative;
     display: inline-block;
@@ -424,14 +411,14 @@ nav ul li a:hover {
 }
 
 .modal-content {
-    background: var(--primary-color); /* #000000 */
+    background: var(--primary-color); 
     padding: 24px 28px;
     border-radius: 12px;
     width: 350px;
     max-width: 90%;
     text-align: center;
     position: relative;
-    border: 1px solid var(--secondary-color); /* #1A1A1A */
+    border: 1px solid var(--secondary-color); 
     animation: fadeInScale var(--transition-speed) ease forwards;
 }
 
@@ -447,13 +434,13 @@ nav ul li a:hover {
 }
 
 .modal-content h2 {
-    color: var(--accent-color); /* #ffffff */
+    color: var(--accent-color); 
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 16px;
 }
 
-/*_______________Close Button_______________*/
+/*_______________Close Poga_______________*/
 
 .close {
     position: absolute;
@@ -461,38 +448,38 @@ nav ul li a:hover {
     right: 18px;
     font-size: 22px;
     cursor: pointer;
-    color: var(--muted-color); /* #888888 */
+    color: var(--muted-color); 
     transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
     user-select: none;
 }
 
 .close:hover {
-    color: var(--accent-color); /* #ffffff */
+    color: var(--accent-color); 
     transform: rotate(90deg);
 }
 
-/*_______________Input Fields_______________*/
+/*_______________Input Lauki_______________*/
 
 
 .modal-content input {
     width: 100%;
     padding: 12px 14px;
     margin: 10px 0;
-    border: 1px solid var(--secondary-color); /* #1A1A1A */
+    border: 1px solid var(--secondary-color); 
     border-radius: 6px;
     font-size: 15px;
-    background: var(--secondary-color); /* #1A1A1A */
-    color: var(--accent-color); /* #ffffff */
+    background: var(--secondary-color); 
+    color: var(--accent-color); 
     transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
     font-weight: 400;
 }
 
 .modal-content input::placeholder {
-    color: var(--muted-color); /* #888888 */
+    color: var(--muted-color); 
 }
 
 .modal-content input:focus {
-    border-color: var(--hover-color); /* #e6e6e6 */
+    border-color: var(--hover-color); 
     outline: none;
     box-shadow: 0 0 8px 2px var(--hover-color);
 }
@@ -531,11 +518,11 @@ input[type="file"] {
     display: none;
 }
 
-/*_______________Buttons_______________*/
+/*_______________Pogas_______________*/
 
 .modal-content .btn {
-    background: var(--accent-color); /* #ffffff */
-    color: var(--primary-color); /* #000000 */
+    background: var(--accent-color); 
+    color: var(--primary-color); 
     border: none;
     padding: 12px 0;
     font-size: 15px;
@@ -549,36 +536,36 @@ input[type="file"] {
 }
 
 .modal-content .btn:hover {
-    background: var(--hover-color); /* #e6e6e6 */
-    color: var(--primary-color); /* #000000 */
+    background: var(--hover-color); 
+    color: var(--primary-color); 
     transform: scale(1.05);
     box-shadow: 0 6px 14px var(--shadow-color);
 }
 
-/*_______________Info Text & Links_______________*/
+/*_______________Info Teksts un saites_______________*/
 
 .modal-content p {
     margin-top: 14px;
     font-size: 13px;
-    color: var(--muted-color); /* #888888 */
+    color: var(--muted-color); 
 }
 
 .modal-content a {
-    color: var(--accent-color); /* #ffffff */
+    color: var(--accent-color); 
     font-weight: 600;
     text-decoration: none;
     transition: color var(--transition-speed) ease, text-decoration var(--transition-speed) ease;
 }
 
 .modal-content a:hover {
-    color: var(--hover-color); /* #e6e6e6 */
+    color: var(--hover-color); 
     text-decoration: underline;
 }
 
 /*______________________________________________________________SĀKUMLAPA_____________________________________________________________________________*/
 
 #sakums h2 {
-    color: var(--accent-color); /* was var(--white) but use your --accent-color */
+    color: var(--accent-color); 
     animation: fadeInUp 1.5s ease-out;
 }
 
@@ -710,7 +697,6 @@ h2 {
     }
 }
 
-/* Optional fadeIn and fadeInUp keyframes */
 
 @keyframes fadeIn {
     0% {opacity: 0;}
@@ -799,7 +785,7 @@ h2 {
     font-size: 1.2rem;
     height: 60px;
     color: var(--accent-color);
-    background-color: #f44336; /* Kept this red for alerts */
+    background-color: #f44336; 
     padding: 15px;
     border-radius: 10px;
     text-align: center;
@@ -1218,7 +1204,6 @@ h2 {
     color: var(--accent-color);
 }
 
-/* Scrollbar styling for modals (optional) */
 .PieteiksanasModal::-webkit-scrollbar,
 .modal-CVselect::-webkit-scrollbar {
     width: 8px;
@@ -1234,7 +1219,7 @@ h2 {
 
 footer {
     background: var(--primary-color);
-    color: var(--accent-color); /* changed var(--white) to var(--accent-color) for consistency */
+    color: var(--accent-color); 
     text-align: center;
     padding: 20px 0;
     margin-top: auto;
@@ -1253,7 +1238,7 @@ footer p{
     padding: 0px 5px;
 }
 
-/* If you want the fadeInUp keyframes (if not already defined) */
+
 @keyframes fadeInUp {
     0% {
         opacity: 0;

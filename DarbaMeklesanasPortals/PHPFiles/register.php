@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $vatNumber = trim($_POST["vatNumber"]);
         $companyPassword = trim($_POST["companyPassword"]);
 
-        // Validate file upload
+
         if (!isset($_FILES["companyDocument"]) || $_FILES["companyDocument"]["error"] !== UPLOAD_ERR_OK) {
             echo json_encode(["success" => false, "error" => "Faila augšupielāde neizdevās"]);
             exit;

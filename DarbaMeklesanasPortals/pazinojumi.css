@@ -158,14 +158,14 @@
 
 
 #acceptModal, #zinaModal {
-    display: none; /* Hidden by default */
+    display: none; 
     position: fixed;
     z-index: 1000;
     left: 0;
     top: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
+    background-color: rgba(0, 0, 0, 0.7); 
     justify-content: center;
     align-items: center;
     animation: fadeIn var(--transition-speed) ease-in;
@@ -188,7 +188,7 @@
     animation: slideDown var(--transition-speed) ease-out;
 }
 
-/* Close button */
+
 #acceptModal .close-modal,
 #zinaModal .close-modal {
     position: absolute;
@@ -206,7 +206,7 @@
     color: var(--hover-color);
 }
 
-/* Headline */
+
 #acceptModal h2,
 #zinaModal h2 {
     margin-bottom: 20px;
@@ -214,7 +214,7 @@
     text-align: center;
 }
 
-/* Textarea styling */
+
 #acceptModal textarea,
 #zinaModal textarea {
     width: 100%;
@@ -235,7 +235,7 @@
     outline: none;
 }
 
-/* Button styling */
+
 #acceptModal button,
 #zinaModal button {
     background-color: var(--primary-color);
@@ -261,7 +261,7 @@
     transform: scale(1.05);
 }
 
-/* Animations */
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }

@@ -17,7 +17,6 @@ if (isset($_GET['uznemumsID'])) {
         $stmt->bind_result($dokuments, $nosaukums, $mime);
         $stmt->fetch();
 
-        // Set headers to prompt download
         header('Content-Description: File Transfer');
         header('Content-Type: ' . $mime);
         header('Content-Disposition: attachment; filename="' . $nosaukums . '"');

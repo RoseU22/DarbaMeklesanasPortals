@@ -24,7 +24,6 @@ if (empty($username) || empty($email) || empty($password)) {
 }
 
 if ($userType === 'klients') {
-    // Fetch user to verify credentials
     $stmt = $savienojums->prepare("SELECT lietotajsID, parole, epasts FROM DMPortals WHERE lietotajvards = ?");
     $stmt->bind_param("s", $sessionUsername);
 } elseif ($userType === 'uznemums') {
@@ -53,9 +52,9 @@ if ($email !== $correctEmail || !password_verify($password, $correctPasswordHash
     exit();
 }
 
-// Begin deletion
+// Iesāk dzēšanu
 if ($userType === 'klients') {
-    // Delete related data
+    // Dzēš saistītos datus
     $del_cv = $savienojums->prepare("DELETE FROM DMPortals_CV WHERE lietotajvards = ?");
     $del_cv->bind_param("s", $sessionUsername);
     $del_cv->execute();
@@ -69,7 +68,7 @@ if ($userType === 'klients') {
     $del_user->execute();
 
 } elseif ($userType === 'uznemums') {
-    // First delete related vacancies
+    // Vispirms dzēš saistītās vakances
     $del_vacancies = $savienojums->prepare("SELECT vakancesID FROM DMPortals_Vakances WHERE uznemuma_nosaukums = ?");
     $del_vacancies->bind_param("s", $sessionUsername);
     $del_vacancies->execute();
