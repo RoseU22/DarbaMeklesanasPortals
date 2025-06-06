@@ -660,6 +660,65 @@ h2 {
     box-shadow: 0 4px 8px var(--shadow-color);
 }
 
+
+
+.highlight-list {
+    margin: 1rem 0;
+    padding-left: 1.2rem;
+}
+.highlight-list li {
+    margin-bottom: 0.5rem;
+}
+
+.intro-text {
+    max-width: 700px;
+    margin: 0 auto 1.5rem auto;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
+    margin-top: 1rem;
+}
+
+.feature-box {
+    background: #cccccc;
+    color: #000000;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    cursor: pointer;
+}
+
+.feature-box:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 18px var(--shadow-color);
+    background: var(--hover-color);
+    color: var(--primary-color)  !important;
+}
+
+.feature-box h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.feature-box p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.narrow-text {
+    max-width: 700px;
+    margin: 0 auto 1.5rem auto;
+    text-align: center;
+    line-height: 1.6;
+}
+
+
 /*____________________________________________________________BURBUĻU ANIMĀCIJA_______________________________________________________________________________*/
 
 .burbulu-background {
@@ -1355,6 +1414,15 @@ footer p{
     }
 
 }
+
+@media screen and (max-width: 790px) {
+
+    .features-grid{
+        grid-template-columns: repeat(1, 1fr);
+        width: 100%;
+    }
+}
+
 
 @media screen and (max-width: 1024px) {
     nav ul {

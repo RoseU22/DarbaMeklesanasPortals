@@ -116,11 +116,10 @@
                 <nav>
 
                     <ul>
-                        <li><a href="#Par">Par portālu</a></li>
+                        <li><a href="#sakums">Par portālu</a></li>
                         <li><a href="#features">Funkcionalitātes</a></li>
                         <li><a href="#Darbi">Darba piedāvājumi</a></li>
                         <li><a href="#Pieteikties">Pieteikties</a></li>
-                        <li><a href="#Kontakti">Kontakti</a></li>
                     </ul>
 
                 </nav>
@@ -275,19 +274,25 @@
     </header>
 
     <section id="sakums">
-
         <div class="konteiners">
             <h2>Atrodi savu ideālo darbu jau šodien!</h2>
-            <p>Ērta un efektīva vide darba meklētājiem un darba devējiem.</p>
+            <p class="intro-text">
+                Izmanto mūsu platformu, lai ātri un vienkārši atrastu darbu, kas atbilst tavām prasmēm, interesēm un pieredzei. 
+                Mēs savienojam darba meklētājus ar uzticamiem darba devējiem visā Latvijā.
+            </p>
+
+            <ul>
+                <li>✔ Personalizēti darba ieteikumi</li>
+                <li>✔ Ērta CV veidošana un pārvaldība</li>
+                <li>✔ Droša un uzticama platforma</li>
+            </ul>
 
             <?php if (!isset($_SESSION["username"])): ?>
                 <p id="openLogin2" class="btn" style="display:none">Izveidot CV</p>
             <?php else: ?>
                 <a href="IzveidotCV.php" class="btn">Izveidot CV</a>
             <?php endif; ?>
-
         </div>
-        
     </section>
 
 
@@ -295,31 +300,45 @@
     
 
     <section id="features">
-
         <div class="konteiners">
-
             <h2>Galvenās funkcionalitātes</h2>
-            <ul>
-                <li>Vakances pievienošana un pārvaldība</li>
-                <li>Pieteikšanās uz darba piedāvājumiem</li>
-                <li>Automātiski ieteikumi atbilstoši CV</li>
-                <li>CV veidošana tiešsaistē</li>
-            </ul>
-
+            <p>Mūsu platforma ir izstrādāta, lai nodrošinātu vienkāršu un intuitīvu lietotāju pieredzi gan darba meklētājiem, gan uzņēmumiem. Šeit ir tas, ko Tu vari darīt:</p>
+            
+            <div class="features-grid">
+                <div class="feature-box">
+                    <h3>🔍 Vakances pārvaldība</h3>
+                    <p>Pievieno, rediģē vai dzēs savus darba piedāvājumus ar pāris klikšķiem.</p>
+                </div>
+                <div class="feature-box">
+                    <h3>📨 Pieteikšanās ar vienu klikšķi</h3>
+                    <p>Izmanto savu sagatavoto CV, lai uzreiz pieteiktos interesējošajām vakancēm.</p>
+                </div>
+                <div class="feature-box">
+                    <h3>📝 CV veidošana tiešsaistē</h3>
+                    <p>Izmanto mūsu vienkāršo redaktoru, lai izveidotu profesionālu CV dažu minūšu laikā.</p>
+                </div>
+            </div>
         </div>
-
     </section>
+
     
-
     <section id="Darbi">
-
         <div class="konteiners">
             <h2>Aktuālie darba piedāvājumi</h2>
-            <p>Atrodi sev piemērotu vakanci no mūsu plašā darba devēju tīkla.</p>
-        </div>
+            
+            <p class="narrow-text">
+                Pārlūko jaunākās un pieprasītākās vakances Latvijā. Mūsu platformā regulāri tiek pievienoti jauni darba sludinājumi no uzticamiem uzņēmumiem dažādās nozarēs.
+            </p>
+            
+            <ul class="highlight-list">
+                <li>Darbi IT, loģistikā, tirdzniecībā un daudzās citās nozarēs</li>
+                <li>Pilna un nepilna laika iespējas</li>
+                <li>Darba piedāvājumi visā Latvijā un attālināti</li>
+            </ul>
 
-    </section>
-    
+            <a href="#Pieteikties" class="btn">Apskatīt vakances</a>
+        </div>
+    </section>    
 
     <section id="Pieteikties">
         <div class="konteiners">
