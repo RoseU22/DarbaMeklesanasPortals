@@ -95,11 +95,10 @@ if ($stmt->execute()) {
             </div>
             <nav>
                 <ul>
-                    <li><a href="#Par">Par portālu</a></li>
-                    <li><a href="#features">Funkcionalitātes</a></li>
-                    <li><a href="#Darbi">Darba piedāvājumi</a></li>
-                    <li><a href="#Pieteikties">Pieteikties</a></li>
-                    <li><a href="#Kontakti">Kontakti</a></li>
+                    <li><a href="index.php#Par">Par portālu</a></li>
+                    <li><a href="index.php#features">Funkcionalitātes</a></li>
+                    <li><a href="index.php#Darbi">Darba piedāvājumi</a></li>
+                    <li><a href="index.php#Pieteikties">Pieteikties</a></li>
                 </ul>
             </nav>
 
@@ -109,8 +108,8 @@ if ($stmt->execute()) {
                 <?php if (isset($_SESSION["username"])): ?>
                     <!-- Ielogojies lietotājs -->
                     <div class="profile-container">
-                        <p class="profile-btn" id="profileDropdownBtn">
-                            <img src="bilde.php" alt=""> <?php echo htmlspecialchars($_SESSION["username"]); ?>
+                        <p class="profile-btn username-ellipsis" id="profileDropdownBtn">
+                            <img src="bilde.php" alt=""><span class="username-ellipsis"><?php echo htmlspecialchars($_SESSION["username"]); ?></span>
                         </p>
                         <div class="profile-dropdown" id="profileDropdown">
                             <p class="dropdown-option"><a href="PHPFiles/logout.php">Izlogoties</a></p>

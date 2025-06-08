@@ -400,6 +400,13 @@ background-color: var(--accent-color);
     }
 }
 
+@media (max-width: 1116px) {
+    .Pazinojums{
+        height: 90px;
+    }
+}
+
+
 @media (max-width: 768px) {
 
     .stats-modal-content {
@@ -466,6 +473,20 @@ background-color: var(--accent-color);
         padding: 10px 20px;
     }
 }
+
+@media (max-width: 695px) {
+    .Pazinojums{
+        height: 120px;
+    }
+}
+
+@media (max-width: 543px) {
+    .Pazinojums{
+        height: 150px;
+    }
+}
+
+
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
