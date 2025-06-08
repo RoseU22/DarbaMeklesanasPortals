@@ -18,9 +18,11 @@
             u.uznemuma_nosaukums, 
             u.uznemumsID
         FROM DMPortals_Vakances v 
-        JOIN DMPortals_Uznemums u ON v.uznemuma_nosaukums = u.uznemuma_nosaukums
+        LEFT JOIN DMPortals_Uznemums u ON v.uznemuma_nosaukums = u.uznemuma_nosaukums
+        WHERE v.dzests != 'dzests'
         ORDER BY v.vakancesID DESC
     ";
+
 
     $result = $savienojums->query($vakances_query);
 

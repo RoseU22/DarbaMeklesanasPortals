@@ -87,14 +87,27 @@
 }
 
 .notification .nosaukumuSakartojums strong {
-    word-break: break-word;
     font-size: 1rem;
     color: var(--accent-color);
+    white-space: nowrap;         /* Prevent line breaks */
+    overflow: hidden;            /* Hide overflow */
+    text-overflow: ellipsis;     /* Show "..." when text is too long */
+    max-width: 50%;
+    display: block;
 }
 
 .notification .nosaukumuSakartojums span {
     color: var(--accent-color);
     width: 100px;
+}
+
+
+.nosaukumuSakartojums strong,
+.nosaukumuSakartojums span {
+    overflow: hidden;            /* Hide overflow */
+    text-overflow: ellipsis;     /* Show "..." when text is too long */
+    max-width: 100%;
+    display: block;
 }
 
 .notification .sent-status{
@@ -634,6 +647,20 @@
     .notification .nosaukumuSakartojums span,
     .notification .text p {
         font-size: 0.8rem;
+        white-space: nowrap; 
+    }
+
+    .notification .nosaukumuSakartojums strong {
+        color: var(--accent-color);
+        white-space: nowrap;        
+        overflow: hidden;            
+        text-overflow: ellipsis;     
+        max-width: 80%;
+        display: block;
+    }
+
+    .notification .nosaukumuSakartojums span{
+        max-width: 100%;
     }
 
     .notification img {

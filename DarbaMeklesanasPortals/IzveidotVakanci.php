@@ -28,7 +28,7 @@ $username = $_SESSION['username'];
 echo "<script>console.log('Session username: " . $username . "');</script>";
 
 
-$query = "SELECT * FROM DMPortals_Vakances WHERE uznemuma_nosaukums = ?";
+$query = "SELECT * FROM DMPortals_Vakances WHERE uznemuma_nosaukums = ? AND (dzests IS NULL OR dzests != 'dzests')";
 $stmt = $savienojums->prepare($query);
 
 if (!$stmt) {

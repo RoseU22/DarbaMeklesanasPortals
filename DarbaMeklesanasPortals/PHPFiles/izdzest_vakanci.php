@@ -4,7 +4,8 @@ require 'con_db.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vakancesID'])) {
     $vakancesID = intval($_POST['vakancesID']);
 
-    $stmt = $savienojums->prepare("DELETE FROM DMPortals_Vakances WHERE vakancesID = ?");
+    // Update instead of deleting
+    $stmt = $savienojums->prepare("UPDATE DMPortals_Vakances SET dzests = 'dzests' WHERE vakancesID = ?");
     $stmt->bind_param("i", $vakancesID);
 
     if ($stmt->execute()) {

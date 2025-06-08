@@ -37,7 +37,7 @@ session_start();
     $result = $savienojums->query("SELECT COUNT(*) as count FROM DMPortals_Uznemums");
     $uznemumsCount = $result ? (int)$result->fetch_assoc()['count'] : 0;
 
-    $result = $savienojums->query("SELECT COUNT(*) as count FROM DMPortals_Vakances");
+    $result = $savienojums->query("SELECT COUNT(*) as count FROM DMPortals_Vakances WHERE dzests != 'dzests' OR dzests IS NULL");
     $vakancesCount = $result ? (int)$result->fetch_assoc()['count'] : 0;
 
     $result = $savienojums->query("SELECT COUNT(*) as count FROM DMPortals_CV");
