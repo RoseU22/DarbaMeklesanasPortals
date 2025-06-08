@@ -3,6 +3,8 @@
 ## Projekta apraksts
 Šis projekts ir izveidots kā darba meklēšanas portāls, kas savieno darba meklētājus ar darba devējiem. Tīmekļa vietne nodrošina ērtu un efektīvu vidi, kurā lietotāji var izveidot un pārvaldīt savus CV, pārlūkot aktuālās vakances un pieteikties tām tiešsaistē. Darba devēji var publicēt vakances, pārvaldīt pieteikumus un sazināties ar kandidātiem.
 
+Saite uz mājaslapu: https://kristovskis.lv/3pt1/roze/DarbaMeklesanasPortals/index.php
+
 Projekta mērķis ir uzlabot darba meklēšanas procesu, padarot to pieejamāku, pārskatāmāku un digitāli ērtu abām pusēm – darba meklētājiem un darba devējiem.
 ## Galvenās funkcionalitātes.
 > Lietotāja reģistrācija un autorizācija
